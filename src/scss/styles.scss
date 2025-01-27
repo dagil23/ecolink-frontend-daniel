@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-$primary: #ff00aa;
-$secondary: #2aac2a;
-$success: #28a745;
+$primary: #60A62E;
+$secondary: #e30661;
+$tertiary: #313131;
+
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
@@ -18,6 +19,8 @@ $success: #28a745;
 // @import "functions";
 // @import "variables";
 // @import "variables-dark";
+
+
 // @import "maps";
 // @import "mixins";
 // @import "utilities";
