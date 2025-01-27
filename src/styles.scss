@@ -1,1 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
+$primary: #ff00aa;
+$secondary: #2aac2a;
+$success: #28a745;
+
+@import "..\node_modules\bootstrap\scss\bootstrap.scss";
+
+
+
+
+
+// @import "mixins/banner";
+// @include bsBanner("");
+
+
+// // scss-docs-start import-stack
+// // Configuration
+// @import "functions";
+// @import "variables";
+// @import "variables-dark";
+// @import "maps";
+// @import "mixins";
+// @import "utilities";
+
+// // Layout & components
+// @import "root";
+// @import "reboot";
+// @import "type";
+// @import "images";
+// @import "containers";
+// @import "grid";
+// @import "tables";
+// @import "forms";
+// @import "buttons";
+// @import "transitions";
+// @import "dropdown";
+// @import "button-group";
+// @import "nav";
+// @import "navbar";
+// @import "card";
+// @import "accordion";
+// @import "breadcrumb";
+// @import "pagination";
+// @import "badge";
+// @import "alert";
+// @import "progress";
+// @import "list-group";
+// @import "close";
+// @import "toasts";
+// @import "modal";
+// @import "tooltip";
+// @import "popover";
+// @import "carousel";
+// @import "spinners";
+// @import "offcanvas";
+// @import "placeholders";
+
+// // Helpers
+// @import "helpers";
+
+// // Utilities
+// @import "utilities/api";
+// // scss-docs-end import-stack
