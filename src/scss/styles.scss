@@ -3,7 +3,11 @@ $primary: #60A62E;
 $secondary: #e30661;
 $tertiary: #313131;
 
-
+@import 'variables';
+@import 'mixins';
+@import 'base';
+@import 'layout';
+@import 'components';
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 
