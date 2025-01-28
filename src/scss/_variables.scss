@@ -2,9 +2,8 @@ $colors: (
   primary: #61a82f,
   secondary: #dd0861,
   text: #313131,
+  add1: #f8f9fa,
 
 );
 
-
-$progress-bar-color: red;
-$progress-bar-bg: red;
+ $progress-bar-bg: map-get($colors, primary);
