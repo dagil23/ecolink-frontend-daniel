@@ -8,6 +8,7 @@ import { ChallengesComponent } from './components/challenges/challenges.componen
 import { MissionsComponent } from './components/missions/missions.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { HomeComponent } from './components/home/home.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HomeComponent } from './components/home/home.component';
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    SharedModule
   ],
   exports: [
     ProductsComponent,
