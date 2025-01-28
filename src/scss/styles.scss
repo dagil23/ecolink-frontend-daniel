@@ -65,3 +65,23 @@ $theme-colors: map.merge($theme-colors, $colors);
 // Utilities
 @import "../../node_modules/bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
+
+
+/*
+
+Título Principal (h1): Merriweather (Serif)
+
+Body text (p):Roboto (San Serif)
+
+Buttons
+
+<button type="button" class="btn btn-outline-success">Success</button>
+<button type="button" class="btn btn-outline-danger">Danger</button> (#e30661)
+
+
+Colors
+
+
+
+
+ */
