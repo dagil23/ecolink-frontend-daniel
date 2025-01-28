@@ -21,16 +21,6 @@
 //   .card {
 //     @include box-shadow(rgba(0, 0, 0, 0.1), 10px, 5px);
 //   }
-  
-@mixin font-size($size) {
-    font-size: $size;
-    line-height: ($size * 1.5);
-  }
-  
-  // Use:
-//   h1 {
-//     @include font-size(24px);
-//   }
 
 
   
