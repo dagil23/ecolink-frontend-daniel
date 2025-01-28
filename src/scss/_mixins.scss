@@ -1,0 +1,36 @@
+@mixin respond($breakpoint) {
+    @if $breakpoint == small {
+      @media (max-width: 600px) { @content; }
+    } @else if $breakpoint == medium {
+      @media (max-width: 1024px) { @content; }
+    }
+  }
+  
+  // Use:
+//   .container {
+//     @include respond(small) {
+//       padding: 10px;
+//     }
+//   }
+
+@mixin box-shadow($color, $blur, $spread) {
+    box-shadow: 0px $blur $spread $color;
+  }
+
+  //Use:
+//   .card {
+//     @include box-shadow(rgba(0, 0, 0, 0.1), 10px, 5px);
+//   }
+  
+@mixin font-size($size) {
+    font-size: $size;
+    line-height: ($size * 1.5);
+  }
+  
+  // Use:
+//   h1 {
+//     @include font-size(24px);
+//   }
+
+
+  
