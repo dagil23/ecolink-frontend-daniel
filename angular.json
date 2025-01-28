@@ -37,10 +37,12 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/dist/styles.css"
+              "src/dist/styles.css",
+              "node_modules/aos/dist/aos.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/aos/dist/aos.js"
             ]
           },
           "configurations": {
@@ -95,9 +97,12 @@
               "src/assets/images"
             ],
             "styles": [
-              "src/dist/styles.css"
+              "src/dist/styles.css",
+              "node_modules/aos/dist/aos.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/aos/dist/aos.js"
+            ]
           }
         }
       }
