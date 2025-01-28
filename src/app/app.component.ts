@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'ecolink';
+export class AppComponent implements OnInit {
+
+  ngOnInit(): void {
+    AOS.init({
+      duration: 1200, // Duración de las animaciones
+      once: true      // Ejecutar solo una vez
+    });
+  }
 }
