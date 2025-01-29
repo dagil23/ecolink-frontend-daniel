@@ -1,9 +1,28 @@
+<h2 class="text-greendark fw-bold mt-5 text-center mb-3">Retos Ecológicos</h2>
 <div id="carouselExample" class="carousel slide">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <section id="challenges" class="my-5 py-5 bg-greenbackground">
+      <section id="challenges" class=" bg-greenbackground">
         <div class="container text-center">
-          <h2 class="text-success fw-bold mb-4">Retos Ecológicos</h2>
+          <div class="card mx-auto" style="max-width: 600px;">
+            <div class="card-body">
+              <h3 class="card-title text-success">Reto: Cero Plástico</h3>
+              <p class="card-text text-secondary">
+                Evita usar plásticos de un solo uso durante una semana
+              </p>
+              <div class="bg-success bg-opacity-10 p-3 rounded mb-4">
+                <p class="text-success fw-bold mb-1">Tiempo restante:</p>
+                <p class="display-4 fw-bold text-success">{{ formatTime(timeLeft) }}</p>
+              </div>
+              <button class="btn btn-success w-100">Unirse al Reto</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="carousel-item">
+      <section id="challenges" class="mb-5 pb-5 bg-greenbackground">
+        <div class="container text-center">
           <div class="card mx-auto shadow-lg" style="max-width: 600px;">
             <div class="card-body">
               <h3 class="card-title text-success">Reto: Cero Plástico</h3>
@@ -21,29 +40,8 @@
       </section>
     </div>
     <div class="carousel-item">
-      <section id="challenges" class="my-5 py-5 bg-greenbackground">
+      <section id="challenges" class="mb-5 pb-5 bg-greenbackground">
         <div class="container text-center">
-          <h2 class="text-success fw-bold mb-4">Retos Ecológicos</h2>
-          <div class="card mx-auto shadow-lg" style="max-width: 600px;">
-            <div class="card-body">
-              <h3 class="card-title text-success">Reto: Cero Plástico</h3>
-              <p class="card-text text-secondary">
-                Evita usar plásticos de un solo uso durante una semana
-              </p>
-              <div class="bg-success bg-opacity-10 p-3 rounded mb-4">
-                <p class="text-success fw-bold mb-1">Tiempo restante:</p>
-                <p class="display-4 fw-bold text-success">{{ formatTime(timeLeft) }}</p>
-              </div>
-              <button class="btn btn-success w-100">Unirse al Reto</button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-    <div class="carousel-item">
-      <section id="challenges" class="my-5 py-5 bg-greenbackground">
-        <div class="container text-center">
-          <h2 class="text-success fw-bold mb-4">Retos Ecológicos</h2>
           <div class="card mx-auto shadow-lg" style="max-width: 600px;">
             <div class="card-body">
               <h3 class="card-title text-success">Reto: Cero Plástico</h3>
