@@ -3,26 +3,12 @@ $colors: (
   secondary: #dd0861,
   text: #313131,
   add1: #f8f9fa,
+  greenbackground: #e0f8e7,
 
 );
 
  $progress-bar-bg: map-get($colors, primary);
 
-/* Personaliza la barra de desplazamiento */
-::-webkit-scrollbar {
-  height: 12px;
-  width: 12px;
-  background-color: map-get($colors, add1);
-}
 
-::-webkit-scrollbar-thumb {
-  background-color: map-get($colors, primary);
-  border-radius: 6px;
-  border: 2px solid map-get($colors, add1);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: map-get($colors, primary);
-}
 
 
