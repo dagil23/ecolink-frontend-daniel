@@ -9,6 +9,7 @@ import { MissionsComponent } from './components/missions/missions.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { HomeComponent } from './components/home/home.component';
 import {SharedModule} from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {SharedModule} from '../shared/shared.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
   exports: [
     ProductsComponent,
