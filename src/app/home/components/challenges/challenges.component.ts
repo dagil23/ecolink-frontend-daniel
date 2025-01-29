@@ -1,5 +1,7 @@
 import { Component,OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+import { Challenge } from '../../models/Challenge';
+import { ChallengeService } from '../../services/ChallengeService.service';
 
 
 @Component({
@@ -12,8 +14,15 @@ export class ChallengesComponent implements OnInit, OnDestroy {
   timeLeft: number = 7 * 24 * 60 * 60; // 7 días en segundos
   private timerSubscription!: Subscription;
 
+    challenges: Challenge[] = [];
+    constructor(private challengeService: ChallengeService) { }
+  
   ngOnInit() {
     this.startTimer();
+    this.challengeService.getChallenge().subscribe((challenges: Challenge[]) => {
+      this.challenges = challenges;
+      console.log(challenges);
+    });
   }
 
   ngOnDestroy() {
