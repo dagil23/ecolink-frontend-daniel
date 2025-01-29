@@ -1,14 +1,11 @@
-<h2 class="text-center text-greendark mt-5">Green Startups</h2>
-<div class="container startups">
-  <div class="d-flex justify-content-center row row-cols-auto gap-4">
+<div class="background-startup mt-5 py-5">
+  <h2 class="text-center fw-bold text-greendark mb-3">Green Startups</h2>
+  <div class="row row-cols-auto gap-4 d-flex justify-content-center">
     <div class="card" *ngFor="let startup of startups">
       <div class="card-body">
-        <h5 class="card-title text-center">{{startup.name}}</h5>
-        <p class="card-text text-center">{{startup.description}}</p>
-        <a href="#" class="text-light fw-bold btn btn-greendark">
-          Learn more
-          <i class="bi bi-arrow-right-short"></i>
-        </a>
+        <h5 class="card-title text-greendark">{{ startup.name }}</h5>
+        <p class="card-text">{{ startup.description }}</p>
+        <a href="#" class="d-flex text-greendark text-decoration-none text-light fw-bold">Learn more</a>
       </div>
     </div>
   </div>

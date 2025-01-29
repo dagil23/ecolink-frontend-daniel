@@ -1,43 +1,18 @@
-<h2 class="mt-5">Featured Publications</h2>
-<div class="card-container">
-  <div class="card">
-    <img src="assets/images/post-blog.jpg" class="card-img-top" alt="Card 1">
-    <div class="card-body">
-      <h5 class="card-title">Card 1</h5>
-      <p class="card-text">Este es el contenido de la card 1.</p>
-      <a href="#" class="btn btn-outline-primary">Read article</a>
-    </div>
-  </div>
-  <div class="card">
-    <img src="assets/images/post-blog.jpg" class="card-img-top" alt="Card 2">
-    <div class="card-body">
-      <h5 class="card-title">Card 2</h5>
-      <p class="card-text">Este es el contenido de la card 2.</p>
-      <a href="#" class="btn btn-outline-primary">Read article</a>
-    </div>
-  </div>
-  <div class="card">
-    <img src="assets/images/post-blog.jpg" class="card-img-top" alt="Card 3">
-    <div class="card-body">
-      <h5 class="card-title">Card 3</h5>
-      <p class="card-text">Este es el contenido de la card 3.</p>
-      <a href="#" class="btn btn-outline-primary">Read article</a>
-    </div>
-  </div>
-  <div class="card">
-    <img src="assets/images/post-blog.jpg" class="card-img-top" alt="Card 4">
-    <div class="card-body">
-      <h5 class="card-title">Card 4</h5>
-      <p class="card-text">Este es el contenido de la card 4.</p>
-      <a href="#" class="btn btn-outline-primary">Read article</a>
-    </div>
-  </div>
-  <div class="card">
-    <img src="assets/images/post-blog.jpg" class="card-img-top" alt="Card 5">
-    <div class="card-body">
-      <h5 class="card-title">Card 5</h5>
-      <p class="card-text">Este es el contenido de la card 5.</p>
-      <a href="#" class="btn btn-outline-primary">Read article</a>
+<h2 class="text-center text-greendark fw-bold mb-3">Ecological Blog</h2>
+<div class="row row-cols-auto d-flex justify-content-center gap-4">
+  <div *ngFor="let post of posts">
+  <div class="card p-0">
+      <img
+        src="assets/images/post-blog.jpg"
+        class="card-img-top"
+        [alt]="post.title"
+      />
+      <div class="card-body">
+        <h5 class="card-title text-greendark">{{ post.title }}</h5>
+        <p class="card-text">{{ post.description }}</p>
+        <a href="#" class="text-primary fw-bold text-decoration-none"
+          >Read more</a>
+      </div>
     </div>
   </div>
 </div>

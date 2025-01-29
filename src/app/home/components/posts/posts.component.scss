@@ -1,11 +1,14 @@
+@import '../../../../scss/mixins';
+
 .card-container {
   display: flex;
   overflow-x: auto;
   gap: 20px;
   padding: 20px 0;
 }
+
 .card {
-  flex: 0 0 auto;
   width: 18rem;
-  border:none;
+  @include box-shadow(rgba(0, 0, 0, 0.1), 5px, 10px);
+  border: none;
 }
