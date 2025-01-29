@@ -2,9 +2,10 @@
   display: flex;
   overflow-x: auto;
   gap: 20px;
-  padding: 20px 0;
+  padding: 20px;
 }
 .card {
   flex: 0 0 auto;
   width: 18rem;
+  border:none;
 }
