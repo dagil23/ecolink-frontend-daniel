@@ -1,0 +1,25 @@
+@import '../../../../scss/variables';
+#challenges {
+  
+    h2 {
+      color: #22543d;
+    }
+  
+    .card {
+      border-radius: 16px;
+    }
+  
+    button {
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+  }
+  
+  /* Custom styles for carousel control icons */
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: map-get($colors, primary);
+  }
+  
+  
