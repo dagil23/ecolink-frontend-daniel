@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <!-- Logo -->
     <a class="navbar-brand ps-3 pb-3" href="/">
-      <img ngSrc="assets/logo.png" alt="Ecolink Logo" width="70" height="70" class="d-inline-block align-text-top">
+      <img src="assets/logo.png" alt="Ecolink Logo" width="70" height="70" class="d-inline-block align-text-top">
     </a>
 
     <!-- Toggler button for offcanvas -->
@@ -10,49 +10,39 @@
       <span class="navbar-toggler-icon text-light"></span>
     </button>
 
-    <!-- Offcanvas Menu -->
-    <div class="offcanvas offcanvas-end bg-primary" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title text-light" id="offcanvasNavbarLabel">EcoLink</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <!-- Main Menu -->
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link fs-5 text-light" href="/startups">Startups</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fs-5 text-light" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fs-5 text-light" href="#">Projects</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fs-5 text-light" href="/about-us">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fs-5 text-light" href="/auth/register">Contact</a>
-          </li>
-        </ul>
+    <div class="collapse navbar-collapse justify-content-center">
+      <!-- Main Menu -->
+      <ul class="navbar-nav text-center">
+        <li class="nav-item">
+          <a class="nav-link fs-5 text-light" href="/startups">Startups</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 text-light" href="#">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 text-light" href="#">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 text-light" href="/about-us">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 text-light" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
 
-        <!-- Social Media Icons -->
-        <div class="d-flex align-items-center mt-4">
-          <a href="#" class="text-dark me-3 fs-5" aria-label="Facebook">
-            <i class="fab fa-facebook"></i>
-          </a>
-          <a href="#" class="text-dark me-3 fs-5" aria-label="Twitter">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="text-dark me-3 fs-5" aria-label="LinkedIn">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="#" class="text-dark fs-5" aria-label="Instagram">
-            <i class="fab fa-instagram"></i>
-          </a>
-        </div>
-      </div>
+    <!-- Right Section: Buttons + Profile Icon -->
+    <div class="d-flex align-items-center me-3">
+      <a href="/login" class="btn btn-outline-light me-2">Log In</a>
+      <a href="/auth/register" class="btn btn-light me-3">Register</a>
+      <a href="/profile" class="text-light">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M13.468 12.37c-.074-.116-.152-.23-.234-.341-.801-1.104-2.514-1.885-4.234-1.885-1.72 0-3.433.781-4.234 1.885a4.211 4.211 0 0 0-.234.341A6.958 6.958 0 0 0 8 15a6.958 6.958 0 0 0 5.468-2.63z"/>
+          <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+        </svg>
+      </a>
+
     </div>
   </div>
 </nav>
-

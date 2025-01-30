@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule)
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }
