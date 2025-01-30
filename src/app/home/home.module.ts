@@ -10,7 +10,6 @@ import { PostsComponent } from './components/posts/posts.component';
 import { HomeComponent } from './components/home/home.component';
 import {SharedModule} from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { AboutUsComponent } from './components/about-us/about-us.component';
 
 
 @NgModule({
@@ -20,8 +19,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     ChallengesComponent,
     MissionsComponent,
     PostsComponent,
-    HomeComponent,
-    AboutUsComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
