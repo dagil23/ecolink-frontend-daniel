@@ -1,10 +1,10 @@
-/*import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
   registrationForm!: FormGroup;
@@ -67,5 +67,3 @@ export class RegisterComponent implements OnInit {
     }, 2000);
   }
 }
-
- */
