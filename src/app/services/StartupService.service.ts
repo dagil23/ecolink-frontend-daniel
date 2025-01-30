@@ -21,6 +21,5 @@ export class StartupService {
 
   findStartupById(id: number): void {
 
-
   }
 }
