@@ -2,38 +2,14 @@
 <div class="container">
   <h1 class="fw-bold mt-5">Green Startups</h1>
   <startup-filter></startup-filter>
-  <div class="row row-cols-auto my-5 gap-4">
-    <div class="card p-3">
+  <div class="row row-cols-auto d-flex justify-content-center my-5 gap-4">
+    <div class="card p-3" *ngFor="let startup of startups" (click)="findStartupById(startup.id)">
       <div class="d-flex align-items-center">
-        <img src="assets/images/startup.webp" width="60" height="60" alt="EcoEnergy" class="me-2">
-        <h3>EcoEnergy</h3>
+        <img src="assets/images/startup.webp" width="60" height="60" [alt]="startup.name" class="me-2">
+        <h3>{{startup.name}}</h3>
       </div>
       <p class="text-grey mb-0">Energía Renovable</p>
-      <p>Soluciones de energía renovable para hogares y empresas</p>
-    </div>
-    <div class="card">
-      <div>
-        <img src="" alt="EcoEnergy">
-        <h3>EcoEnergy</h3>
-      </div>
-      <p class="text-grey">Energía Renovable</p>
-      <p>Soluciones de energía renovable para hogares y empresas</p>
-    </div>
-    <div class="card">
-      <div>
-        <img src="" alt="EcoEnergy">
-        <h3>EcoEnergy</h3>
-      </div>
-      <p class="text-grey">Energía Renovable</p>
-      <p>Soluciones de energía renovable para hogares y empresas</p>
-    </div>
-    <div class="card">
-      <div>
-        <img src="" alt="EcoEnergy">
-        <h3>EcoEnergy</h3>
-      </div>
-      <p class="text-grey">Energía Renovable</p>
-      <p>Soluciones de energía renovable para hogares y empresas</p>
+      <p>{{startup.description}}</p>
     </div>
   </div>
 </div>

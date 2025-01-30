@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { Challenge } from '../../models/Challenge';
-import { ChallengeService } from '../../services/ChallengeService.service';
+import { ChallengeService } from '../../../services/ChallengeService.service';
 
 @Component({
   selector: 'home-challenges',

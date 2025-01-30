@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StartupService } from '../../services/StartupService.service';
 import { Startup } from '../../models/Startup';
+import { StartupService } from '../../../services/StartupService.service';
 
 @Component({
   selector: 'home-startups',
