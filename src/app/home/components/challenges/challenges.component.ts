@@ -21,7 +21,6 @@ export class ChallengesComponent implements OnInit, OnDestroy {
     this.startTimer();
     this.challengeService.getChallenge().subscribe((challenges: Challenge[]) => {
       this.challenges = challenges;
-      console.log(challenges);
     });
   }
 

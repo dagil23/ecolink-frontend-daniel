@@ -1,40 +1,15 @@
 <section id="missions" class="py-5 bg-greenbackground">
   <div class="container">
-    <h2 class="text-center text-greendark fw-bold mb-3">Misiones Ecológicas</h2>
+    <h2 class="text-center text-greendark fw-bold mb-3">Ecologic Missions</h2>
     <div class="row row-cols-1 row-cols-md-2 g-4">
-      <div class="col">
-        <div class="card h-100 ">
+      <div class="col" *ngFor="let mission of missions">
+        <div class="card h-100">
           <div class="card-body">
-            <h3 class="card-title text-success">Recicla 5 botellas de plástico</h3>
-            <p class="card-text text-secondary">Frecuencia: Diaria</p>
-            <button class="btn btn-success px-4 py-2 mt-3">Completar misión</button>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100 ">
-          <div class="card-body">
-            <h3 class="card-title text-success">Usa transporte público o bicicleta</h3>
-            <p class="card-text text-secondary">Frecuencia: Diaria</p>
-            <button class="btn btn-success btn-sm px-4 py-2 mt-3">Completar misión</button>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100 ">
-          <div class="card-body">
-            <h3 class="card-title text-success">Planta un árbol</h3>
-            <p class="card-text text-secondary">Frecuencia: Semanal</p>
-            <button class="btn btn-success btn-sm px-4 py-2 mt-3">Completar misión</button>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100 ">
-          <div class="card-body">
-            <h3 class="card-title text-success">Organiza una limpieza comunitaria</h3>
-            <p class="card-text text-secondary">Frecuencia: Semanal</p>
-            <button class="btn btn-success btn-sm px-4 py-2 mt-3">Completar misión</button>
+            <h3 class="card-title text-success">{{ mission.name }}</h3>
+            <p class="card-text text-secondary">{{ mission.description }}</p>
+            <p class="card-text text-secondary">Type: {{ mission.type === 'DAILY' ? 'Diaria' : 'Semanal' }}</p>
+            <p class="card-text text-secondary">Points: {{ mission.points }}</p>
+            <button class="btn btn-success px-4 py-2 mt-3">Complete Mission</button>
           </div>
         </div>
       </div>
