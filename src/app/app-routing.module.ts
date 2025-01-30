@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/components/home/home.component';
+import { AboutUsComponent } from './home/components/about-us/about-us.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'startups',
     loadChildren: () => import('./startup/startup.module').then(m => m.StartupModule)
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent
   },
   {
     path: '**',
