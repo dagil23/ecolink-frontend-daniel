@@ -1,26 +1,24 @@
-import { Component,OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { Challenge } from '../../models/Challenge';
 import { ChallengeService } from '../../services/ChallengeService.service';
 
-
 @Component({
   selector: 'home-challenges',
   templateUrl: './challenges.component.html',
-  styleUrl: './challenges.component.scss'
+  styleUrls: ['./challenges.component.scss']
 })
-
 export class ChallengesComponent implements OnInit, OnDestroy {
-  timeLeft: number = 7 * 24 * 60 * 60; // 7 días en segundos
   private timerSubscription!: Subscription;
+  challenges: Challenge[] = [];
 
-    challenges: Challenge[] = [];
-    constructor(private challengeService: ChallengeService) { }
-  
+  constructor(private challengeService: ChallengeService) { }
+
   ngOnInit() {
-    this.startTimer();
     this.challengeService.getChallenge().subscribe((challenges: Challenge[]) => {
       this.challenges = challenges;
+      this.calculateTimeLeft();
+      this.startTimer();
     });
   }
 
@@ -30,19 +28,33 @@ export class ChallengesComponent implements OnInit, OnDestroy {
     }
   }
 
+  calculateTimeLeft() {
+    const now = new Date().getTime();
+    this.challenges.forEach(challenge => {
+      const endDate = new Date(challenge.endDate).getTime();
+      const timeDifference = endDate - now;
+      challenge.timeLeft = timeDifference; // Guardar la diferencia en milisegundos
+    });
+  }
+
   startTimer() {
     this.timerSubscription = interval(1000).subscribe(() => {
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-      }
+      this.calculateTimeLeft();
     });
   }
 
   formatTime(time: number): string {
-    const days = Math.floor(time / (24 * 60 * 60));
-    const hours = Math.floor((time % (24 * 60 * 60)) / (60 * 60));
-    const minutes = Math.floor((time % (60 * 60)) / 60);
-    const seconds = time % 60;
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    const totalSeconds = Math.floor(time / 1000);
+    const days = Math.floor(totalSeconds / (24 * 60 * 60));
+    const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
+    const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+    const seconds = totalSeconds % 60;
+
+    let formattedTime = '';
+    if (days > 0) {
+      formattedTime += `${days}d `;
+    }
+    formattedTime += `${hours}h ${minutes}m ${seconds}s`;
+    return formattedTime;
   }
 }

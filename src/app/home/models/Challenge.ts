@@ -3,5 +3,5 @@ export interface Challenge {
     description: string;
     budget: number;
     endDate: Date;
-    timeLeft?: number;
+    timeLeft: number;
   }
