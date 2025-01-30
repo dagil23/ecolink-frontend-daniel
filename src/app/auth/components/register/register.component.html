@@ -1,3 +1,4 @@
+<shared-header></shared-header>
 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="eco-registration-form">
   <h2>User Registration</h2>
 
@@ -13,7 +14,7 @@
   <div class="form-group">
     <label for="userType">User Type</label>
     <select id="userType" formControlName="userType">
-      <option value="">Select a user type</option>
+      <option value="">Select user type</option>
       <option *ngFor="let type of userTypes" [value]="type">{{type}}</option>
     </select>
     <div *ngIf="registrationForm.get('userType')?.invalid && (registrationForm.get('userType')?.dirty || registrationForm.get('userType')?.touched)" class="error-message">
@@ -71,3 +72,4 @@
     {{ isSubmitting ? 'Registering...' : 'Register' }}
   </button>
 </form>
+<shared-footer></shared-footer>
