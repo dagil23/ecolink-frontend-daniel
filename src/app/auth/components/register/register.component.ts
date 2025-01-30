@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -67,3 +67,5 @@ export class RegisterComponent implements OnInit {
     }, 2000);
   }
 }
+
+ */
