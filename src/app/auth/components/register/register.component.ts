@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Preference} from '../../models/Preference';
+import {RegistrationService} from '../../services/RegisterService.service';
 
 @Component({
   selector: 'app-registration',
@@ -9,11 +11,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   registrationForm!: FormGroup;
   userTypes: string[] = ['Individual', 'Company', 'Startup'];
-  preferences: string[] = [];
+  preferences: Preference[]=[];
 
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,private registrationService: RegistrationService) {}
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -26,7 +28,9 @@ export class RegisterComponent implements OnInit {
       image: [null, Validators.required]
     });
 
-    this.fetchPreferences();
+    this.registrationService.getAllPreferences().subscribe((preferences: Preference[]) => {
+      this.preferences = preferences;
+    })
 
     // Conditional validation for description
     this.registrationForm.get('userType')?.valueChanges.subscribe(value => {
@@ -39,19 +43,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  fetchPreferences(): void {
-    // Simulating an HTTP call to the backend
-    setTimeout(() => {
-      this.preferences = ['Renewable Energy', 'Green Technology', 'Recycling', 'Water and Sanitation'];
-    }, 1000);
-  }
-
-  onFileChange(event: any): void {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.registrationForm.patchValue({ image: file });
-    }
-  }
 
   onSubmit(): void {
     if (this.registrationForm.invalid) return;

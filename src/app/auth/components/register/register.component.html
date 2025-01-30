@@ -2,6 +2,15 @@
   <h2>User Registration</h2>
 
   <div class="form-group">
+    <label for="name">Name</label>
+    <input id="name" type="text" formControlName="name" placeholder="Your name or company/startup name">
+    <div *ngIf="registrationForm.get('name')?.invalid && (registrationForm.get('name')?.dirty || registrationForm.get('name')?.touched)" class="error-message">
+      <div *ngIf="registrationForm.get('name')?.errors?.['required']">Name is required.</div>
+      <div *ngIf="registrationForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters long.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="userType">User Type</label>
     <select id="userType" formControlName="userType">
       <option value="">Select a user type</option>
@@ -12,18 +21,10 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input id="name" type="text" formControlName="name" placeholder="Your name or company/startup name">
-    <div *ngIf="registrationForm.get('name')?.invalid && (registrationForm.get('name')?.dirty || registrationForm.get('name')?.touched)" class="error-message">
-      <div *ngIf="registrationForm.get('name')?.errors?.['required']">Name is required.</div>
-      <div *ngIf="registrationForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters long.</div>
-    </div>
-  </div>
 
   <div class="form-group">
     <label for="email">Email</label>
-    <input id="email" type="email" formControlName="email" placeholder="your@email.com">
+    <input id="email" type="email" formControlName="email" placeholder="example@email.com">
     <div *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)" class="error-message">
       <div *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required.</div>
       <div *ngIf="registrationForm.get('email')?.errors?.['email']">Please enter a valid email.</div>
@@ -49,13 +50,12 @@
   </div>
 
   <div *ngIf="registrationForm.get('userType')?.value === 'Company' || registrationForm.get('userType')?.value === 'Startup'" class="form-group">
-    <label for="preference">Preference</label>
-    <select id="preference" formControlName="preference">
-      <option value="">Select a preference</option>
-      <option *ngFor="let preference of preferences" [value]="preference">{{preference}}</option>
+    <label for="preference">Preferences</label>
+    <select id="preference" formControlName="preference" multiple>
+      <option *ngFor="let preference of preferences" [value]="preference.id">{{preference.name}}</option>
     </select>
     <div *ngIf="registrationForm.get('preference')?.invalid && (registrationForm.get('preference')?.dirty || registrationForm.get('preference')?.touched)" class="error-message">
-      <div *ngIf="registrationForm.get('preference')?.errors?.['required']">Please select a sector.</div>
+      <div *ngIf="registrationForm.get('preference')?.errors?.['required']">Please select at least one preference.</div>
     </div>
   </div>
 
