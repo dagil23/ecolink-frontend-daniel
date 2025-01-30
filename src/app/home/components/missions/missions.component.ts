@@ -17,4 +17,8 @@ export class MissionsComponent implements OnInit {
         this.missions = missions;
       });
     }
+    completeMission(mission: Mission): void {
+      mission.completed = true;
+      // this.missionService.updateMission(mission).subscribe();
+    }
 }
