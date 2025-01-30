@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { Mission } from '../../models/Mission';
-import { MissionService } from '../../services/MissionService.service';
+import { MissionService } from '../../../services/MissionService.service';
 
 @Component({
   selector: 'home-missions',
@@ -11,7 +11,7 @@ export class MissionsComponent implements OnInit {
 
       missions: Mission[] = [];
       constructor(private missionService: MissionService) { }
-    
+
     ngOnInit() {
       this.missionService.getMission().subscribe((missions: Mission[]) => {
         this.missions = missions;
