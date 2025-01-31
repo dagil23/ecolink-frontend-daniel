@@ -17,10 +17,22 @@ export class StartupService {
   }
 
   getStartups(page: number, size: number): Observable<Pagination> {
-    return this.http.get<Pagination>(`${this.baseUrl}/pagination?page=${page}&size=${size}`);
+    return this.http.get<Pagination>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
 
   findStartupById(id: number): void {
 
+  }
+
+  getStartupsByName(name: string, page: number, size: number): Observable<Pagination> {
+    return this.http.get<Pagination>(`${this.baseUrl}?name=${name}&page=${page}&size=${size}`);
+  }
+
+  getStartupsByOds(odsId: number, page: number, size: number): Observable<Pagination> {
+    return this.http.get<Pagination>(`${this.baseUrl}?odsIdList=${odsId}&page=${page}&size=${size}`);
+  }
+
+  getStartupsByNameAndOds(odsId: number, name:string, page: number, size: number): Observable<Pagination> {
+    return this.http.get<Pagination>(`${this.baseUrl}?odsIdList=${odsId}&name=${name}&page=${page}&size=${size}`);
   }
 }

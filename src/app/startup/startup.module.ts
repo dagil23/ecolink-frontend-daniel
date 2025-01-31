@@ -6,6 +6,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { StartupViewComponent } from './components/startup-view/startup-view.component';
 import { SharedModule } from "../shared/shared.module";
 import { StartupDetailComponent } from './components/startup-detail/startup-detail.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { StartupDetailComponent } from './components/startup-detail/startup-deta
   imports: [
     CommonModule,
     StartupRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
 ]
 })
 export class StartupModule { }

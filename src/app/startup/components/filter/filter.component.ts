@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OdsService } from '../../../services/ods-service.service';
 import { Ods } from '../../../home/models/Ods';
+import { StartupService } from '../../../services/StartupService.service';
 
 @Component({
   selector: 'startup-filter',
@@ -8,8 +9,13 @@ import { Ods } from '../../../home/models/Ods';
   styleUrl: './filter.component.scss'
 })
 export class FilterComponent implements OnInit {
+  @Output() public filteredStartups = new EventEmitter<{ search: string, odsId: number | null }>();
+
   theOds: Ods[] = [];
-  constructor(private odsService: OdsService) { }
+  search: string = '';
+  odsId: number | null = null;
+
+  constructor(private odsService: OdsService, private startupService: StartupService) { }
 
   ngOnInit(): void {
     this.odsService.getOds().subscribe((data: Ods[]) => {
@@ -17,5 +23,11 @@ export class FilterComponent implements OnInit {
     }, error => {
       console.error(error);
     })
+  }
+
+  applyFilters(event: Event) {
+    event.preventDefault();
+    // Emitiendo un solo objeto con los filtros
+    this.filteredStartups.emit({ search: this.search, odsId: this.odsId });
   }
 }

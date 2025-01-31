@@ -3,15 +3,15 @@
   <div class="row">
     <div class="col-12 col-md-6 mb-3 mb-md-0">
       <label for="search" class="fw-semibold">Startup name</label>
-      <input type="text" class="form-control" placeholder="Search by name" />
+      <input type="text" class="form-control" placeholder="Search by name" [(ngModel)]="search"/>
     </div>
     <div class="col-12 col-md-6 mb-3">
       <label for="category" class="fw-semibold">Category</label>
-      <select id="category" class="form-select">
-        <option value="" selected disabled>Select categories</option>
-        <option *ngFor="let ods of theOds" value="{{ods.id}}">{{ods.name}}</option>
+      <select id="category" class="form-select" [(ngModel)]="odsId">
+        <option value="" selected>Select categories</option>
+        <option *ngFor="let ods of theOds" [value]="ods.id">{{ods.name}}</option>
       </select>
     </div>
-    <a href="#" class="col-12 btn btn-dark">Apply filters</a>
+    <a href="#" class="col-12 btn btn-dark" (click)="applyFilters($event)">Apply filters</a>
   </div>
 </div>
