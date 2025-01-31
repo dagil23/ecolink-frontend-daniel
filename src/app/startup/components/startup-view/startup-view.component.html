@@ -12,5 +12,15 @@
       <p>{{startup.description}}</p>
     </div>
   </div>
+
+  <nav>
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 0"><a class="page-link" (click)="changePage(currentPage - 1)">Previous</a></li>
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i === currentPage">
+        <a class="page-link" (click)="changePage(i)">{{i + 1}}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage + 1 === totalPages"><a class="page-link" (click)="changePage(currentPage + 1)">Next</a></li>
+    </ul>
+  </nav>
 </div>
 <shared-footer></shared-footer>

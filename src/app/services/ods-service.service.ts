@@ -7,7 +7,7 @@ import { Ods } from '../home/models/Ods';
 @Injectable({
   providedIn: 'root'
 })
-export class OdsServiceService {
+export class OdsService {
   private baseUrl: string = environment.apiUrl + '/ods';
 
   constructor(private http: HttpClient) { }
