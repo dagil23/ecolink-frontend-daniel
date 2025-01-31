@@ -15,3 +15,14 @@
   transform: translateY(-5px);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+button.navbar-toggler:focus {
+  box-shadow: none;
+
+}
+
+
+button.btn-close:focus {
+  box-shadow: none;
+
+}
