@@ -1,12 +1,12 @@
 <shared-header></shared-header>
 
 <body>
-  <section class="profile-section">
+  <section class="bg-light py-5">
     <div class="container">
-      <nav aria-label="breadcrumb" class="breadcrumb-wrapper">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">User</a></li>
+      <nav aria-label="breadcrumb" class="bg-white rounded p-3 mb-4">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a class="text-greendark" href="#">Home</a></li>
+          <li class="breadcrumb-item"><a class="text-greendark" href="#">User</a></li>
           <li class="breadcrumb-item active" aria-current="page">User Profile</li>
         </ol>
       </nav>
@@ -14,92 +14,81 @@
       <div class="row">
         <!-- User Profile Info -->
         <div class="col-lg-4">
-          <div class="card profile-card">
+          <div class="card mb-4">
             <div class="card-body text-center">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="avatar-img">
-              <h5>John Smith</h5>
-              <p class="profile-role">Full Stack Developer</p>
-              <p class="profile-location">Bay Area, San Francisco, CA</p>
-              <div class="action-buttons">
-                <button type="button" class="btn-primary">Follow</button>
-                <button type="button" class="btn-outline-primary">Message</button>
-              </div>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3">John Smith</h5>
+              <p class="text-muted mb-1">Full Stack Developer</p>
+              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
             </div>
           </div>
 
           <!-- social links -->
-          <div class="card social-card">
+          <div class="card mb-4">
             <div class="card-body">
-              <ul class="social-list">
-                <li><i class="fas fa-globe text-warning"></i> https://mdbootstrap.com</li>
-                <li><i class="fab fa-github"></i> mdbootstrap</li>
-                <li><i class="fab fa-twitter text-twitter"></i> Amdbootstrap</li>
-                <li><i class="fab fa-instagram text-instagram"></i> mdbootstrap</li>
-                <li><i class="fab fa-facebook-f text-facebook"></i> mdbootstrap</li>
+              <ul class="list-unstyled mb-0">
+                <li class="d-flex align-items-center mb-2"><i class="bi-globe me-2"></i> https://mdbootstrap.com</li>
+                <li class="d-flex align-items-center mb-2"><i class="bi-github me-2"></i> mdbootstrap</li>
+                <li class="d-flex align-items-center mb-2"><i class="bi-twitter me-2"></i> Amdbootstrap</li>
+                <li class="d-flex align-items-center mb-2"><i class="bi-instagram me-2"></i> mdbootstrap</li>
+                <li class="d-flex align-items-center"><i class="bi-facebook me-2"></i> mdbootstrap</li>
               </ul>
             </div>
           </div>
         </div>
         <!-- extended profile info -->
         <div class="col-lg-8">
-          <div class="card profile-info-card">
+          <div class="card mb-4">
             <div class="card-body">
-              <div class="info-group">
-                <span class="info-label">Full Name</span>
-                <span class="info-value">Johnatan Smith</span>
+              <div class="row">
+                <div class="col-sm-3"><p class="mb-0">Full Name</p></div>
+                <div class="col-sm-9"><p class="text-muted mb-0">Johnatan Smith</p></div>
               </div>
-              <div class="info-group">
-                <span class="info-label">Email</span>
-                <span class="info-value">exampleAexample.com</span>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3"><p class="mb-0">Email</p></div>
+                <div class="col-sm-9"><p class="text-muted mb-0">exampleAexample.com</p></div>
               </div>
-              <div class="info-group">
-                <span class="info-label">Phone</span>
-                <span class="info-value">(097) 234-5678</span>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3"><p class="mb-0">Phone</p></div>
+                <div class="col-sm-9"><p class="text-muted mb-0">(097) 234-5678</p></div>
               </div>
-              <div class="info-group">
-                <span class="info-label">Mobile</span>
-                <span class="info-value">(098) 765-4321</span>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3"><p class="mb-0">Mobile</p></div>
+                <div class="col-sm-9"><p class="text-muted mb-0">(098) 765-4321</p></div>
               </div>
-              <div class="info-group">
-                <span class="info-label">Address</span>
-                <span class="info-value">Bay Area, San Francisco, CA</span>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3"><p class="mb-0">Address</p></div>
+                <div class="col-sm-9"><p class="text-muted mb-0">Bay Area, San Francisco, CA</p></div>
               </div>
             </div>
           </div>
 
-            <!-- Project developing -->
+          <!-- Project developing -->
           <div class="row">
             <div class="col-md-6">
-              <div class="card project-card">
+              <div class="card mb-4">
                 <div class="card-body">
-                  <span class="project-label">Web Design</span>
-                  <div class="progress">
-                    <div class="progress-bar" style="width: 80%"></div>
-                  </div>
-                  <span class="project-label">Website Markup</span>
-                  <div class="progress">
-                    <div class="progress-bar" style="width: 72%"></div>
-                  </div>
-                  <span class="project-label">One Page</span>
-                  <div class="progress">
-                    <div class="progress-bar" style="width: 89%"></div>
-                  </div>
+                  <h5 class="text-greendark"> Proyects in Developing</h5>
+                  <p class="mb-1">Web Design</p>
+                  <p class="mb-1">Website Markup</p>
+                  <p class="mb-1">One Page</p>
+                  <button class="mt-3 btn btn-outline-greendark"> <a href="#" class="text-decoration-none text-greendark">All projetcs</a></button>
                 </div>
               </div>
             </div>
 
             <!-- Items selling -->
             <div class="col-md-6">
-              <div class="card project-card">
+              <div class="card mb-4">
                 <div class="card-body">
-                  <span class="project-label">Mobile Template</span>
-                  <div class="progress">
-                    <div class="progress-bar" style="width: 55%"></div>
-                  </div>
-                  <span class="project-label">Backend API</span>
-                  <div class="progress">
-                    <div class="progress-bar" style="width: 66%"></div>
-                  </div>
+                  <h5 class="text-greendark"> Products </h5>
+                  <p class="mb-1">Mobile Template</p>
+                  <p class="mb-1">Backend API</p>
+                  <button class="mt-3 btn btn-outline-greendark"> <a href="#" class="text-decoration-none text-greendark">All products</a></button>
                 </div>
               </div>
             </div>
