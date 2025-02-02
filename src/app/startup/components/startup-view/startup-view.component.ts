@@ -25,7 +25,7 @@ export class StartupViewComponent implements OnInit {
   }
 
   findStartupById(id: number): void {
-    this.router.navigate(['/startup', id]);
+    this.router.navigate(['/startups', id]);
   }
 
   getStartups(): void {
@@ -33,7 +33,7 @@ export class StartupViewComponent implements OnInit {
       this.startups = data.content;
       this.totalPages = data.totalPages;
     }, () => {
-      alert('Error');
+      alert('Error al obtener las startups');
     });
   }
 

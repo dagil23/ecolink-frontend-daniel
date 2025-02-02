@@ -20,8 +20,8 @@ export class StartupService {
     return this.http.get<Pagination>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
 
-  findStartupById(id: number): void {
-
+  findStartupById(id: string): Observable<Startup> {
+    return this.http.get<Startup>(`${this.baseUrl}/${id}`);
   }
 
   getStartupsByName(name: string, page: number, size: number): Observable<Pagination> {
