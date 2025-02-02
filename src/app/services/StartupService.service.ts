@@ -16,23 +16,23 @@ export class StartupService {
     return this.http.get<Startup[]>(this.baseUrl + '/relevant');
   }
 
-  getStartups(page: number, size: number): Observable<Pagination> {
-    return this.http.get<Pagination>(`${this.baseUrl}?page=${page}&size=${size}`);
+  getStartups(page: number, size: number): Observable<Pagination<Startup>> {
+    return this.http.get<Pagination<Startup>>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
 
   findStartupById(id: string): Observable<Startup> {
     return this.http.get<Startup>(`${this.baseUrl}/${id}`);
   }
 
-  getStartupsByName(name: string, page: number, size: number): Observable<Pagination> {
-    return this.http.get<Pagination>(`${this.baseUrl}?name=${name}&page=${page}&size=${size}`);
+  getStartupsByName(name: string, page: number, size: number): Observable<Pagination<Startup>> {
+    return this.http.get<Pagination<Startup>>(`${this.baseUrl}?name=${name}&page=${page}&size=${size}`);
   }
 
-  getStartupsByOds(odsId: number, page: number, size: number): Observable<Pagination> {
-    return this.http.get<Pagination>(`${this.baseUrl}?odsIdList=${odsId}&page=${page}&size=${size}`);
+  getStartupsByOds(odsId: number, page: number, size: number): Observable<Pagination<Startup>> {
+    return this.http.get<Pagination<Startup>>(`${this.baseUrl}?odsIdList=${odsId}&page=${page}&size=${size}`);
   }
 
-  getStartupsByNameAndOds(odsId: number, name:string, page: number, size: number): Observable<Pagination> {
-    return this.http.get<Pagination>(`${this.baseUrl}?odsIdList=${odsId}&name=${name}&page=${page}&size=${size}`);
+  getStartupsByNameAndOds(odsId: number, name:string, page: number, size: number): Observable<Pagination<Startup>> {
+    return this.http.get<Pagination<Startup>>(`${this.baseUrl}?odsIdList=${odsId}&name=${name}&page=${page}&size=${size}`);
   }
 }

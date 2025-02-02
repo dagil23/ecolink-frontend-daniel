@@ -1,6 +1,4 @@
-import { Startup } from "./Startup";
-
-export interface Pagination {
-  content: Startup[];
+export interface Pagination<T> {
+  content: T[];
   totalPages: number;
 }

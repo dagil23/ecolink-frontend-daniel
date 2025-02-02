@@ -29,7 +29,7 @@ export class StartupViewComponent implements OnInit {
   }
 
   getStartups(): void {
-    this.startupService.getStartups(this.currentPage, 8).subscribe((data: Pagination) => {
+    this.startupService.getStartups(this.currentPage, 8).subscribe((data: Pagination<Startup>) => {
       this.startups = data.content;
       this.totalPages = data.totalPages;
     }, () => {
@@ -47,7 +47,7 @@ export class StartupViewComponent implements OnInit {
     }
   }
 
-  filteredStartups(data: Pagination) {
+  filteredStartups(data: Pagination<Startup>) {
     this.startups = data.content;
     this.totalPages = data.totalPages;
   }
@@ -62,19 +62,19 @@ export class StartupViewComponent implements OnInit {
 
   applySavedFilters() {
     if (this.search !== '' && this.odsId === null) {
-      this.startupService.getStartupsByName(this.search, this.currentPage, 8).subscribe((data: Pagination) => {
+      this.startupService.getStartupsByName(this.search, this.currentPage, 8).subscribe((data: Pagination<Startup>) => {
         this.filteredStartups(data);
       }, () => {
         alert('No se encontraron startups con ese nombre');
       });
     } else if (this.search === '' && this.odsId !== null) {
-      this.startupService.getStartupsByOds(this.odsId, this.currentPage, 8).subscribe((data: Pagination) => {
+      this.startupService.getStartupsByOds(this.odsId, this.currentPage, 8).subscribe((data: Pagination<Startup>) => {
         this.filteredStartups(data);
       }, () => {
         alert('No se encontraron startups con ese ODS');
       });
     } else if (this.search !== '' && this.odsId !== null) {
-      this.startupService.getStartupsByNameAndOds(this.odsId, this.search, this.currentPage, 8).subscribe((data: Pagination) => {
+      this.startupService.getStartupsByNameAndOds(this.odsId, this.search, this.currentPage, 8).subscribe((data: Pagination<Startup>) => {
         this.filteredStartups(data);
       }, (error) => {
         alert('No se encontraron startups con ese nombre y ODS');
