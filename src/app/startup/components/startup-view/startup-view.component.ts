@@ -17,6 +17,8 @@ export class StartupViewComponent implements OnInit {
   search: string = '';
   odsId: number | null = null;
   isFiltered: boolean = false;
+  // Alert message
+  message: string = '';
 
   constructor(private startupService: StartupService, private router: Router) { }
 
@@ -65,19 +67,22 @@ export class StartupViewComponent implements OnInit {
       this.startupService.getStartupsByName(this.search, this.currentPage, 8).subscribe((data: Pagination<Startup>) => {
         this.filteredStartups(data);
       }, () => {
-        alert('No se encontraron startups con ese nombre');
+        this.startups = [];
+        this.message = 'No startups with this name were found';
       });
     } else if (this.search === '' && this.odsId !== null) {
       this.startupService.getStartupsByOds(this.odsId, this.currentPage, 8).subscribe((data: Pagination<Startup>) => {
         this.filteredStartups(data);
       }, () => {
-        alert('No se encontraron startups con ese ODS');
+        this.startups = [];
+        this.message = 'No startups were found with this ODS';
       });
     } else if (this.search !== '' && this.odsId !== null) {
       this.startupService.getStartupsByNameAndOds(this.odsId, this.search, this.currentPage, 8).subscribe((data: Pagination<Startup>) => {
         this.filteredStartups(data);
       }, (error) => {
-        alert('No se encontraron startups con ese nombre y ODS');
+        this.startups = [];
+        this.message = 'No startups with that name and ODS were found';
       });
     } else {
       this.getStartups();

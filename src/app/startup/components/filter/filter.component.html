@@ -7,17 +7,14 @@
     </div>
     <div class="col-12 col-md-6 mb-3">
       <label for="category" class="fw-semibold">Category</label>
-      <select id="category" class="form-select" [(ngModel)]="odsId">
+      <select id="category" class="form-select" [(ngModel)]="odsId" (ngModelChange)="applyFilters($event)">
         <option value="null" selected disabled>Select a category</option>
         <option *ngFor="let ods of theOds" [value]="ods.id">
           {{ ods.name }}
         </option>
       </select>
     </div>
-      <a href="#" class="col-12 col-lg-2 mb-3 mb-lg-0 btn btn-dark" (click)="applyFilters($event)"
-        >Apply filters</a
-      >
-      <div class="col-lg-8"></div>
+      <div class="col-lg-10"></div>
       <a
         href="#"
         class="col-12 col-lg-2 btn btn-light border-grey"
