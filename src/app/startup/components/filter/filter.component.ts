@@ -26,7 +26,7 @@ export class FilterComponent implements OnInit {
   }
 
   applyFilters(event: Event) {
-    event.preventDefault();
+    console.log('Valor de búsqueda:', event);
     // Emitiendo un solo objeto con los filtros
     this.filteredStartups.emit({ search: this.search, odsId: this.odsId });
   }
