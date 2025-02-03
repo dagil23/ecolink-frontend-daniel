@@ -30,4 +30,11 @@ export class FilterComponent implements OnInit {
     // Emitiendo un solo objeto con los filtros
     this.filteredStartups.emit({ search: this.search, odsId: this.odsId });
   }
+
+  clearFilters(event: Event) {
+    event.preventDefault();
+    this.search = '';
+    this.odsId = null;
+    this.filteredStartups.emit({ search: this.search, odsId: this.odsId });
+  }
 }

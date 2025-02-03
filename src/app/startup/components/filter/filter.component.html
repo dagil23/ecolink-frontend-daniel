@@ -1,4 +1,4 @@
-<div class="border border-grey-subtle border-2 rounded-2 p-4">
+<div class="p-4">
   <h2>Filters</h2>
   <div class="row">
     <div class="col-12 col-md-6 mb-3 mb-md-0">
@@ -8,10 +8,21 @@
     <div class="col-12 col-md-6 mb-3">
       <label for="category" class="fw-semibold">Category</label>
       <select id="category" class="form-select" [(ngModel)]="odsId">
-        <option value="" selected>Select categories</option>
-        <option *ngFor="let ods of theOds" [value]="ods.id">{{ods.name}}</option>
+        <option value="null" selected disabled>Select a category</option>
+        <option *ngFor="let ods of theOds" [value]="ods.id">
+          {{ ods.name }}
+        </option>
       </select>
     </div>
-    <a href="#" class="col-12 btn btn-dark" (click)="applyFilters($event)">Apply filters</a>
+      <a href="#" class="col-12 col-lg-2 mb-3 mb-lg-0 btn btn-dark" (click)="applyFilters($event)"
+        >Apply filters</a
+      >
+      <div class="col-lg-8"></div>
+      <a
+        href="#"
+        class="col-12 col-lg-2 btn btn-light border-grey"
+        (click)="clearFilters($event)"
+        >Clear filters</a
+      >
   </div>
 </div>
