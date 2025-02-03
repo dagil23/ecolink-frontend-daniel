@@ -1,0 +1,9 @@
+<h2>Filters</h2>
+<div class="range-container">
+  <label for="priceRange" class="form-label fw-bold">Rango de Precio</label>
+  <input type="range" class="form-range" min="0" max="25" step="1" id="priceRange" oninput="updatePrice(this.value)">
+  <div class="range-labels">
+      <span id="minPrice">$0</span>
+      <span id="maxPrice">$25</span>
+  </div>
+</div>
