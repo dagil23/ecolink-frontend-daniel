@@ -9,11 +9,16 @@ import {Preference} from '../models/Preference';
   providedIn: "root",
 })
 export class RegistrationService {
-  private baseUrl: string = environment.apiUrl + '/ods';
+  private registerUrl = `${environment.apiUrl}/user/register`;
+  private preferencesUrl = `${environment.apiUrl}/ods`;
   constructor(private http: HttpClient) {}
 
   getAllPreferences(): Observable<Preference[]> {
-    return this.http.get<Preference[]>(this.baseUrl);
+    return this.http.get<Preference[]>(this.preferencesUrl);
+  }
+
+  addUser(userData: FormData): Observable<any> {
+    return this.http.post(this.registerUrl, userData);
   }
 
 }

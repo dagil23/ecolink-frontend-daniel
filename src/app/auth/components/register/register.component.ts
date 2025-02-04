@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Preference} from '../../models/Preference';
-import {RegistrationService} from '../../services/RegisterService.service';
+import { Preference } from '../../models/Preference';
+import { RegistrationService } from '../../services/RegisterService.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -10,53 +11,97 @@ import {RegistrationService} from '../../services/RegisterService.service';
 })
 export class RegisterComponent implements OnInit {
   registrationForm!: FormGroup;
-  userTypes: string[] = ['Individual', 'Company', 'Startup'];
-  preferences: Preference[]=[];
-
+  userTypes: string[] = ['Client', 'Company', 'Startup'];
+  preferences: Preference[] = [];
+  imageUrl: string | null = null;
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder,private registrationService: RegistrationService) {}
+  constructor(
+    private fb: FormBuilder,
+    private registrationService: RegistrationService,
+    private router: Router,) {}
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
       userType: ['', Validators.required],
-      name: ['', [Validators.required, Validators.minLength(2)]],
+      name: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       description: [''],
-      preference: this.fb.array([]),
-      image: [null, Validators.required]
+      preference: [[]],
+      imageUrl: [null,Validators.required],
     });
 
-    this.registrationService.getAllPreferences().subscribe((preferences: Preference[]) => {
-      this.preferences = preferences;
-    })
-
-    // Conditional validation for description
     this.registrationForm.get('userType')?.valueChanges.subscribe(value => {
+      const descriptionControl = this.registrationForm.get('description');
+      const preferenceControl = this.registrationForm.get('preference');
+
       if (value === 'Company' || value === 'Startup') {
-        this.registrationForm.get('description')?.setValidators([Validators.required, Validators.minLength(10)]);
+        this.registrationService.getAllPreferences().subscribe((preferences: Preference[]) => {
+          this.preferences = preferences;
+        });
+
+        descriptionControl?.setValidators([Validators.required, Validators.minLength(10)]);
+        preferenceControl?.setValidators([Validators.required]);
       } else {
-        this.registrationForm.get('description')?.clearValidators();
+        descriptionControl?.clearValidators();
+        preferenceControl?.clearValidators();
       }
-      this.registrationForm.get('description')?.updateValueAndValidity();
+
+      descriptionControl?.updateValueAndValidity();
+      preferenceControl?.updateValueAndValidity();
     });
   }
 
+  changeImage(fileInput: HTMLInputElement): void {
+    if (!fileInput.files || fileInput.files.length === 0) {
+      this.registrationForm.get('imageUrl')?.setValue(null);
+      this.imageUrl = null;
+      return;
+    }
+
+    const file = fileInput.files[0];
+    this.registrationForm.get('imageUrl')?.setValue(file);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      this.imageUrl = reader.result as string;
+    };
+  }
 
   onSubmit(): void {
-    console.log('En el submit');
     if (this.registrationForm.invalid) return;
-    console.log('Paso la validacion del submit')
 
     this.isSubmitting = true;
-    console.log('Form submitted:', this.registrationForm.value);
+    const formData = new FormData();
+    formData.append('name', this.registrationForm.get('name')?.value);
+    formData.append('userType', this.registrationForm.get('userType')?.value);
+    formData.append('email', this.registrationForm.get('email')?.value);
+    formData.append('password', this.registrationForm.get('password')?.value);
+    formData.append('description', this.registrationForm.get('description')?.value);
 
-    // Simulating a submission (replace with an HTTP request)
-    setTimeout(() => {
-      this.isSubmitting = false;
-      alert('Registration successful');
-      this.registrationForm.reset();
-    }, 2000);
+    const preferences = this.registrationForm.get('preference')?.value || [];
+    preferences.forEach((pref: any) => formData.append('preference', pref));
+
+    if (this.registrationForm.get('imageUrl')?.value) {
+      formData.append('imageUrl', this.registrationForm.get('imageUrl')?.value);
+    }
+
+    this.registrationService.addUser(formData).subscribe(
+      () => {
+        this.isSubmitting = false;
+        alert('Registration successful');
+        this.registrationForm.reset();
+        this.imageUrl = null;
+
+        this.router.navigate(['/auth/login']).then(() => {});
+      },
+      (error) => {
+        this.isSubmitting = false;
+        console.error('Error details:', error.error);
+        alert(`Error: ${error.error?.message || 'Unknown error'}`);
+      }
+    );
   }
 }
