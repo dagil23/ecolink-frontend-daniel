@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       description: [''],
-      website: ['', [Validators.pattern('https?://.+')]],
+      preference: this.fb.array([]),
       image: [null, Validators.required]
     });
 
@@ -45,7 +45,9 @@ export class RegisterComponent implements OnInit {
 
 
   onSubmit(): void {
+    console.log('En el submit');
     if (this.registrationForm.invalid) return;
+    console.log('Paso la validacion del submit')
 
     this.isSubmitting = true;
     console.log('Form submitted:', this.registrationForm.value);

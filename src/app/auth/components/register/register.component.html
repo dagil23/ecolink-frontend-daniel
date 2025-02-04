@@ -65,17 +65,7 @@
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="website">Website (optional)</label>
-              <input id="website" type="url" formControlName="website" class="form-control" placeholder="https://www.yoursite.com">
-              <div *ngIf="registrationForm.get('website')?.invalid && (registrationForm.get('website')?.dirty || registrationForm.get('website')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('website')?.errors?.['pattern']" class="text-danger">Please enter a valid URL.</div>
-              </div>
-            </div>
-
-            <button type="submit" [disabled]="isSubmitting" class="btn btn-primary w-100">
-              {{ isSubmitting ? 'Registering...' : 'Register' }}
-            </button>
+            <button type="submit" [disabled]="isSubmitting" class="btn btn-primary text-light w-100">Register</button>
           </form>
         </div>
       </div>
