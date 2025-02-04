@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {LoginService} from '../../services/LoginService.service';
+import { LoginRequest } from '../../models/loginRequest';
 
 @Component({
   selector: 'app-login',
@@ -22,14 +23,17 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.invalid) return;
-
+    const loginRequest: LoginRequest = {
+      username: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    }
     this.isSubmitting = true;
-    console.log('Login form submitted:', this.loginForm.value);
-
-    this.loginService.login(this.loginForm.value).subscribe(
+    this.loginService.login(loginRequest).subscribe(
       response => {
         this.isSubmitting = false;
         alert('Login successful');
+        console.log(response);
+        
       },
       error => {
         this.isSubmitting = false;
