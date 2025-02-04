@@ -75,33 +75,47 @@ export class RegisterComponent implements OnInit {
 
     this.isSubmitting = true;
     const formData = new FormData();
-    formData.append('name', this.registrationForm.get('name')?.value);
-    formData.append('userType', this.registrationForm.get('userType')?.value);
-    formData.append('email', this.registrationForm.get('email')?.value);
-    formData.append('password', this.registrationForm.get('password')?.value);
-    formData.append('description', this.registrationForm.get('description')?.value);
 
-    const preferences = this.registrationForm.get('preference')?.value || [];
-    preferences.forEach((pref: any) => formData.append('preference', pref));
+    const userType = this.registrationForm.get('userType')?.value;
 
-    if (this.registrationForm.get('imageUrl')?.value) {
-      formData.append('imageUrl', this.registrationForm.get('imageUrl')?.value);
+
+    const userData: any = {
+      type: userType.toLowerCase(),
+      name: this.registrationForm.get('name')?.value,
+      userType: userType.toUpperCase(),
+      email: this.registrationForm.get('email')?.value,
+      password: this.registrationForm.get('password')?.value,
+    };
+
+
+    if (userType === 'Company' || userType === 'Startup') {
+      userData.description = this.registrationForm.get('description')?.value;
+      userData.preference = this.registrationForm.get('preference')?.value || [];
     }
 
-    this.registrationService.addUser(formData).subscribe(
-      () => {
-        this.isSubmitting = false;
-        alert('Registration successful');
+
+    formData.append('user', JSON.stringify(userData));
+
+
+    if (this.registrationForm.get('imageUrl')?.value) {
+      formData.append('image', this.registrationForm.get('imageUrl')?.value);
+    }
+
+    this.registrationService.addUser(formData).subscribe({
+      next: () => {
+        alert('Successfully registered!');
         this.registrationForm.reset();
         this.imageUrl = null;
-
-        this.router.navigate(['/auth/login']).then(() => {});
-      },
-      (error) => {
         this.isSubmitting = false;
-        console.error('Error details:', error.error);
-        alert(`Error: ${error.error?.message || 'Unknown error'}`);
+        this.router.navigate(['/auth/login']);
+      },
+      error: (error) => {
+        console.error('Error en el registro:', error);
+        alert('Registration failed!');
+        this.isSubmitting = false;
       }
-    );
+    });
   }
+
+
 }
