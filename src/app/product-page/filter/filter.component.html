@@ -6,7 +6,7 @@
       <span id="minPrice" class="pe-2">{{ minPrice | currency }} - </span>
       <div class="input-group w-75">
         <span class="input-group-text">$</span>
-        <input type="number" class="form-control" [(ngModel)]="priceValue" (ngModelChange)="validatePrice($event)" min="0" max="1000">
+        <input type="number" class="form-control" [(ngModel)]="priceValue" (blur)="validatePrice($event)" min="0" max="1000">
       </div>
   </div>
 </div>

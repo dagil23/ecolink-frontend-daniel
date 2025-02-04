@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'productpage-filter',
   templateUrl: './filter.component.html',
-  styleUrl: './filter.component.scss'
+  styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent {
   minPrice: number = 0;
@@ -11,7 +11,9 @@ export class FilterComponent {
 
   constructor(){}
 
-  validatePrice(value: number): void {
+  validatePrice(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const value = Number(inputElement.value);
     if (value > 1000) {
       this.priceValue = 1000;
     } else if (value < 0) {
