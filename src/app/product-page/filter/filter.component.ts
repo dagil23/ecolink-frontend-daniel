@@ -8,27 +8,22 @@ import { Product } from '../../home/models/Product';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent {
-  @Output() public filteredProducts = new EventEmitter<{ search: string, categoryId: number | null, price: number }>();
+  @Output() public filteredProducts = new EventEmitter<{ search: string, price: number }>();
 
-  products: Product[] = [];
   search: string = '';
-  categoryId: number | null = null;
-  minPrice: number = 0;
   priceValue: number = 100;
 
   constructor(private productService: ProductService) { }
 
-
   applyFilters(event: Event) {
-    this.filteredProducts.emit({ search: this.search, categoryId: this.categoryId, price: this.priceValue });
+    this.filteredProducts.emit({ search: this.search, price: this.priceValue });
   }
 
   clearFilters(event: Event) {
     event.preventDefault();
     this.search = '';
-    this.categoryId = null;
     this.priceValue = 100;
-    this.filteredProducts.emit({ search: this.search, categoryId: this.categoryId, price: this.priceValue });
+    this.filteredProducts.emit({ search: this.search, price: this.priceValue });
   }
 
   validatePrice(event: Event): void {
