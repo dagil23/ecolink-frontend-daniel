@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Mission } from '../../models/Mission';
 import { MissionService } from '../../../services/MissionService.service';
 import { AuthService } from '../../../auth/services/AuthService.service';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'home-missions',
@@ -17,10 +18,9 @@ export class MissionsComponent implements OnInit {
     this.missionService.getMission().subscribe((missions: Mission[]) => {
       this.missions = missions;
     });
-    this.authService.getCurrentUser().subscribe((user) => {
-      console.log(user);
-      this.isClient = user.usertype === 'client';
-    })
+    this.authService.getCurrentUser().subscribe((user: User) => {
+      this.isClient = user.userType === 'CLIENT';
+    });
   }
   completeMission(mission: Mission): void {
     mission.completed = true;

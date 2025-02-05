@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { Challenge } from '../../models/Challenge';
 import { ChallengeService } from '../../../services/ChallengeService.service';
+import { AuthService } from '../../../auth/services/AuthService.service';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'home-challenges',
@@ -11,14 +13,19 @@ import { ChallengeService } from '../../../services/ChallengeService.service';
 export class ChallengesComponent implements OnInit, OnDestroy {
   private timerSubscription!: Subscription;
   challenges: Challenge[] = [];
+  isClient: boolean = false;
 
-  constructor(private challengeService: ChallengeService) { }
+  constructor(private challengeService: ChallengeService, private authService: AuthService) { }
 
   ngOnInit() {
     this.challengeService.getRelevantChallenges().subscribe((challenges: Challenge[]) => {
       this.challenges = challenges;
       this.calculateTimeLeft();
       this.startTimer();
+    });
+
+    this.authService.getCurrentUser().subscribe((user: User) => {
+      this.isClient = user.userType === 'CLIENT';
     });
   }
 

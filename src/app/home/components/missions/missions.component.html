@@ -1,4 +1,4 @@
-<section id="missions" class="py-5 bg-greenbackground">
+<section id="missions" class="mt-5 bg-greenbackground" *ngIf="isClient">
   <div class="container">
     <h2 class="text-center text-greendark fw-bold mb-3">Ecologic Missions</h2>
     <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -11,8 +11,8 @@
             </div>
             <p class="card-text text-text mb-2">{{ mission.description }}</p>
             <p class="card-text text-secondary">Type: {{ mission.type === 'DAILY' ? 'Daily' : 'Weekly' }}</p>
-            <button 
-              class="btn text-greendark btn-success px-4 py-2 mt-3" 
+            <button
+              class="btn text-greendark btn-success px-4 py-2 mt-3"
               (click)="completeMission(mission)"
               [disabled]="mission.completed">
               {{ mission.completed ? 'Completed' : 'Complete Mission' }}

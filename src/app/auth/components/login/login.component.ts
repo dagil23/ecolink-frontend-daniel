@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {LoginService} from '../../services/LoginService.service';
 import { LoginRequest } from '../../models/loginRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,14 @@ import { LoginRequest } from '../../models/loginRequest';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  // Alert message
+  hasError: boolean = false;
+  message: string = '';
+  // Form
   loginForm!: FormGroup;
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) {}
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -31,13 +36,25 @@ export class LoginComponent implements OnInit {
     this.loginService.login(loginRequest).subscribe(
       response => {
         this.isSubmitting = false;
-        alert('Login successful');
-        console.log(response);
-        
+
+        this.message = 'Login successful';
+        this.hasError = false;
+
+        setTimeout(() => {
+          this.message = '';
+          this.router.navigate(['/']);
+        }, 3000);
       },
       error => {
         this.isSubmitting = false;
-        alert('Login failed');
+
+        this.message = 'Incorrect username or password';
+        this.hasError = true;
+
+        setTimeout(() => {
+          this.message = '';
+          this.hasError = false;
+        }, 3000);
       }
     );
   }

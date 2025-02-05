@@ -21,7 +21,6 @@ export class ChallengeComponent implements OnInit {
 
   getChallenges(): void {
     this.challengeService.getChallenges(this.currentPage, 9).subscribe((data: Pagination<Challenge>) => {
-      console.log(data)
       this.challenges = data.content;
       this.totalPages = data.totalPages;
     }, () => {

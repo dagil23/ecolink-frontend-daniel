@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { RegisterComponent } from './components/register/register.component';
 import {LoginComponent} from './components/login/login.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 
 
@@ -11,10 +12,10 @@ const routes: Routes = [
     path: '', component: AuthComponent
   },
   {
-    path: 'register', component: RegisterComponent,
+    path: 'register', component: RegisterComponent, canActivate: [AuthGuard]
   },
   {
-    path: 'login', component: LoginComponent
+    path: 'login', component: LoginComponent, canActivate: [AuthGuard]
   }
 ];
 

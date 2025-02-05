@@ -10,7 +10,9 @@ import { Pagination } from '../home/models/Pagination';
 })
 export class ChallengeService {
   private baseUrl: string = environment.apiUrl + '/challenge';
+
   constructor(private http: HttpClient) { }
+  
   getChallenges(page: number, size: number): Observable<Pagination<Challenge>> {
     return this.http.get<Pagination<Challenge>>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
