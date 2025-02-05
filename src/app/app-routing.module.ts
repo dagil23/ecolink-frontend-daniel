@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
   },
   {
+    path: 'challenges',
+    loadChildren: () => import('./challenges/challenges.module').then(m => m.ChallengesModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

@@ -1,7 +1,12 @@
+import { Ods } from "./Ods";
+
 export interface Challenge {
-    companyName: string;
-    description: string;
-    budget: number;
-    endDate: Date;
-    timeLeft: number;
-  }
+  id: number;
+  companyName: string;
+  title: string;
+  description: string;
+  budget: number;
+  endDate: Date;
+  odsList: Ods[];
+  timeLeft: number;
+}

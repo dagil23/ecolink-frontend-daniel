@@ -8,9 +8,9 @@ import { Challenge } from '../home/models/Challenge';
   providedIn: 'root'
 })
 export class ChallengeService {
-  private baseUrl: string = environment.apiUrl + '/challenges';
+  private baseUrl: string = environment.apiUrl + '/challenge';
   constructor(private http: HttpClient) { }
-  getChallenge(): Observable<Challenge[]> {
+  getChallenges(): Observable<Challenge[]> {
     return this.http.get<Challenge[]>(this.baseUrl);
   }
 }
