@@ -11,7 +11,7 @@ export class MissionService {
   private baseUrl: string = environment.apiUrl + '/missions';
   constructor(private http: HttpClient) { }
   getMission(): Observable<Mission[]> {
-    return this.http.get<Mission[]>(this.baseUrl);
+    return this.http.get<Mission[]>(this.baseUrl, { withCredentials: true });
   }
   // updateMission(mission: Mission): Observable<Mission> {
   //   return this.http.put<Mission>(`${environment.apiUrl}/${mission.id}`, mission);
