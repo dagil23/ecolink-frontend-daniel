@@ -21,6 +21,6 @@ export class ProductService {
   }
 
   getFilteredProducts(search: string, maxPrice: number, page: number, size: number): Observable<Pagination<Product>> {
-    return this.http.get<Pagination<Product>>(`${this.baseUrl}?search=${search}&maxPrice=${maxPrice}&page=${page}&size=${size}`);
+    return this.http.get<Pagination<Product>>(`${this.baseUrl}?search=${search}&pricemax=${maxPrice}&page=${page}&size=${size}`);
   }
 }

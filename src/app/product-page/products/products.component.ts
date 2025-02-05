@@ -58,6 +58,7 @@ export class ProductsComponent implements OnInit {
   applySavedFilters() {
     this.productService.getFilteredProducts(this.search, this.maxPrice, this.currentPage, 8).subscribe((data: Pagination<Product>) => {
       this.filteredProducts(data);
+      console.log(data);
     }, () => {
       this.products = [];
       this.message = 'No products found with the given filters';
