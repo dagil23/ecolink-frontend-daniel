@@ -8,7 +8,7 @@ import { Mission } from '../home/models/Mission';
   providedIn: 'root'
 })
 export class MissionService {
-  private baseUrl: string = environment.apiUrl + '/missions';
+  private baseUrl: string = environment.apiUrl + '/mission';
   constructor(private http: HttpClient) { }
   getMission(): Observable<Mission[]> {
     return this.http.get<Mission[]>(this.baseUrl);
