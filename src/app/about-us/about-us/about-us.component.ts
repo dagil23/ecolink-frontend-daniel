@@ -11,6 +11,7 @@ export class AboutUsComponent {
 
   constructor() { }
 
+  // npm install leaflet @types/leaflet
   // ngAfterViewInit(): void {
   //   this.initMap();
   // }
