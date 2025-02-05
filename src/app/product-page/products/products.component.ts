@@ -13,7 +13,7 @@ export class ProductsComponent implements OnInit {
   currentPage = 0;
   totalPages = 0;
   // Filters
-  search: string = '';
+  name: string = '';
   maxPrice: number = 100;
   isFiltered: boolean = false;
   // Alert message
@@ -47,8 +47,8 @@ export class ProductsComponent implements OnInit {
     this.totalPages = data.totalPages;
   }
 
-  saveFilters(filters: {search:string, price: number}) {
-    this.search = filters.search;
+  saveFilters(filters: {name:string, price: number}) {
+    this.name = filters.name;
     this.maxPrice = filters.price;
     this.isFiltered = true;
     this.currentPage = 0;
@@ -56,7 +56,7 @@ export class ProductsComponent implements OnInit {
   }
 
   applySavedFilters() {
-    this.productService.getFilteredProducts(this.search, this.maxPrice, this.currentPage, 8).subscribe((data: Pagination<Product>) => {
+    this.productService.getFilteredProducts(this.name, this.maxPrice, this.currentPage, 8).subscribe((data: Pagination<Product>) => {
       this.filteredProducts(data);
       console.log(data);
     }, () => {

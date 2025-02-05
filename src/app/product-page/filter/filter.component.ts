@@ -8,22 +8,22 @@ import { Product } from '../../home/models/Product';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent {
-  @Output() public filteredProducts = new EventEmitter<{ search: string, price: number }>();
+  @Output() public filteredProducts = new EventEmitter<{ name: string, price: number }>();
 
-  search: string = '';
-  priceValue: number = 100;
+  name: string = '';
+  priceValue: number = 1000;
 
   constructor(private productService: ProductService) { }
 
   applyFilters(event: Event) {
-    this.filteredProducts.emit({ search: this.search, price: this.priceValue });
+    this.filteredProducts.emit({ name: this.name, price: this.priceValue });
   }
 
   clearFilters(event: Event) {
     event.preventDefault();
-    this.search = '';
-    this.priceValue = 100;
-    this.filteredProducts.emit({ search: this.search, price: this.priceValue });
+    this.name = '';
+    this.priceValue = 1000;
+    this.filteredProducts.emit({ name: this.name, price: this.priceValue });
   }
 
   validatePrice(event: Event): void {
@@ -36,5 +36,6 @@ export class FilterComponent {
     } else {
       this.priceValue = value;
     }
+    this.applyFilters(event);
   }
 }
