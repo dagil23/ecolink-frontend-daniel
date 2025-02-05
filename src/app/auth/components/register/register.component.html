@@ -45,17 +45,8 @@
               </div>
             </div>
 
-
-            <div *ngIf="registrationForm.get('userType')?.value === 'Company' || registrationForm.get('userType')?.value === 'Startup'" class="form-group">
-              <label for="description">Description</label>
-              <textarea id="description" formControlName="description" class="form-control" placeholder="Briefly describe your company or project..." rows="4"></textarea>
-              <div *ngIf="registrationForm.get('description')?.invalid && (registrationForm.get('description')?.dirty || registrationForm.get('description')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('description')?.errors?.['required']" class="text-danger">Description is required for companies and startups.</div>
-                <div *ngIf="registrationForm.get('description')?.errors?.['minlength']" class="text-danger">Description must be at least 10 characters long.</div>
-              </div>
-            </div>
-
-            <div *ngIf="registrationForm.get('userType')?.value === 'Company' || registrationForm.get('userType')?.value === 'Startup'" class="form-group">
+            <!-- Show preferences selector only if user type is client or startup -->
+            <div *ngIf="registrationForm.get('userType')?.value === 'client' || registrationForm.get('userType')?.value === 'startup'" class="form-group">
               <label for="preference">Preferences</label>
               <select id="preference" formControlName="preference" class="form-control" multiple>
                 <option *ngFor="let preference of preferences" [value]="preference.id">{{preference.name}}</option>

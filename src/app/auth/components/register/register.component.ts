@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Preference } from '../../models/Preference';
 import { RegistrationService } from '../../services/RegisterService.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   registrationForm!: FormGroup;
-  userTypes: string[] = ['Client', 'Company', 'Startup'];
+  userTypes: string[] = ['client', 'startup', 'company'];
   preferences: Preference[] = [];
   imageUrl: string | null = null;
   isSubmitting = false;
@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private registrationService: RegistrationService,
-    private router: Router,) {}
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -27,29 +28,22 @@ export class RegisterComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      description: [''],
       preference: [[]],
-      imageUrl: [null,Validators.required],
+      imageUrl: [null, Validators.required]
     });
 
+    // Show preferences selector only for "client" and "startup"
     this.registrationForm.get('userType')?.valueChanges.subscribe(value => {
-      const descriptionControl = this.registrationForm.get('description');
-      const preferenceControl = this.registrationForm.get('preference');
-
-      if (value === 'Company' || value === 'Startup') {
+      if (value === 'client' || value === 'startup') {
         this.registrationService.getAllPreferences().subscribe((preferences: Preference[]) => {
           this.preferences = preferences;
         });
-
-        descriptionControl?.setValidators([Validators.required, Validators.minLength(10)]);
-        preferenceControl?.setValidators([Validators.required]);
+        this.registrationForm.get('preference')?.setValidators([Validators.required]);
       } else {
-        descriptionControl?.clearValidators();
-        preferenceControl?.clearValidators();
+        this.registrationForm.get('preference')?.clearValidators();
+        this.registrationForm.get('preference')?.setValue([]);
       }
-
-      descriptionControl?.updateValueAndValidity();
-      preferenceControl?.updateValueAndValidity();
+      this.registrationForm.get('preference')?.updateValueAndValidity();
     });
   }
 
@@ -59,10 +53,8 @@ export class RegisterComponent implements OnInit {
       this.imageUrl = null;
       return;
     }
-
     const file = fileInput.files[0];
     this.registrationForm.get('imageUrl')?.setValue(file);
-
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -71,51 +63,49 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registrationForm.invalid) return;
-
+    if (this.registrationForm.invalid) {
+      return;
+    }
     this.isSubmitting = true;
-    const formData = new FormData();
-
-    const userType = this.registrationForm.get('userType')?.value;
-
-
-    const userData: any = {
-      type: userType.toLowerCase(),
+    const userType: string = this.registrationForm.get('userType')?.value;
+    // Build the user object
+    let user: any = {
+      type: userType,
       name: this.registrationForm.get('name')?.value,
-      userType: userType.toUpperCase(),
       email: this.registrationForm.get('email')?.value,
       password: this.registrationForm.get('password')?.value,
+      imageUrl: ''
     };
 
-
-    if (userType === 'Company' || userType === 'Startup') {
-      userData.description = this.registrationForm.get('description')?.value;
-      userData.preference = this.registrationForm.get('preference')?.value || [];
+    // For "client", send "preferences" as an array of IDs
+    // For "startup", send "odsList" as an array of IDs
+    if (userType === 'client') {
+      user.preferences = this.registrationForm.get('preference')?.value.map((id: any) => +id);
+    } else if (userType === 'startup') {
+      user.odsList = this.registrationForm.get('preference')?.value.map((id: any) => +id);
     }
 
-
-    formData.append('user', JSON.stringify(userData));
-
-
+    const formData = new FormData();
+    // Append the user object as a JSON string with key "user"
+    formData.append('user', JSON.stringify(user));
+    // Append the image file with key "image"
     if (this.registrationForm.get('imageUrl')?.value) {
       formData.append('image', this.registrationForm.get('imageUrl')?.value);
     }
 
     this.registrationService.addUser(formData).subscribe({
       next: () => {
-        alert('Successfully registered!');
+        alert('Registration successful!');
         this.registrationForm.reset();
         this.imageUrl = null;
         this.isSubmitting = false;
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/auth/login']).then(() => {});
       },
       error: (error) => {
-        console.error('Error en el registro:', error);
+        console.error('Registration error:', error);
         alert('Registration failed!');
         this.isSubmitting = false;
       }
     });
   }
-
-
 }
