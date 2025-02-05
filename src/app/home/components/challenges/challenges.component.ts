@@ -14,6 +14,7 @@ export class ChallengesComponent implements OnInit, OnDestroy {
   private timerSubscription!: Subscription;
   challenges: Challenge[] = [];
   isClient: boolean = false;
+  isStartup: boolean = false;
 
   constructor(private challengeService: ChallengeService, private authService: AuthService) { }
 
@@ -26,6 +27,7 @@ export class ChallengesComponent implements OnInit, OnDestroy {
 
     this.authService.getCurrentUser().subscribe((user: User) => {
       this.isClient = user.userType === 'CLIENT';
+      this.isStartup = user.userType === 'STARTUP';
     });
   }
 

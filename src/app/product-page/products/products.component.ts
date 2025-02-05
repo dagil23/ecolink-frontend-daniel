@@ -44,6 +44,7 @@ export class ProductsComponent implements OnInit {
 
   filteredProducts(data: Pagination<Product>) {
     this.products = data.content;
+    console.log(this.products);
     this.totalPages = data.totalPages;
   }
 
