@@ -9,4 +9,5 @@ export interface Challenge {
   endDate: Date;
   odsList: Ods[];
   timeLeft: number;
+  numberOfParticipans: number;
 }

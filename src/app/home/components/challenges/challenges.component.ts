@@ -15,7 +15,7 @@ export class ChallengesComponent implements OnInit, OnDestroy {
   constructor(private challengeService: ChallengeService) { }
 
   ngOnInit() {
-    this.challengeService.getChallenges().subscribe((challenges: Challenge[]) => {
+    this.challengeService.getRelevantChallenges().subscribe((challenges: Challenge[]) => {
       this.challenges = challenges;
       this.calculateTimeLeft();
       this.startTimer();

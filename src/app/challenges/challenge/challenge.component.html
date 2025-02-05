@@ -21,7 +21,7 @@
           <div class="d-flex justify-content-between">
             <div>
               <i class="bi bi-people text-grey me-1"></i>
-              <span class="text-grey">12 participants</span>
+              <span class="text-grey">{{ challenge.numberOfParticipans }} participants</span>
             </div>
             <div class="bg-primary px-2 py-1 rounded-5">
               <p class="text-add1 m-0" style="font-size: .7rem;">{{ challenge.odsList[0].name }}</p>
@@ -32,5 +32,15 @@
       </div>
     </div>
   </div>
+
+  <nav class="mt-4">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 0"><a class="page-link" (click)="changePage(currentPage - 1)">Previous</a></li>
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i === currentPage">
+        <a class="page-link" (click)="changePage(i)">{{i + 1}}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage + 1 === totalPages"><a class="page-link" (click)="changePage(currentPage + 1)">Next</a></li>
+    </ul>
+  </nav>
 </div>
 <shared-footer></shared-footer>
