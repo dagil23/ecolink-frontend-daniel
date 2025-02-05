@@ -67,11 +67,10 @@
             </div>
 
             <div class="mb-3">
-              <label for="profileImage" class="form-label">Profile Image</label>
-              <input type="file" class="form-control" name="profileImage" id="profileImage" #fileImage (change)="changeImage(fileImage)" required>
-
-              <div *ngIf="registrationForm.get('profileImage')?.invalid && (registrationForm.get('profileImage')?.dirty || registrationForm.get('profileImage')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('profileImage')?.errors?.['required']" class="text-danger">Profile image is required.</div>
+              <label for="imageUrl" class="form-label">Profile Image</label>
+              <input type="file" class="form-control" name="imageUrl" id="imageUrl" #fileImage (change)="changeImage(fileImage)">
+              <div *ngIf="registrationForm.get('imageUrl')?.invalid && (registrationForm.get('imageUrl')?.dirty || registrationForm.get('imageUrl')?.touched)" class="error-message">
+                <div *ngIf="registrationForm.get('imageUrl')?.errors?.['required']" class="text-danger">Profile image is required.</div>
               </div>
             </div>
 

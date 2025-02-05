@@ -9,7 +9,7 @@ import {Preference} from '../models/Preference';
   providedIn: "root",
 })
 export class RegistrationService {
-  private registerUrl = `${environment.apiUrl}/user/register`;
+  private registerUrl = `${environment.apiUrl}/auth/register`;
   private preferencesUrl = `${environment.apiUrl}/ods`;
   constructor(private http: HttpClient) {}
 
