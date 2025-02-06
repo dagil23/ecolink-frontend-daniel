@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.contorno {
+  text-shadow: 1px 0 0 #313131, -1px 0 0 #313131, 0 1px 0 #313131, 0 -1px 0 #313131; /* Desplaza arriba */
+}
+
 .checkbox-container input {
   position: absolute;
   opacity: 0;

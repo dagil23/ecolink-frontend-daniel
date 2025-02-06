@@ -22,3 +22,10 @@ $colors: (
  $pagination-hover-bg: #388E3C;
  $pagination-hover-color: #FFF;
 
+ .contorno {
+  text-shadow:
+  1px 0 0 map-get($colors, text),    /* Desplaza a la derecha */
+  -1px 0 0 map-get($colors, text),   /* Desplaza a la izquierda */
+  0 1px 0 map-get($colors, text),    /* Desplaza abajo */
+  0 -1px 0 map-get($colors, text);   /* Desplaza arriba */
+}
