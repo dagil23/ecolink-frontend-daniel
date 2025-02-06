@@ -1,13 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChallengeComponent } from './challenge/challenge.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { ChallengesListComponent } from './challenges-list/challenges-list.component';
+import { ChallengeDetailComponent } from './challenge-detail/challenge-detail.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ChallengeComponent,
+    component: ChallengesListComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: ':id',
+    component: ChallengeDetailComponent
   },
   {
     path: '**',

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
-import { Challenge } from '../../../core/models/Challenge';
+import { Challenge } from '../../../core/models/Challenges';
 import { AuthService } from '../../../auth/services/AuthService.service';
 import { User } from '../../../core/models/User';
 import { ChallengeService } from '../../../core/services/ChallengeService.service';

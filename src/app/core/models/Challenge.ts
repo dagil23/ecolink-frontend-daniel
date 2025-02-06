@@ -1,13 +1,16 @@
+import { CompanyChallenge } from "./CompanyChallenge";
 import { Ods } from "./Ods";
 
 export interface Challenge {
   id: number;
-  companyName: string;
   title: string;
   description: string;
   budget: number;
+  startDate?: Date;
   endDate: Date;
-  odsList: Ods[];
-  timeLeft: number;
+  company?: CompanyChallenge;
+  requirements?: string[];
+  benefits?: string[];
   numberOfParticipans: number;
+  odsList: Ods[];
 }

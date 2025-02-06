@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Challenge } from '../../core/models/Challenge';
-import { Pagination } from '../../core/models/Pagination';
 import { ChallengeService } from '../../core/services/ChallengeService.service';
+import { Challenge } from '../../core/models/Challenges';
+import { Pagination } from '../../core/models/Pagination';
 
 @Component({
-  selector: 'app-challenge',
-  templateUrl: './challenge.component.html',
-  styleUrl: './challenge.component.scss'
+  selector: 'app-challenges-list',
+  templateUrl: './challenges-list.component.html',
+  styleUrl: './challenges-list.component.scss'
 })
-export class ChallengeComponent implements OnInit {
+export class ChallengesListComponent implements OnInit {
   challenges: Challenge[] = [];
   currentPage = 0;
   totalPages = 0;

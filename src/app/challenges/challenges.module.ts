@@ -3,15 +3,18 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
 import { ChallengesRoutingModule } from './challenges-routing.module';
-import { ChallengeComponent } from './challenge/challenge.component';
 import { SharedModule } from "../shared/shared.module";
+import { ChallengesListComponent } from './challenges-list/challenges-list.component';
+import { ChallengeDetailComponent } from './challenge-detail/challenge-detail.component';
 
 
 registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
-    ChallengeComponent
+    ChallengesListComponent,
+    ChallengesListComponent,
+    ChallengeDetailComponent
   ],
   imports: [
     CommonModule,

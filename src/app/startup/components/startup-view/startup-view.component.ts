@@ -26,10 +26,6 @@ export class StartupViewComponent implements OnInit {
     this.getStartups();
   }
 
-  findStartupById(id: number): void {
-    this.router.navigate(['/startups', id]);
-  }
-
   getStartups(): void {
     this.startupService.getStartups(this.currentPage, 8).subscribe((data: Pagination<Startup>) => {
       this.startups = data.content;

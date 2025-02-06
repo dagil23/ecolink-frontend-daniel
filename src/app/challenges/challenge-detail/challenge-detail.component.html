@@ -1,0 +1,42 @@
+<shared-header></shared-header>
+<div class="container my-5">
+  <div class="d-flex justify-content-between">
+    <h1>{{challenge?.title}}</h1>
+    <img src="assets/images/cafe.jpg" alt="" width="100" height="100">
+  </div>
+  <div>
+    <h3>Description of the challenge</h3>
+    <p>{{challenge?.description}}</p>
+  </div>
+  <div class="row row-cols-1 row-cols-md-2">
+    <div>
+      <h3>Challenge details</h3>
+      <div>
+        <i class="bi bi-cash me-1" style="color: green;"></i>
+        <span>Budget: {{challenge?.budget}} €</span>
+      </div>
+      <div>
+        <i class="bi bi-calendar me-1" style="color: blue;"></i>
+        <span>Start: {{challenge?.startDate | date: 'dd/MM/yyyy'}}</span>
+      </div>
+      <div>
+        <i class="bi bi-calendar me-1" style="color: red;"></i>
+        <span>End: {{challenge?.endDate| date: 'dd/MM/yyyy'}}</span>
+      </div>
+      <div>
+        <i class="bi bi-people me-1" style="color: blueviolet;"></i>
+        <span>{{challenge?.numberOfParticipans}} participants</span>
+      </div>
+    </div>
+    <div>
+      <h3>ODS Categories</h3>
+      <div class="d-flex flex-wrap gap-1">
+        <p *ngFor="let ods of challenge?.odsList" class="bg-primary text-add1 px-3 py-1 rounded-5 m-0">{{ods.name}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-2">
+
+  </div>
+</div>
+<shared-footer></shared-footer>
