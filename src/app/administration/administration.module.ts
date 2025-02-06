@@ -6,6 +6,8 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { ProductCrudComponent } from './components/product-crud/product-crud.component';
 import { ChallenguesCrudComponent } from './components/challengues-crud/challengues-crud.component';
 import { StartupVerificationComponent } from './components/startup-verification/startup-verification.component';
+import { ChallengeCrudComponent } from './components/challenge-crud/challenge-crud.component';
+import { MissionCrudComponent } from './components/mission-crud/mission-crud.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { StartupVerificationComponent } from './components/startup-verification/
     AdminDashboardComponent,
     ProductCrudComponent,
     ChallenguesCrudComponent,
-    StartupVerificationComponent
+    StartupVerificationComponent,
+    ChallengeCrudComponent,
+    MissionCrudComponent
   ],
   imports: [
     CommonModule,

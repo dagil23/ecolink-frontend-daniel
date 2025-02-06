@@ -7,8 +7,12 @@
 
     <!-- Perfil + Menú Hamburguesa en móviles -->
     <div class="d-flex d-lg-none align-items-center ms-auto">
-      <!-- Icono de perfil en móviles -->
-      <a href="/profile" class="text-light fs-2">
+      <!-- Si el usuario está logueado se muestra la miniatura de la imagen de perfil -->
+      <a *ngIf="isLogged" href="/profile" class="text-light fs-2">
+        <img [src]="imageUrl" alt="Profile" class="rounded-circle" style="width:40px; height:40px;">
+      </a>
+      <!-- Si no está logueado, se muestra el ícono genérico que redirige a login -->
+      <a *ngIf="!isLogged" href="/auth/login" class="text-light fs-2">
         <i class="bi bi-person-circle"></i>
       </a>
 
@@ -38,17 +42,22 @@
           <li class="nav-item mx-1">
             <a class="nav-link fs-5 text-light" href="/about-us">About Us</a>
           </li>
+          <!-- Aquí podrías agregar otros elementos del menú si fuese necesario -->
         </ul>
       </div>
     </div>
 
     <!-- Botones + Perfil en escritorio -->
     <div class="d-none d-lg-flex align-items-center me-3">
-      <a href="auth/login" class="btn btn-outline-light me-2" *ngIf="!isLogged">Log In</a>
-      <a href="/auth/register" class="btn btn-light me-3" *ngIf="!isLogged">Register</a>
-      <a href="/profile" class="text-light fs-2">
-        <i class="bi bi-person-circle"></i>
+      <!-- Si el usuario NO está logueado, se muestran los botones Log In y Register -->
+      <a *ngIf="!isLogged" href="/auth/login" class="btn btn-outline-light me-2">Log In</a>
+      <a *ngIf="!isLogged" href="/auth/register" class="btn btn-light me-3">Register</a>
+
+      <!-- Si el usuario está logueado, se muestra la miniatura de la imagen de perfil -->
+      <a *ngIf="isLogged" href="/profile" class="text-light">
+        <img [src]="imageUrl" alt="Profile" class="rounded-circle" style="width:40px; height:40px;">
       </a>
     </div>
   </div>
 </nav>
+

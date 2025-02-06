@@ -15,6 +15,11 @@ export class AuthService {
     return this.http.get(this.baseUrl + '/auth/user/me', { withCredentials: true });
   }
 
+  getImage(name_image: string): Observable<string> {
+    return of(`${this.baseUrl}/image/${name_image}`);
+  }
+
+
   isAuthenticated(): Observable<any> {
     return this.http.get(this.baseUrl + '/auth/user/me', { withCredentials: true }).pipe(
       map(() => true),
