@@ -1,42 +1,76 @@
 <shared-header></shared-header>
-<div class="container my-5">
-  <div class="d-flex justify-content-between">
-    <h1>{{challenge?.title}}</h1>
-    <img src="assets/images/cafe.jpg" alt="" width="100" height="100">
+
+<div class="d-flex justify-content-between bg-greendark p-3 p-md-5">
+  <div class="d-flex flex-column justify-content-between">
+    <h1 class="text-add1">{{challenge?.title}}</h1>
+    <p class="text-white m-0 fs-5 fw-semibold">By {{challenge?.company?.name}}</p>
+  </div>
+  <img src="assets/images/cafe.jpg" style="border-radius: 100%;" alt="" width="100" height="100">
+</div>
+
+<div class="bg-add1 border-bottom border-1 p-4">
+    <h3 class="fs-4">Description of the challenge</h3>
+    <p class="m-0">{{challenge?.description}}</p>
+</div>
+
+<div class="d-flex flex-wrap p-4 bg-add1 gap-4">
+  <div class="flex-grow-1 bg-success-subtle p-3 rounded-3">
+    <h3 class="text-greendark mb-3 fs-4">Requirements</h3>
+    <div *ngFor="let requirement of challenge?.requirements" class="d-flex">
+      <i class="bi bi-check2 text-greendark me-1"></i>
+      <p>{{requirement}}</p>
+    </div>
+  </div>
+  <div class="flex-grow-1 bg-info-subtle p-3 rounded-3 flex-grow-1">
+    <h3 class="text-info-emphasis mb-3 fs-4">Benefits</h3>
+    <div *ngFor="let benefit of challenge?.benefits" class="d-flex">
+      <i class="bi bi-check2 text-info-emphasis me-1"></i>
+      <p>{{benefit}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 pb-4 px-4" style="background-color: #f9fafb;">
+  <div class="mb-4 m-md-0">
+    <h3 class="fs-4 mb-3">Challenge details</h3>
+    <div class="d-flex shadow-bottom rounded-3 mb-3 p-2">
+      <i class="bi bi-cash text-dollar me-1"></i>
+      <span>Budget: {{challenge?.budget}} €</span>
+    </div>
+    <div class="d-flex shadow-bottom rounded-3 mb-3 p-2">
+      <i class="bi bi-calendar4-week text-calendar-start me-1"></i>
+      <span>Start: {{challenge?.startDate | date: 'dd/MM/yyyy'}}</span>
+    </div>
+    <div class="d-flex shadow-bottom rounded-3 mb-3 p-2">
+      <i class="bi bi-calendar4-week text-calendar-end me-1"></i>
+      <span>End: {{challenge?.endDate| date: 'dd/MM/yyyy'}}</span>
+    </div>
+    <div class="d-flex shadow-bottom rounded-3 p-2">
+      <i class="bi bi-people me-1 text-participants"></i>
+      <span>{{challenge?.numberOfParticipans}} participants</span>
+    </div>
   </div>
   <div>
-    <h3>Description of the challenge</h3>
-    <p>{{challenge?.description}}</p>
-  </div>
-  <div class="row row-cols-1 row-cols-md-2">
     <div>
-      <h3>Challenge details</h3>
-      <div>
-        <i class="bi bi-cash me-1" style="color: green;"></i>
-        <span>Budget: {{challenge?.budget}} €</span>
-      </div>
-      <div>
-        <i class="bi bi-calendar me-1" style="color: blue;"></i>
-        <span>Start: {{challenge?.startDate | date: 'dd/MM/yyyy'}}</span>
-      </div>
-      <div>
-        <i class="bi bi-calendar me-1" style="color: red;"></i>
-        <span>End: {{challenge?.endDate| date: 'dd/MM/yyyy'}}</span>
-      </div>
-      <div>
-        <i class="bi bi-people me-1" style="color: blueviolet;"></i>
-        <span>{{challenge?.numberOfParticipans}} participants</span>
-      </div>
-    </div>
-    <div>
-      <h3>ODS Categories</h3>
+      <h3 class="fs-4 mb-3">ODS Categories</h3>
       <div class="d-flex flex-wrap gap-1">
-        <p *ngFor="let ods of challenge?.odsList" class="bg-primary text-add1 px-3 py-1 rounded-5 m-0">{{ods.name}}</p>
+        <p *ngFor="let ods of challenge?.odsList" class="bg-primary text-add1 px-3 py-1 rounded-5 m-0">{{ods.name}}
+        </p>
       </div>
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-md-2">
-
+</div>
+<div class="px-4 pb-5 bg-add1">
+  <h3 class="fs-4 mb-3">Contact</h3>
+  <div class="shadow-bottom p-2 rounded-3">
+    <div>
+      <i class="bi bi-people text-grey me-1"></i>
+      <span>{{challenge?.company?.name}}</span>
+    </div>
+    <div>
+      <i class="bi bi-envelope text-grey me-1"></i>
+      <a href="mailto:{{challenge?.company?.email}}" class="text-decoration-none">{{challenge?.company?.email}}</a>
+    </div>
   </div>
 </div>
 <shared-footer></shared-footer>

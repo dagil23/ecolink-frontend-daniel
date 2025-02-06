@@ -16,8 +16,6 @@ export class ProductsComponent implements OnInit {
   name: string = '';
   maxPrice: number = 100;
   isFiltered: boolean = false;
-  // Alert message
-  message: string = '';
 
   constructor(private productService: ProductService) { }
 
@@ -62,7 +60,6 @@ export class ProductsComponent implements OnInit {
       console.log(data);
     }, () => {
       this.products = [];
-      this.message = 'No products found with the given filters';
     });
   }
 }

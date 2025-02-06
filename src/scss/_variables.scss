@@ -11,6 +11,14 @@ $colors: (
 
 );
 
+$icon-colors: (
+  dollar: #22c55e,
+  calendar-start: #3b82f6,
+  calendar-end: #ef4444,
+  participants: #a855f7
+);
+
+
  $progress-bar-bg: map-get($colors, primary);
 
 

@@ -27,20 +27,19 @@
             "outputPath": "dist/ecolink",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/assets/images",
-              "src/assets"
-            ],
+            "assets": ["src/assets/images", "src/assets"],
             "styles": [
               "src/dist/styles.css",
+              "src/scss/styles.scss",
               "node_modules/aos/dist/aos.css",
               "https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/scss"]
+            },
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/aos/dist/aos.js"
@@ -88,23 +87,12 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/assets/images",
-              "src/assets"
-            ],
-            "styles": [
-              "src/dist/styles.css",
-              "node_modules/aos/dist/aos.css"
-            ],
-            "scripts": [
-              "node_modules/aos/dist/aos.js"
-            ]
+            "assets": ["src/assets/images", "src/assets"],
+            "styles": ["src/dist/styles.css", "node_modules/aos/dist/aos.css"],
+            "scripts": ["node_modules/aos/dist/aos.js"]
           }
         }
       }
