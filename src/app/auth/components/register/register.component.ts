@@ -29,7 +29,8 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       preference: [[]],
-      imageUrl: [null, Validators.required]
+      imageUrl: [null, Validators.required],
+      description: ['']
     });
 
     // Adjust validators based on selected user type
@@ -87,6 +88,9 @@ export class RegisterComponent implements OnInit {
       imageUrl: ''
     };
 
+    if (userType === 'company' || userType === 'startup') {
+      user.description = this.registrationForm.get('description')?.value;
+    }
 
     if (userType === 'client') {
       user.preferences = this.registrationForm.get('preference')?.value.map((id: any) => ({ id: +id }));
