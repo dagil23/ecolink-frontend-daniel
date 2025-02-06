@@ -1,49 +1,51 @@
-<h2 class="text-greendark fw-bold mt-5 text-center mb-3">Ecologic Challenges</h2>
-<div id="carouselExample" class="carousel slide">
-  <div class="carousel-inner">
-    <div *ngFor="let challenge of challenges; let i = index">
-      <div class="carousel-item" [ngClass]="{'active': i === 0}">
-        <section id="challenges" class="bg-greenbackground">
-          <div class="container text-center">
-            <div class="card mx-auto" style="max-width: 600px">
-              <div class="card-body">
-                <h3 class="card-title text-success">Company: {{challenge.companyName}}</h3>
-                <p class="card-text text-secondary">
-                  Challenge: {{challenge.description}}
-                </p>
-                <p class="card-text text-secondary">
-                  Budget: {{challenge.budget}} €
-                </p>
-                <div class="bg-success bg-opacity-10 p-3 rounded mb-4">
-                  <p class="text-success fw-bold mb-1">Time left:</p>
-                  <p class="display-4 fw-bold text-success">
-                    {{ formatTime(challenge.timeLeft) }}
+<div class="mb-3 mt-5" *ngIf="!isClient">
+  <h2 class="text-greendark fw-bold text-center ">Ecologic Challenges</h2>
+  <div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div *ngFor="let challenge of challenges; let i = index">
+        <div class="carousel-item" [ngClass]="{'active': i === 0}">
+          <section id="challenges" class="bg-greenbackground">
+            <div class="container text-center">
+              <div class="card mx-auto" style="max-width: 600px">
+                <div class="card-body">
+                  <h3 class="card-title text-success">Company: {{challenge.companyName}}</h3>
+                  <p class="card-text text-secondary">
+                    Challenge: {{challenge.description}}
                   </p>
+                  <p class="card-text text-secondary">
+                    Budget: {{challenge.budget}} €
+                  </p>
+                  <div class="bg-success bg-opacity-10 p-3 rounded mb-4">
+                    <p class="text-success fw-bold mb-1">Time left:</p>
+                    <p class="display-4 fw-bold text-success">
+                      {{ formatTime(challenge.timeLeft) }}
+                    </p>
+                  </div>
+                  <a class="btn btn-success w-100">{{isStartup ? 'Join Challenge' : 'See details'}}</a>
                 </div>
-                <button class="btn btn-success w-100">Join Challenge</button>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExample"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon bg-success" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExample"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon bg-success" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <button
-    class="carousel-control-prev"
-    type="button"
-    data-bs-target="#carouselExample"
-    data-bs-slide="prev"
-  >
-    <span class="carousel-control-prev-icon bg-success" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button
-    class="carousel-control-next"
-    type="button"
-    data-bs-target="#carouselExample"
-    data-bs-slide="next"
-  >
-    <span class="carousel-control-next-icon bg-success" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>

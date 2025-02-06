@@ -32,8 +32,18 @@ export class RegisterComponent implements OnInit {
       imageUrl: [null, Validators.required]
     });
 
-    // Show preferences selector only for "client" and "startup"
+    // Adjust validators based on selected user type
     this.registrationForm.get('userType')?.valueChanges.subscribe(value => {
+      // If type is company or startup, description is required with minlength 10
+      if (value === 'company' || value === 'startup') {
+        this.registrationForm.get('description')?.setValidators([Validators.required, Validators.minLength(10)]);
+      } else {
+        this.registrationForm.get('description')?.clearValidators();
+        this.registrationForm.get('description')?.setValue('');
+      }
+      this.registrationForm.get('description')?.updateValueAndValidity();
+
+      // Show preferences selector only for client or startup
       if (value === 'client' || value === 'startup') {
         this.registrationService.getAllPreferences().subscribe((preferences: Preference[]) => {
           this.preferences = preferences;
@@ -77,13 +87,13 @@ export class RegisterComponent implements OnInit {
       imageUrl: ''
     };
 
-    // For "client", send "preferences" as an array of IDs
-    // For "startup", send "odsList" as an array of IDs
+
     if (userType === 'client') {
-      user.preferences = this.registrationForm.get('preference')?.value.map((id: any) => +id);
+      user.preferences = this.registrationForm.get('preference')?.value.map((id: any) => ({ id: +id }));
     } else if (userType === 'startup') {
-      user.odsList = this.registrationForm.get('preference')?.value.map((id: any) => +id);
+      user.odsList = this.registrationForm.get('preference')?.value.map((id: any) => ({ id: +id }));
     }
+
 
     const formData = new FormData();
     // Append the user object as a JSON string with key "user"
@@ -95,7 +105,6 @@ export class RegisterComponent implements OnInit {
 
     this.registrationService.addUser(formData).subscribe({
       next: () => {
-        alert('Registration successful!');
         this.registrationForm.reset();
         this.imageUrl = null;
         this.isSubmitting = false;

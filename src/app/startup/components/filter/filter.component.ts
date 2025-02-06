@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { OdsService } from '../../../services/ods-service.service';
-import { Ods } from '../../../home/models/Ods';
-import { StartupService } from '../../../services/StartupService.service';
+import { Ods } from '../../../core/models/Ods';
+import { OdsService } from '../../../core/services/ods-service.service';
+import { StartupService } from '../../../core/services/StartupService.service';
 
 @Component({
   selector: 'startup-filter',

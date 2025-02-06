@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/ProductService.service';
-import { Product } from '../../home/models/Product';
-import { Pagination } from '../../home/models/Pagination';
+import { Product } from '../../core/models/Product';
+import { Pagination } from '../../core/models/Pagination';
+import { ProductService } from '../../core/services/ProductService.service';
 
 @Component({
   selector: 'app-products',
@@ -44,6 +44,7 @@ export class ProductsComponent implements OnInit {
 
   filteredProducts(data: Pagination<Product>) {
     this.products = data.content;
+    console.log(this.products);
     this.totalPages = data.totalPages;
   }
 

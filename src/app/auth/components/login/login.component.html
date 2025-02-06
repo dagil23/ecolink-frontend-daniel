@@ -26,6 +26,9 @@
             </div>
 
             <button type="submit" [disabled]="isSubmitting" class="btn btn-primary text-light w-100">Login</button>
+            <div class="alert mt-2" [ngClass]="hasError ? 'alert-danger' : 'alert-success'" *ngIf="message !== ''">
+              <p class="m-0 text-center">{{message}}</p>
+            </div>
           </form>
           <div class="text-center mt-3">
             <p class="mb-0">Don't have an account?</p>

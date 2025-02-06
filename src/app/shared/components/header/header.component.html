@@ -32,17 +32,11 @@
           <li class="nav-item mx-1">
             <a class="nav-link fs-5 text-light" href="/products">Products</a>
           </li>
-          <li class="nav-item mx-1">
+          <li class="nav-item mx-1" *ngIf="!isClient">
             <a class="nav-link fs-5 text-light" href="/challenges">Challenges</a>
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link fs-5 text-light" href="#">Projects</a>
-          </li>
-          <li class="nav-item mx-1">
             <a class="nav-link fs-5 text-light" href="/about-us">About Us</a>
-          </li>
-          <li class="nav-item mx-1">
-            <a class="nav-link fs-5 text-light" href="#">Contact</a>
           </li>
         </ul>
       </div>
@@ -50,8 +44,8 @@
 
     <!-- Botones + Perfil en escritorio -->
     <div class="d-none d-lg-flex align-items-center me-3">
-      <a href="auth/login" class="btn btn-outline-light me-2">Log In</a>
-      <a href="/auth/register" class="btn btn-light me-3">Register</a>
+      <a href="auth/login" class="btn btn-outline-light me-2" *ngIf="!isLogged">Log In</a>
+      <a href="/auth/register" class="btn btn-light me-3" *ngIf="!isLogged">Register</a>
       <a href="/profile" class="text-light fs-2">
         <i class="bi bi-person-circle"></i>
       </a>
