@@ -1,16 +1,11 @@
-@mixin box-shadow($color, $x: 0px, $y: 0px, $blur: 0px, $spread: 0px) {
-  box-shadow: $x $y $blur $spread $color;
-}
-
+@mixin box-shadow($color, $blur, $spread) {
+    box-shadow: 0px $blur $spread $color;
+  }
 
   //Use:
-// .card {
-//   @include box-shadow(rgba(0, 0, 0, 0.1), 5px, 5px); // Usa 0px por defecto en blur y spread
-// }
-// .card {
-//   @include box-shadow(rgba(0, 0, 0, 0.1), 0px, 0px, 10px, 5px);
-// }
-
+//   .card {
+//     @include box-shadow(rgba(0, 0, 0, 0.1), 10px, 5px);
+//   }
 
 
   
