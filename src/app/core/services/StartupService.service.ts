@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
-import { Startup } from '../home/models/Startup';
-import { Pagination } from '../home/models/Pagination';
+import { environment } from '../../environments/environment';
+import { Startup } from '../models/Startup';
+import { Pagination } from '../models/Pagination';
 
 @Injectable({
   providedIn: 'root'

@@ -15,8 +15,9 @@ export class AuthGuard implements CanActivate {
       switchMap(isLogged => {
         const rutaActual = state.url;
 
-        if (!isLogged && (rutaActual === '/auth/login' || rutaActual === '/auth/register')) {
-          return of(true);
+        if (isLogged && (rutaActual === '/auth/login' || rutaActual === '/auth/register')) {
+          this.router.navigate(['/']);
+          return of(false);
         }
 
         if (!isLogged && rutaActual === '/profile') {
@@ -39,8 +40,7 @@ export class AuthGuard implements CanActivate {
           )
         }
 
-        this.router.navigate(['/']);
-        return of(false);
+        return of(true);
       })
     );
   };
