@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Mission } from '../../models/Mission';
-import { MissionService } from '../../../services/MissionService.service';
+import { Mission } from '../../../core/models/Mission';
 import { AuthService } from '../../../auth/services/AuthService.service';
-import { User } from '../../models/User';
+import { User } from '../../../core/models/User';
+import { MissionService } from '../../../core/services/MissionService.service';
 
 @Component({
   selector: 'home-missions',

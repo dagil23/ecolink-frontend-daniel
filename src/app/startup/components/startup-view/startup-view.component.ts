@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { StartupService } from '../../../services/StartupService.service';
-import { Startup } from '../../../home/models/Startup';
+import { Startup } from '../../../core/models/Startup';
 import { Router } from '@angular/router';
-import { Pagination } from '../../../home/models/Pagination';
+import { Pagination } from '../../../core/models/Pagination';
+import { StartupService } from '../../../core/services/StartupService.service';
 
 @Component({
   selector: 'app-startup-view',

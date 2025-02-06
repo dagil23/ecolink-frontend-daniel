@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { StartupService } from '../../../services/StartupService.service';
-import { Startup } from '../../../home/models/Startup';
+import { Startup } from '../../../core/models/Startup';
+import { StartupService } from '../../../core/services/StartupService.service';
 
 @Component({
   selector: 'app-startup-detail',

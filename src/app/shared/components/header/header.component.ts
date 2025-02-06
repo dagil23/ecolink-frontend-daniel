@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth/services/AuthService.service';
-import { User } from '../../../home/models/User';
+import { User } from '../../../core/models/User';
 
 @Component({
   selector: 'shared-header',

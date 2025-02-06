@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../../models/Post';
-import { PostService } from '../../../services/PostService.service';
+import { Post } from '../../../core/models/Post';
 import { AuthService } from '../../../auth/services/AuthService.service';
+import { PostService } from '../../../core/services/PostService.service';
 
 @Component({
   selector: 'home-posts',
@@ -14,7 +14,7 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getCurrentUser();
-    
+
     this.postService.getRecentPosts().subscribe(posts => {
       this.posts = posts;
     });

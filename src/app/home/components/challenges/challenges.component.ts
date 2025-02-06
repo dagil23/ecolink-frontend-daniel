@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
-import { Challenge } from '../../models/Challenge';
-import { ChallengeService } from '../../../services/ChallengeService.service';
+import { Challenge } from '../../../core/models/Challenge';
 import { AuthService } from '../../../auth/services/AuthService.service';
-import { User } from '../../models/User';
+import { User } from '../../../core/models/User';
+import { ChallengeService } from '../../../core/services/ChallengeService.service';
 
 @Component({
   selector: 'home-challenges',

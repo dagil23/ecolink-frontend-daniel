@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ChallengeService } from '../../services/ChallengeService.service';
-import { Challenge } from '../../home/models/Challenge';
-import { Pagination } from '../../home/models/Pagination';
+import { Challenge } from '../../core/models/Challenge';
+import { Pagination } from '../../core/models/Pagination';
+import { ChallengeService } from '../../core/services/ChallengeService.service';
 
 @Component({
   selector: 'app-challenge',

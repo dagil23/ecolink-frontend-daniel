@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { ProductService } from '../../services/ProductService.service';
-import { Product } from '../../home/models/Product';
+import { Product } from '../../core/models/Product';
+import { ProductService } from '../../core/services/ProductService.service';
 
 @Component({
   selector: 'productpage-filter',
