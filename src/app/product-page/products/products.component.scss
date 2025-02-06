@@ -2,6 +2,6 @@
 
 .card {
   width: 18rem;
-  @include box-shadow(rgba(0, 0, 0, 0.1), 5px, 10px);
+  @include box-shadow(rgba(0, 0, 0, 0.1), 5px, 15px);
   border: none;
 }
