@@ -1,10 +1,14 @@
-@mixin box-shadow($color, $blur, $spread) {
-    box-shadow: 0px $blur $spread $color;
-  }
+@import 'variables';
 
-  //Use:
+@mixin box-shadow($name: null, $blur, $spread) {
+    $color: if($name == null, rgba(0, 0, 0, 0.1), map-get($icon-colors, $name));
+    box-shadow: 0px $blur $spread $color;
+}
+
+//Use:
 //   .card {
-//     @include box-shadow(rgba(0, 0, 0, 0.1), 10px, 5px);
+//     @include box-shadow(null, 10px, 5px); // Usará rgba(0, 0, 0, 0.1)
+//     @include box-shadow(dollar, 10px, 5px); // Usará el color definido en $icon-colors
 //   }
 
 
