@@ -1,7 +1,6 @@
-@import '../../../scss/mixins';
+@import 'mixins';
 
 .card {
   @include box-shadow(rgba(0, 0, 0, 0.1), 5px, 10px);
   width: 25rem;
-  border: none;
 }
