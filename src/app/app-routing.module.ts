@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/components/home/home.component';
+import { ExploreStartupsModule } from './explore-startups/explore-startups.module';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'startups',
-    loadChildren: () => import('./startup/startup.module').then(m => m.StartupModule)
+    loadChildren: () => import('./explore-startups/explore-startups.module').then(m => ExploreStartupsModule)
   },
   {
     path: 'about-us',
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'challenges',
     loadChildren: () => import('./challenges/challenges.module').then(m => m.ChallengesModule)
+  },
+  {
+    path: 'posts',
+    loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule)
   },
   {
     path: '**',

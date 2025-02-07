@@ -1,0 +1,21 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { PostsRoutingModule } from './posts-routing.module';
+import { PostDetailComponent } from './post-detail/post-detail.component';
+import { PostsListComponent } from './posts-list/posts-list.component';
+import { SharedModule } from "../shared/shared.module";
+
+
+@NgModule({
+  declarations: [
+    PostDetailComponent,
+    PostsListComponent
+  ],
+  imports: [
+    CommonModule,
+    PostsRoutingModule,
+    SharedModule
+]
+})
+export class PostsModule { }

@@ -1,6 +1,6 @@
 import { Ods } from "./Ods";
 
-export interface Post {
+export interface RecentPost {
   id: number;
   startupName: string;
   title: string;
