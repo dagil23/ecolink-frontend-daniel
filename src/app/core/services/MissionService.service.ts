@@ -14,6 +14,6 @@ export class MissionService {
     return this.http.get<Mission[]>(this.baseUrl, { withCredentials: true });
   }
    updateMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.apiUrl}/${mission.id}`, mission,{ withCredentials: true });
+    return this.http.put<Mission>(`${environment.apiUrl}/mission/${mission.id}`, { withCredentials: true });
   }
 }

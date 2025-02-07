@@ -3,7 +3,7 @@
   <productpage-filter (filteredProducts)="saveFilters($event)"></productpage-filter>
   <h1>Organic products</h1>
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 gap-4 d-flex justify-content-center">
-    <div class="card" *ngFor="let product of products">
+    <div class="card shadow-big-default" *ngFor="let product of products">
       <img src="assets/images/cafe.jpg" [alt]="product.name">
       <p class="fw-bold mt-2 m-0">{{product.name}}</p>
       <p class="fw-light m-0">{{product.price}} €</p>
