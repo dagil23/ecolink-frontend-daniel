@@ -5,59 +5,65 @@
       <img src="assets/logo.png" alt="Ecolink Logo" width="70" height="70" class="d-inline-block align-text-top">
     </a>
 
-    <!-- Perfil + Menú Hamburguesa en móviles -->
+    <!-- Vista móvil: imagen de perfil o login + menú hamburguesa si no está logueado -->
     <div class="d-flex d-lg-none align-items-center ms-auto">
-      <!-- Si el usuario está logueado se muestra la miniatura de la imagen de perfil -->
-      <a *ngIf="isLogged" href="/profile" class="text-light fs-2">
+      <a *ngIf="isLogged" href="#" class="text-light fs-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
         <img [src]="imageUrl" alt="Profile" class="rounded-circle" style="width:40px; height:40px;">
       </a>
-      <!-- Si no está logueado, se muestra el ícono genérico que redirige a login -->
-      <a *ngIf="!isLogged" href="/auth/login" class="text-light fs-2">
+      <a *ngIf="!isLogged" href="/auth/login" class="text-light fs-2 me-2">
         <i class="bi bi-person-circle"></i>
       </a>
-
-      <!-- Botón de menú hamburguesa -->
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-        <span class="navbar-toggler-icon text-light"></span>
+      <button *ngIf="!isLogged" class="navbar-toggler text-light border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
       </button>
     </div>
 
     <!-- Menú en offcanvas para móviles -->
     <div class="offcanvas offcanvas-end bg-primary text-white" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+          {{ isLogged ? username : 'Menu' }}
+        </h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav w-100 d-lg-flex justify-content-center text-center">
-          <li class="nav-item mx-1">
-            <a class="nav-link fs-5 text-light" href="/startups">Startups</a>
+          <li class="nav-item mx-1 d-lg-none" *ngIf="isLogged">
+            <a class="nav-link fs-5 text-light" href="/profile">
+              <i class="bi bi-person-circle me-2"></i> Your profile
+            </a>
+          </li>
+          <li class="nav-item mx-1 ">
+            <a class="nav-link fs-5 text-light" href="/startups">
+              <i class="bi bi-building me-2 d-lg-none"></i> Startups
+            </a>
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link fs-5 text-light" href="/products">Products</a>
+            <a class="nav-link fs-5 text-light" href="/products">
+              <i class="bi bi-box me-2 d-lg-none"></i> Products
+            </a>
           </li>
           <li class="nav-item mx-1" *ngIf="!isClient">
-            <a class="nav-link fs-5 text-light" href="/challenges">Challenges</a>
+            <a class="nav-link fs-5 text-light" href="/challenges">
+              <i class="bi bi-trophy me-2 d-lg-none"></i> Challenges
+            </a>
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link fs-5 text-light" href="/about-us">About Us</a>
+            <a class="nav-link fs-5 text-light" href="/about-us">
+              <i class="bi bi-info-circle me-2 d-lg-none"></i> About Us
+            </a>
           </li>
-          <!-- Aquí podrías agregar otros elementos del menú si fuese necesario -->
         </ul>
       </div>
     </div>
 
-    <!-- Botones + Perfil en escritorio -->
+    <!-- Vista escritorio -->
     <div class="d-none d-lg-flex align-items-center me-3">
-      <!-- Si el usuario NO está logueado, se muestran los botones Log In y Register -->
       <a *ngIf="!isLogged" href="/auth/login" class="btn btn-outline-light me-2">Log In</a>
       <a *ngIf="!isLogged" href="/auth/register" class="btn btn-light me-3">Register</a>
-
-      <!-- Si el usuario está logueado, se muestra la miniatura de la imagen de perfil -->
       <a *ngIf="isLogged" href="/profile" class="text-light">
         <img [src]="imageUrl" alt="Profile" class="rounded-circle" style="width:40px; height:40px;">
       </a>
     </div>
   </div>
 </nav>
-

@@ -4,25 +4,21 @@
   font-size: 1rem;
   font-weight: normal;
   color: #333;
-  transition: color 0.3s ease-in-out, font-size 0.3s ease-in-out, transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out; // Eliminamos la transición en text-shadow
   display: inline-block;
 }
 
 .nav-link:hover {
   color: map-get($colors, secondary);
-  font-size: 1.25rem;
   font-weight: bold;
-  transform: translateY(-5px);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1); // Aumenta el tamaño sin modificar el font-size directamente
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); // La sombra de texto siempre está activa
 }
 
-button.navbar-toggler:focus {
-  box-shadow: none;
-
+li.nav-item {
+  min-height: 40px; // Mantiene la altura constante para evitar cambios bruscos
 }
 
-
-button.btn-close:focus {
+button.navbar-toggler:focus, button.btn-close:focus {
   box-shadow: none;
-
 }
