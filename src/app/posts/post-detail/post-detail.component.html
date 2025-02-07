@@ -1,16 +1,76 @@
 <shared-header></shared-header>
 <div class="container my-5">
-  <div class="d-flex align-items-center justify-content-between">
-    <div class="d-flex">
-      <img src="assets/images/cafe.jpg" [alt]="post.title" width="75px" style="border-radius: 100%;" class="me-4">
+  <div class="d-flex flex-wrap align-items-center justify-content-between p-2">
+    <div class="d-flex align-items-center gap-3">
+      <img src="assets/images/cafe.jpg" [alt]="post.title" width="60" height="60" class="rounded-circle">
       <div>
-        <p class="m-0">Published by</p>
-        <h3 class="fs-4">{{post.startupName}}</h3>
+        <p class="m-0 text-muted small">Published by</p>
+        <h3 class="fs-5 fw-bold m-0">{{post.startupName}}</h3>
       </div>
     </div>
-    <div class="d-flex">
-      <i class="bi bi-calendar-event text-primary me-2"></i>
-      <p class="text-primary" style="font-size: .7rem;">{{post.postDate | date: 'MMMM d, yyyy'}}</p>
+    <div class="d-flex align-items-center gap-2 text-primary">
+      <i class="bi bi-calendar-event"></i>
+      <p class="m-0 small">{{post.postDate | date: 'MMMM d, yyyy'}}</p>
+    </div>
+  </div>
+  <h1>{{post.title}}</h1>
+  <div class="d-flex flex-wrap gap-1">
+    <p class="m-0 rounded-pill bg-primary text-light px-2 py-1" style="font-size: .8rem;"
+      *ngFor="let ods of post.odsList">
+      {{ods.name}}</p>
+  </div>
+  <hr>
+  <div class="row mt-5">
+    <div class="col-12 col-lg-8">
+      <div class="text-center">
+        <img src="assets/images/tree.jpg" alt="Árbol" class="img-fluid rounded-3 shadow-lg mb-4 w-75">
+      </div>
+
+      <p class="text-muted fs-5">{{post.description}}</p>
+      <p class="text-muted">{{post.description}}</p>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="#" class="btn btn-outline-success px-4 py-2">
+          <i class="bi bi-tree-fill me-2"></i>
+          <span class="fw-bold">{{post.likesCount}} Likes</span>
+        </a>
+        <div class="d-flex">
+          <i class="bi bi-chat-right me-2 text-greendark"></i>
+          <p class="m-0 text-greendark">32 comments</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <related-posts></related-posts>
+    </div>
+  </div>
+
+  <div>
+    <div class="mt-5">
+      <h3 class="text-success">Comentarios (2)</h3>
+      <hr>
+
+      <div class="card p-3 mb-3 border-0 shadow-sm bg-light"> <!-- Comentario 1 -->
+        <div class="d-flex align-items-center">
+          <img src="assets/images/cafe.jpg" alt="Usuario" class="rounded-circle me-3 border" width="50" height="50">
+          <div>
+            <h5 class="mb-1 text-success">Eco Usuario1</h5>
+            <p class="mb-0">Excelente artículo. Me gustaría ver más ejemplos de cómo las pequeñas empresas pueden
+              implementar IA sostenible.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-3 mb-3 border-0 shadow-sm bg-light"> <!-- Comentario 2 -->
+        <div class="d-flex align-items-center">
+          <img src="assets/images/cafe.jpg" alt="Usuario" class="rounded-circle me-3 border" width="50" height="50">
+          <div>
+            <h5 class="mb-1 text-success">Eco Usuario2</h5>
+            <p class="mb-0">Gran contenido. Sería útil una sección con recursos para aprender más sobre prácticas
+              ecológicas en tecnología.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -8,7 +8,7 @@
   <div class="row row-cols-auto d-flex justify-content-center mt-5 mb-3 gap-4">
     <div class="card p-3" *ngFor="let startup of startups" [routerLink]="['/startups', startup.id]">
       <div class="d-flex align-items-center">
-        <img src="assets/images/startup.webp" width="60" height="60" [alt]="startup.name" class="me-2">
+        <img src="assets/images/startup.webp" width="60" height="60" [alt]="startup.name" class="me-2 rounded-circle">
         <h3>{{startup.name}}</h3>
       </div>
       <p class="text-grey mb-0">{{startup.odsList[0].name}}</p>
