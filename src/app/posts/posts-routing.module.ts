@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StartupViewComponent } from './components/startup-view/startup-view.component';
-import { StartupDetailComponent } from './components/startup-detail/startup-detail.component';
+import { PostsListComponent } from './posts-list/posts-list.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: StartupViewComponent
+    component: PostsListComponent
   },
   {
     path: ':id',
-    component: StartupDetailComponent
+    component: PostDetailComponent
   },
   {
     path: '**',
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class StartupRoutingModule { }
+export class PostsRoutingModule { }

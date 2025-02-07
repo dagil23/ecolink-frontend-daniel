@@ -15,7 +15,6 @@ export class ChallengeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.challengeId = this.route.snapshot.paramMap.get('id');
     this.challengeService.getChallenge(this.challengeId).subscribe((challenge: Challenge) => {
-      console.log(challenge)
       this.challenge = challenge;
     })
   }

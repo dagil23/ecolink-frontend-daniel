@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { StartupRoutingModule } from './startup-routing.module';
+import { ExploreStartupsRoutingModule } from './explore-startups-routing.module';
 import { FilterComponent } from './components/filter/filter.component';
-import { StartupViewComponent } from './components/startup-view/startup-view.component';
-import { SharedModule } from "../shared/shared.module";
 import { StartupDetailComponent } from './components/startup-detail/startup-detail.component';
+import { StartupViewComponent } from './components/startup-view/startup-view.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
     FilterComponent,
-    StartupViewComponent,
-    StartupDetailComponent
+    StartupDetailComponent,
+    StartupViewComponent
   ],
   imports: [
     CommonModule,
-    StartupRoutingModule,
-    SharedModule,
-    FormsModule
-]
+    ExploreStartupsRoutingModule,
+    FormsModule,
+    SharedModule
+  ]
 })
-export class StartupModule { }
+export class ExploreStartupsModule { }

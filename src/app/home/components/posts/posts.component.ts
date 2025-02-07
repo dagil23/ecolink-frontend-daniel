@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../../../core/models/Post';
 import { AuthService } from '../../../auth/services/AuthService.service';
 import { PostService } from '../../../core/services/PostService.service';
+import { RecentPost } from '../../../core/models/RecentPost';
 
 @Component({
   selector: 'home-posts',
@@ -9,7 +9,7 @@ import { PostService } from '../../../core/services/PostService.service';
   styleUrl: './posts.component.scss'
 })
 export class PostsComponent implements OnInit {
-  posts: Post[] = [];
+  posts: RecentPost[] = [];
   constructor(private postService: PostService, private authService: AuthService) { }
 
   ngOnInit(): void {

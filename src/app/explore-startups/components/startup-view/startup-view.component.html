@@ -1,7 +1,7 @@
 <shared-header></shared-header>
 <div class="container">
   <h1 class="fw-bold mt-5">Green Startups</h1>
-  <startup-filter (filteredStartups)="saveFilters($event)"></startup-filter>
+  <explore-startup-filter (filteredStartups)="saveFilters($event)"></explore-startup-filter>
   <div class="alert alert-warning text-center" *ngIf="startups.length === 0">
     <p class="m-0">{{message}}</p>
   </div>
