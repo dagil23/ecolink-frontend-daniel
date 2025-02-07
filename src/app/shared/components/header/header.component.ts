@@ -12,14 +12,17 @@ export class HeaderComponent implements OnInit {
   isClient: boolean = false;
   imageUrl: string | null = null;
   username: string | null = null;
+  userFullName: string | null = null;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe((user: User) => {
+      console.log(user);
       this.isLogged = !!user;
       if (user) {
         this.username = user.username;
+        this.userFullName = user.name;
         if (user.userType.toUpperCase() === 'CLIENT') {
           this.isClient = true;
         }
