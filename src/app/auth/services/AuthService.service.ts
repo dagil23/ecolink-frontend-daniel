@@ -26,4 +26,9 @@ export class AuthService {
       catchError(() => of(false))
     );
   }
+
+  logout(): Observable<any> {
+    return this.http.post(this.baseUrl + '/auth/logout', {}, { withCredentials: true });
+  }
+
 }

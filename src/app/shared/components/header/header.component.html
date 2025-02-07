@@ -5,11 +5,18 @@
       <img src="assets/logo.png" alt="Ecolink Logo" width="70" height="70" class="d-inline-block align-text-top">
     </a>
 
-    <!-- Vista móvil: imagen de perfil (si está logueado) + menú hamburguesa -->
+    <!-- Vista móvil: icono de usuario (si no está logueado) + menú hamburguesa -->
     <div class="d-flex d-lg-none align-items-center ms-auto">
+      <!-- Icono de usuario (si no está logueado) -->
+      <a *ngIf="!isLogged" href="/auth/login" class="text-light me-2">
+        <i class="bi bi-person-circle" style="font-size: 24px;"></i>
+      </a>
+
+      <!-- Imagen de perfil (si está logueado) -->
       <a *ngIf="isLogged" href="/profile" class="text-light me-2">
         <img [src]="imageUrl" alt="Profile" class="rounded-circle" style="width:40px; height:40px;">
       </a>
+      <!-- Menú hamburguesa -->
       <button class="navbar-toggler text-light border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -60,8 +67,8 @@
               <i class="bi bi-person-circle me-2"></i> Your profile
             </a>
           </li>
-          <li class="nav-item mx-1 bg-danger d-lg-none" *ngIf="isLogged">
-            <a class="nav-link fs-5 text-light" href="/auth/logout">
+          <li class="nav-item mx-1 bg-danger rounded-3 d-lg-none" *ngIf="isLogged">
+            <a class="nav-link fs-5 text-light" (click)="logout()" style="cursor: pointer;">
               <i class="bi bi-box-arrow-right me-2"></i> Log Out
             </a>
           </li>
@@ -74,7 +81,7 @@
       <a *ngIf="!isLogged" href="/auth/login" class="btn btn-outline-light me-2">Log In</a>
       <a *ngIf="!isLogged" href="/auth/register" class="btn btn-light me-3">Register</a>
       <div *ngIf="isLogged" class="d-flex align-items-center">
-        <a href="/auth/logout" class="btn btn-outline-light me-2">Log Out</a>
+        <a (click)="logout()" class="btn btn-outline-light me-2">Log Out</a>
         <a href="/profile" class="text-light">
           <img [src]="imageUrl" alt="Profile" class="rounded-circle" style="width:40px; height:40px;">
         </a>

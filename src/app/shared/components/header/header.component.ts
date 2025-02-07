@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth/services/AuthService.service';
 import { User } from '../../../core/models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'shared-header',
@@ -14,7 +15,10 @@ export class HeaderComponent implements OnInit {
   username: string | null = null;
   userFullName: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe((user: User) => {
@@ -33,6 +37,13 @@ export class HeaderComponent implements OnInit {
           this.imageUrl = imageUrl;
         });
       }
+    });
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe(() => {
+      this.isLogged = false;
+      this.router.navigate(['/']).then(() => {});
     });
   }
 }
