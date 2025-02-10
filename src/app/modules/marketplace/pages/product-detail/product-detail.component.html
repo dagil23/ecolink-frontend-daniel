@@ -1,1 +1,10 @@
-<p>product-detail works!</p>
+<div *ngIf="product">
+  <h1>{{ product.name }}</h1>  <img [src]="product.image" alt="{{ product.name }}" class="product-image">
+  <p>{{ product.description }}</p>
+  <p><strong>Price:</strong> {{ product.price | currency }}</p>
+<p><strong>Startup:</strong> {{ product.startupName }}</p>
+  <p><strong>Creation Date:</strong> {{ product.creationDate | date }}</p>
+</div>
+<div *ngIf="!product">
+  <p>Loading product details...</p>
+</div>

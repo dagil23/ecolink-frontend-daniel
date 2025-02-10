@@ -15,6 +15,12 @@ export class RegisterComponent implements OnInit {
   preferences: Preference[] = [];
   imageUrl: string | null = null;
   isSubmitting = false;
+  passwordStrengthText: string = '';
+  passwordStrengthPercent: number = 0;
+  passwordStrengthClass: string = 'bg-danger';
+  password: string = ''; // Track password value directly
+  passwordLengthError: boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -28,10 +34,11 @@ export class RegisterComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required]],
       preference: [[]],
       imageUrl: [null, Validators.required],
       description: ['']
-    });
+    }, { validators: this.passwordMatchValidator });  // Custom validator for matching passwords
 
     // Adjust validators based on selected user type
     this.registrationForm.get('userType')?.valueChanges.subscribe(value => {
@@ -58,6 +65,51 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  // Custom validator to check if passwords match
+  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password && confirmPassword && password !== confirmPassword
+      ? { 'passwordMismatch': true }
+      : null;
+  }
+
+  // Update password strength
+  onPasswordChange(): void {
+    this.password = this.registrationForm.get('password')?.value || '';
+    this.calculatePasswordStrength(this.password);
+  }
+
+
+  // Calculate password strength
+  calculatePasswordStrength(password: string): void {
+    let strength = 0;
+    const lengthCriteria = /.{8,}/;
+    const lowercaseCriteria = /[a-z]/;
+    const uppercaseCriteria = /[A-Z]/;
+    const numberCriteria = /\d/;
+    const specialCharCriteria = /[!@#$%^&*(),.?":{}|<>]/;
+
+    if (lengthCriteria.test(password)) strength++;
+    if (lowercaseCriteria.test(password)) strength++;
+    if (uppercaseCriteria.test(password)) strength++;
+    if (numberCriteria.test(password)) strength++;
+    if (specialCharCriteria.test(password)) strength++;
+
+    this.passwordStrengthPercent = (strength / 5) * 100;
+
+    if (strength <= 1) {
+      this.passwordStrengthClass = 'bg-danger';
+      this.passwordStrengthText = 'Weak';
+    } else if (strength === 2 || strength === 3) {
+      this.passwordStrengthClass = 'bg-warning';
+      this.passwordStrengthText = 'Moderate';
+    } else {
+      this.passwordStrengthClass = 'bg-success';
+      this.passwordStrengthText = 'Strong';
+    }
+  }
+
   changeImage(fileInput: HTMLInputElement): void {
     if (!fileInput.files || fileInput.files.length === 0) {
       this.registrationForm.get('imageUrl')?.setValue(null);
@@ -72,6 +124,7 @@ export class RegisterComponent implements OnInit {
       this.imageUrl = reader.result as string;
     };
   }
+
 
   onSubmit(): void {
     if (this.registrationForm.invalid) {
@@ -97,7 +150,6 @@ export class RegisterComponent implements OnInit {
     } else if (userType === 'startup') {
       user.odsList = this.registrationForm.get('preference')?.value.map((id: any) => ({ id: +id }));
     }
-
 
     const formData = new FormData();
     // Append the user object as a JSON string with key "user"
