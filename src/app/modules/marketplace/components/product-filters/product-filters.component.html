@@ -1,0 +1,17 @@
+<div class="p-4">
+  <h2>Filters</h2>
+  <div class="row">
+    <div class="col-12 col-md-6 mb-3 mb-md-0">
+      <label for="search" class="fw-semibold">Product name</label>
+      <input type="text" class="form-control" placeholder="Search by name" [(ngModel)]="filters.name" (ngModelChange)="applyFilters()"/>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <label for="price" class="fw-semibold">Max Price</label>
+      <input type="number" class="form-control" [(ngModel)]="filters.price" (ngModelChange)="applyFilters()" min="0" max="1000">
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <a class="btn btn-light border-grey" (click)="clearFilters()">Clear Filters</a>
+  </div>
+</div>

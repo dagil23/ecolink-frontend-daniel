@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/components/home/home.component';
-import { ExploreStartupsModule } from './explore-startups/explore-startups.module';
+import { HomeComponent } from './modules/home/pages/home/home.component';
 
 const routes: Routes = [
   {
@@ -9,22 +8,22 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    path: 'startups',
+    loadChildren: () => import('./modules/startups/startups.module').then(m => m.StartupsModule)
   },
   {
-    path: 'startups',
-    loadChildren: () => import('./explore-startups/explore-startups.module').then(m => ExploreStartupsModule)
+    path: 'products',
+    loadChildren: () => import('./modules/marketplace/marketplace.module').then(m => m.MarketplaceModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'about-us',
     loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule)
   },
-  {
-    path: 'products',
-    loadChildren: () => import('./product-page/product-page.module').then(m => m.ProductPageModule)
-  },
-  {
+    {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
   },

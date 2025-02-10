@@ -1,0 +1,20 @@
+<div class="p-4">
+  <h2>Filters</h2>
+  <div class="row">
+    <div class="col-12 col-md-6 mb-3 mb-md-0">
+      <label for="search" class="fw-semibold">Startup name</label>
+      <input type="text" class="form-control" placeholder="Search by name" [(ngModel)]="filters.search" (ngModelChange)="applyFilters()"/>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <label for="category" class="fw-semibold">Category</label>
+      <select id="category" class="form-select" [(ngModel)]="filters.odsId" (ngModelChange)="applyFilters()">
+        <option [value]="null" selected disabled>Select a category</option>
+        <option *ngFor="let ods of theOds" [value]="ods.id">
+          {{ ods.name }}
+        </option>
+      </select>
+    </div>
+    <div class="col-lg-10"></div>
+    <button class="col-12 col-lg-2 btn btn-light border-grey" (click)="clearFilters()">Clear filters</button>
+  </div>
+</div>

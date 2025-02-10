@@ -19,10 +19,5 @@ export class ChallengeService {
 
   getChallenge(id: string | null): Observable<Challenge> {
     return this.http.get<Challenge>(`${this.baseUrl}/${id}`);
-
-  }
-
-  getRelevantChallenges(): Observable<Challenge[]> {
-    return this.http.get<Challenge[]>(this.baseUrl + '/relevant');
   }
 }
