@@ -12,6 +12,6 @@ export class StartupService {
   constructor(private http: HttpClient) { }
 
   getRelevantStartups(): Observable<Startup[]> {
-    return this.http.get<Startup[]>(this.baseUrl + '/relevant');
+    return this.http.get<Startup[]>(this.baseUrl + '/home');
   }
 }

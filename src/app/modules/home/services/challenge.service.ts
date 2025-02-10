@@ -9,10 +9,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ChallengeService {
   private baseUrl: string = environment.apiUrl + '/challenge';
-  
+
   constructor(private http: HttpClient) { }
 
   getRelevantChallenges(): Observable<Challenge[]> {
-    return this.http.get<Challenge[]>(this.baseUrl + '/relevant');
+    return this.http.get<Challenge[]>(this.baseUrl + '/home');
   }
 }

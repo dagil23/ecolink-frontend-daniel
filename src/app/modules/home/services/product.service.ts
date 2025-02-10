@@ -12,6 +12,6 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getRelevantProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl + '/relevant');
+    return this.http.get<Product[]>(this.baseUrl + '/home');
   }
 }

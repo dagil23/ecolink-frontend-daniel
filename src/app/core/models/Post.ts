@@ -5,7 +5,9 @@ export interface Post {
   startupName: string;
   title: string;
   description: string;
+  shorDescription: string;
   likesCount: number;
   odsList: Ods[];
   postDate: Date;
+  comments: number;
 }
