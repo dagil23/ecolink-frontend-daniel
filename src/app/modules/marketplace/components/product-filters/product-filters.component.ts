@@ -11,7 +11,6 @@ export class ProductFiltersComponent {
 
   name: string = '';
   priceValue: number = 1000;
-  Math: any;
 
   constructor() { }
 

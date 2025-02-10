@@ -7,7 +7,7 @@
     </div>
     <div class="col-12 col-md-6 mb-3">
       <label for="price" class="fw-semibold">Max Price</label>
-      <input type="number" class="form-control" [(ngModel)]="filters.price" (ngModelChange)="applyFilters()" min="0" max="1000">
+      <input type="number" class="form-control" [(ngModel)]="filters.price" (blur)="applyFilters()" min="0" max="1000">
     </div>
   </div>
 
