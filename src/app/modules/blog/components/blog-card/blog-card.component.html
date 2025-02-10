@@ -2,9 +2,9 @@
 <div class="card p-3 h-100 d-flex flex-column">
   <img src="assets/images/startup.webp" [alt]="article.title" class="me-2 img-fluid">
 
-  <div class="d-flex flex-column flex-grow-1 justify-content-center text-center">
+  <div class="d-flex flex-column flex-grow-1 justify-content-center">
     <p class="fw-bold text-greendark mb-2">{{article.title}}</p>
-    <small class="mb-2">By {{article.startupName}} &bull; {{article.postDate}}</small>
+    <small class="text-grey mb-2">By {{article.startupName}} &bull; {{article.postDate}}</small>
     <p class="text-grey mb-2">{{article.shortDescription}}</p>
 
     <div class="d-flex flex-wrap gap-1 mb-2">
@@ -12,12 +12,17 @@
         *ngFor="let ods of article.odsList">{{ods.name}}</small>
     </div>
   </div>
-  <div class="d-flex justify-content-between mt-auto">
+  <a [routerLink]="['/blog', article.id]" class="fw-semibold text-decoration-none btn btn-success mb-2">Read More</a>
+
+  <div class="d-flex justify-content-between">
     <a href="#" class="d-flex text-decoration-none text-primary">
       <i class="bi bi-tree me-1"></i>
       <p class="m-0">{{article.likesCount}} Likes</p>
     </a>
-    <a href="#" class="fw-semibold text-decoration-none text-primary">Read More</a>
+    <a href="#" class="d-flex text-decoration-none text-primary">
+      <i class="bi bi-chat-left me-1"></i>
+      <p class="m-0">{{article.numberComents}}</p>
+    </a>
   </div>
 </div>
 <!-- </a> -->

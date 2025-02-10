@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Post } from '../../../core/models/Post';
 import { RelevantPost } from '../models/relevantPost';
 import { Pagination } from '../../../core/models/Pagination';
+import { PostDetails } from '../models/postDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class BlogService {
     return this.http.get<Pagination<Post>>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
 
-  getPostById(id: string): Observable<Post> {
-    return this.http.get<Post>(`${this.baseUrl}/${id}`);
+  getPostById(id: string): Observable<PostDetails> {
+    return this.http.get<PostDetails>(`${this.baseUrl}/${id}`);
   }
 
   getRelevantPosts(id: string): Observable<RelevantPost[]> {

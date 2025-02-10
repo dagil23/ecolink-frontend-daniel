@@ -1,6 +1,6 @@
-import { Ods } from "./Ods";
+import { Ods } from "../../../core/models/Ods";
 
-export interface Post {
+export interface PostDetails {
   id: number;
   startupName: string;
   title: string;
@@ -9,5 +9,5 @@ export interface Post {
   likesCount: number;
   odsList: Ods[];
   postDate: Date;
-  numberComents: number;
+  comments: Comment[];
 }
