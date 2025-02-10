@@ -16,8 +16,21 @@ export class BlogListComponent implements OnInit {
   constructor(private blogService: BlogService) { }
 
   ngOnInit(): void {
-    this.blogService.getPosts(this.currentPage, 8).subscribe((data: Pagination<Post[]>) => {
-      console.log(data);
+    this.loadArticles();
+  }
+
+  loadArticles(): void {
+    this.blogService.getPosts(this.currentPage, 8).subscribe((data: Pagination<Post>) => {
+      this.articles = data.content;
+      this.totalPages = data.totalPages;
+      console.log(data.content)
+    }, () => {
+      alert('Error al obtener las startups');
     });
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
+    this.loadArticles();
   }
 }

@@ -14,8 +14,8 @@ export class BlogService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts(page: number, size: number): Observable<Pagination<Post[]>> {
-    return this.http.get<Pagination<Post[]>>(`${this.baseUrl}?page=${page}&size=${size}`);
+  getPosts(page: number, size: number): Observable<Pagination<Post>> {
+    return this.http.get<Pagination<Post>>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
 
   getPostById(id: string): Observable<Post> {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Startup } from '../../../../core/models/Startup';
 import { StartupService } from '../../services/startup.service';
-import { Router } from '@angular/router';
 import { Pagination } from '../../../../core/models/Pagination';
 
 @Component({
