@@ -35,13 +35,10 @@ export class LoginComponent implements OnInit {
     this.isSubmitting = true;
     this.loginService.login(loginRequest).subscribe(
       response => {
-        this.isSubmitting = false;
-
-        this.message = 'Login successful';
+        this.isSubmitting = true;
         this.hasError = false;
 
         setTimeout(() => {
-          this.message = '';
           this.router.navigate(['/']);
         }, 3000);
       },
