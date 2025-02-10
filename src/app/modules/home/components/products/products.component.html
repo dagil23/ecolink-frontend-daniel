@@ -2,9 +2,9 @@
 <div class="row row-cols-auto gap-4 d-flex justify-content-center">
   <div class="card shadow-big-default" *ngFor="let product of products">
     <img src="assets/images/cafe.jpg" [alt]="product.name">
-    <div class="card-body">
-      <h5 class="card-title text-center">{{product.name}}</h5>
-      <p class="card-text text-center text-greyprice">{{product.price}} €</p>
+    <div class="card-body text-center">
+      <h5 class="card-title">{{product.name}}</h5>
+      <p class="card-text text-greyprice">{{product.price}} €</p>
       <a href="#" class="text-light fw-bold btn btn-greendark">Add to cart</a>
     </div>
   </div>

@@ -34,5 +34,7 @@
 //************************************************
 .card {
   border: none !important;
+  height: 100% !important;
+  
   @include box-shadow(rgba(0, 0, 0, 0.1), 5px, 10px);
 }
