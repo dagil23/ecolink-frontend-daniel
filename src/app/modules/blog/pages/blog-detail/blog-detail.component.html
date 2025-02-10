@@ -67,30 +67,9 @@
 
   <div>
     <div class="mt-5">
-      <h3 class="text-success">Comentarios ({{post?.comments?.length}})</h3>
+      <h3 class="text-success">Comentarios ({{post?.comments?.length || 0}})</h3>
       <hr>
-
-      <div class="card p-3 mb-3 border-0 shadow-sm bg-light"> <!-- Comentario 1 -->
-        <div class="d-flex align-items-center">
-          <img src="assets/images/cafe.jpg" alt="Usuario" class="rounded-circle me-3 border" width="50" height="50">
-          <div>
-            <h5 class="mb-1 text-success">Eco Usuario1</h5>
-            <p class="mb-0">Excelente artículo. Me gustaría ver más ejemplos de cómo las pequeñas empresas pueden
-              implementar IA sostenible.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card p-3 mb-3 border-0 shadow-sm bg-light"> <!-- Comentario 2 -->
-        <div class="d-flex align-items-center">
-          <img src="assets/images/cafe.jpg" alt="Usuario" class="rounded-circle me-3 border" width="50" height="50">
-          <div>
-            <h5 class="mb-1 text-success">Eco Usuario2</h5>
-            <p class="mb-0">Gran contenido. Sería útil una sección con recursos para aprender más sobre prácticas
-              ecológicas en tecnología.</p>
-          </div>
-        </div>
-      </div>
+      <blog-comment *ngFor="let comment of post?.comments" [comment]="comment"></blog-comment>
     </div>
   </div>
 </div>
