@@ -1,16 +1,17 @@
 <shared-header></shared-header>
-<div class="background-header d-flex flex-column justify-content-center align-items-center">
 
-  <video autoplay muted loop playsinline class="hero-video">
+<div class="background-header d-flex flex-column justify-content-center align-items-center position-relative" style="height: 20rem;">
+  <video autoplay muted loop playsinline class="hero-video w-100 h-100 object-fit-cover">
     <source src="../../../../assets/hero-video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-    </video>
-  <div class="hero-content">
+    Your browser does not support the video tag, update to the latest version.
+  </video>
+  <div class="hero-content text-center text-add1 position-absolute top-50 start-50 translate-middle">
     <h1 class="text-center text-add1 fw-bold contorno display-4">Building a Green Future</h1>
     <p class="text-center text-add1 contorno fs-5">Join us in our mission to create a more sustainable world</p>
     <a href="/profile" class="btn btn-add1 text-greendark fw-bold rounded-5">Start Now</a>
   </div>
 </div>
+
 <div class="container my-5" data-aos="fade-zoom-in">
   <home-products></home-products>
   <home-startups></home-startups>
@@ -18,4 +19,5 @@
   <home-missions></home-missions>
   <home-articles></home-articles>
 </div>
+
 <shared-footer></shared-footer>

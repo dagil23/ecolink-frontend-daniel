@@ -1,161 +1,5 @@
-//************************************************
-//CHECK BUTTON
-//************************************************
-.checkbox-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  .checkbox-container {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    font-size: 20px;
-    user-select: none;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    position: relative;
-    top: 0;
-    left: 0;
-    height: 1.5em; // Smaller height
-    width: 1.5em; // Smaller width
-    background-color: #ccc;
-    border-radius: 20%; //Here we can do it a circle
-    transition: .4s;
-  }
-  
-  .checkmark:hover {
-    box-shadow: inset 17px 17px 16px #b3b3b3,
-              inset -17px -17px 16px #ffffff;
-  }
-  
-  /* When the checkbox is checked, add a blue background */
-  .checkbox-container input:checked ~ .checkmark {
-    box-shadow: none;
-    background-color: limegreen;
-    transform: rotateX(360deg);
-  }
-  
-  .checkbox-container input:checked ~ .checkmark:hover {
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the checkmark when checked */
-  .checkbox-container input:checked ~ .checkmark:after {
-    display: block;
-    left: 0.5em; // Adjusted for smaller size
-    top: 0.3em; // Adjusted for smaller size
-    width: 0.3em; // Adjusted for smaller size
-    height: 0.6em; // Adjusted for smaller size
-    border: solid white;
-    border-width: 0 0.1em 0.1em 0;
-    transform: rotate(45deg);
-  }
-  
-  /* Style the checkmark/indicator */
-  .checkbox-container .checkmark:after {
-    left: 0.96em;
-    top: 0.7em;
-    width: 0.25em;
-    height: 0.5em;
-    border: solid white;
-    border-width: 0 0.15em 0.15em 0;
-    box-shadow: 0.1em 0.1em 0em 0 rgba(0,0,0,0.3);
-    transform: rotate(45deg);
-  }
-
-//USE 
-// <label class="checkbox-container me-1">
-// <input type="checkbox" name="mision-check" checked="checked">
-// <div class="checkmark"></div>
-// </label>
-
-//************************************************
-//CART BUTTON
-//************************************************
-
-.CartBtn {
-    width: 140px;
-    height: 40px;
-    border-radius: 12px;
-    border: none;
-    background-color: rgb(255, 208, 0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition-duration: .5s;
-    overflow: hidden;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.103);
-    position: relative;
-  }
-  
-  .IconContainer {
-    position: absolute;
-    left: -50px;
-    width: 30px;
-    height: 30px;
-    background-color: transparent;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    z-index: 2;
-    transition-duration: .5s;
-  }
-  
-  
-  .text-cart {
-    height: 100%;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgb(17, 17, 17);
-    z-index: 1;
-    transition-duration: .5s;
-    font-size: 1.04em;
-    font-weight: 600;
-    text-decoration: none;
-  }
-  
-  .CartBtn:hover .IconContainer {
-    transform: translateX(58px);
-    border-radius: 40px;
-    transition-duration: .5s;
-  }
-  
-  .CartBtn:hover .text-cart {
-    transform: translate(10px,0px);
-    transition-duration: .5s;
-  }
-  
-  .CartBtn:active {
-    transform: scale(0.95);
-    transition-duration: .5s;
-  }
-
-//USE
-// <button class="CartBtn bg-primary" href="#">
-// <span class="IconContainer"> 
-//   <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="rgb(17, 17, 17)" class="cart"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
-// </span>
-// <a class="text-cart">Add to Cart</a>
-// </button>
-
+@import 'variables';
+@import 'mixins';
 //************************************************
 //SCROLL BAR
 //************************************************
@@ -174,4 +18,21 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: map-get($colors, primary);
+}
+//************************************************
+//Contorno
+//************************************************
+.contorno {
+  text-shadow:
+  1px 0 0 map-get($colors, text),    /* Desplaza a la derecha */
+  -1px 0 0 map-get($colors, text),   /* Desplaza a la izquierda */
+  0 1px 0 map-get($colors, text),    /* Desplaza abajo */
+  0 -1px 0 map-get($colors, text);   /* Desplaza arriba */
+}
+//************************************************
+//Card
+//************************************************
+.card {
+  border: none !important;
+  @include box-shadow(rgba(0, 0, 0, 0.1), 5px, 10px);
 }
