@@ -16,24 +16,24 @@ const routes: Routes = [
     loadChildren: () => import('./modules/marketplace/marketplace.module').then(m => m.MarketplaceModule)
   },
   {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    path: 'challenges',
+    loadChildren: () => import('./modules/challenges/challenges.module').then(m => m.ChallengesModule)
+  },
+  {
+    path: 'blog',
+    loadChildren: () => import('./modules/blog/blog.module').then(m => m.BlogModule)
   },
   {
     path: 'about-us',
     loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule)
   },
-    {
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
+  {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
-  },
-  {
-    path: 'challenges',
-    loadChildren: () => import('./challenges/challenges.module').then(m => m.ChallengesModule)
-  },
-  {
-    path: 'posts',
-    loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule)
+    loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
   },
   {
     path: '**',

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { OdsService } from '../../../../core/services/ods-service.service';
 import { Ods } from '../../../../core/models/Ods';
 import { StartupService } from '../../services/startup.service';
+import { OdsService } from '../../services/ods.service';
 
 @Component({
   selector: 'startup-filters',
@@ -13,7 +13,7 @@ export class StartupFiltersComponent implements OnInit {
   @Output() filterChange = new EventEmitter<any>();
   theOds: Ods[] = [];
 
-  constructor(private odsService: OdsService, private startupService: StartupService) { }
+  constructor(private odsService: OdsService) { }
 
   ngOnInit(): void {
     this.odsService.getOds().subscribe((data: Ods[]) => {

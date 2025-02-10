@@ -17,7 +17,7 @@ export class StartupsListComponent implements OnInit {
   // Alert message
   message: string = '';
 
-  constructor(private startupService: StartupService, private router: Router) { }
+  constructor(private startupService: StartupService) { }
 
   ngOnInit(): void {
     this.loadStartups();

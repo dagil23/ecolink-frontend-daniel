@@ -1,5 +1,0 @@
-@import 'mixins';
-
-.shadow-bottom {
-  @include box-shadow(rgba(0, 0, 0, 0.1), 1px, 10px);
-}
