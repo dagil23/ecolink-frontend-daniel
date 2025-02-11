@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import {SharedModule} from './shared/shared.module';
 import { AboutUsModule } from './about-us/about-us.module';
 import { HomeModule } from './modules/home/home.module';
-// import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { HomeModule } from './modules/home/home.module';
     HomeModule,
     SharedModule,
     AboutUsModule,
-    // NgMultiSelectDropDownModule
+    NgMultiSelectDropDownModule
 ],
   providers: [],
   bootstrap: [AppComponent]

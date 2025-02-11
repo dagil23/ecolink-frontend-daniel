@@ -116,13 +116,13 @@
             <!-- Preferences (solo para client o startup) -->
             <div *ngIf="registrationForm.get('userType')?.value === 'client' || registrationForm.get('userType')?.value === 'startup'" class="form-group">
               <label>Preferences</label>
-              <!-- <ng-multiselect-dropdown
+              <ng-multiselect-dropdown
                 [placeholder]="'Select Preferences'"
                 [data]="preferences"
                 [settings]="dropdownSettings"
                 formControlName="preference"
                 (onDropDownClose)="validatePreferences()">
-              </ng-multiselect-dropdown> -->
+              </ng-multiselect-dropdown>
 
               <!-- Error Message -->
               <div *ngIf="registrationForm.get('preference')?.invalid && (registrationForm.get('preference')?.dirty || registrationForm.get('preference')?.touched)" class="text-danger">
