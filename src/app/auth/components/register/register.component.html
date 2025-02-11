@@ -40,12 +40,23 @@
                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
                 <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter your password" (input)="onPasswordChange()">
               </div>
+
+              <!-- General error messages -->
               <div *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)" class="error-message">
                 <div *ngIf="registrationForm.get('password')?.errors?.['required']" class="text-danger">Password is required.</div>
-                <div *ngIf="registrationForm.get('password')?.errors?.['minlength']" class="text-danger">Password must be at least 8 characters long.</div>
               </div>
 
-              <!-- Password Strength Progress Bar (only visible if password is entered) -->
+              <!-- Password Requirements (siempre visibles cuando hay interacción) -->
+              <div *ngIf="registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched">
+                <ul class="password-requirements mt-2">
+                  <li [class.text-success]="passwordCriteria.capitalLetter" [class.text-danger]="!passwordCriteria.capitalLetter" class="d-inline me-3">Capital letter</li>
+                  <li [class.text-success]="passwordCriteria.number" [class.text-danger]="!passwordCriteria.number" class="d-inline me-3">Number</li>
+                  <li [class.text-success]="passwordCriteria.specialChar" [class.text-danger]="!passwordCriteria.specialChar" class="d-inline me-3">Symbol(#&#64;$)</li>
+                  <li [class.text-success]="passwordCriteria.minLength" [class.text-danger]="!passwordCriteria.minLength" class="d-inline">8 characters</li>
+                </ul>
+              </div>
+
+              <!-- Password Strength -->
               <div *ngIf="password.length > 0" class="progress mt-2">
                 <div class="progress-bar" [ngClass]="passwordStrengthClass" [style.width.%]="passwordStrengthPercent"></div>
               </div>
@@ -60,11 +71,18 @@
                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
                 <input id="confirmPassword" type="password" formControlName="confirmPassword" class="form-control" placeholder="Confirm your password">
               </div>
-              <div *ngIf="registrationForm.get('confirmPassword')?.invalid && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']" class="text-danger">Confirm Password is required.</div>
-                <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['passwordMismatch']" class="text-danger">Passwords do not match.</div>
+
+              <!--Show error message if don't match -->
+              <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['passwordMismatch'] && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)" class="text-danger">
+                Passwords do not match.
+              </div>
+
+              <!-- Show success message if match -->
+              <div *ngIf="!registrationForm.get('confirmPassword')?.errors && registrationForm.get('confirmPassword')?.value" class="text-success">
+                Passwords match.
               </div>
             </div>
+
 
 
             <!-- User Type -->

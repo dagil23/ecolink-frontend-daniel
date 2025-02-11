@@ -18,9 +18,14 @@ export class RegisterComponent implements OnInit {
   passwordStrengthText: string = '';
   passwordStrengthPercent: number = 0;
   passwordStrengthClass: string = 'bg-danger';
-  password: string = ''; // Track password value directly
-  passwordLengthError: boolean = false;
+  password: string = '';
 
+  passwordCriteria = {
+    capitalLetter: false,
+    number: false,
+    specialChar: false,
+    minLength: false
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -38,11 +43,19 @@ export class RegisterComponent implements OnInit {
       preference: [[]],
       imageUrl: [null, Validators.required],
       description: ['']
-    }, { validators: this.passwordMatchValidator });  // Custom validator for matching passwords
+    });
+
+    // Revalidate every time password or confirmPassword values change
+    this.registrationForm.get('password')?.valueChanges.subscribe(() => {
+      this.passwordMatchValidator(this.registrationForm);
+    });
+
+    this.registrationForm.get('confirmPassword')?.valueChanges.subscribe(() => {
+      this.passwordMatchValidator(this.registrationForm);
+    });
 
     // Adjust validators based on selected user type
     this.registrationForm.get('userType')?.valueChanges.subscribe(value => {
-      // If type is company or startup, description is required with minlength 10
       if (value === 'company' || value === 'startup') {
         this.registrationForm.get('description')?.setValidators([Validators.required, Validators.minLength(10)]);
       } else {
@@ -51,7 +64,6 @@ export class RegisterComponent implements OnInit {
       }
       this.registrationForm.get('description')?.updateValueAndValidity();
 
-      // Show preferences selector only for client or startup
       if (value === 'client' || value === 'startup') {
         this.registrationService.getAllPreferences().subscribe((preferences: Preference[]) => {
           this.preferences = preferences;
@@ -66,49 +78,61 @@ export class RegisterComponent implements OnInit {
   }
 
   // Custom validator to check if passwords match
-  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-    return password && confirmPassword && password !== confirmPassword
-      ? { 'passwordMismatch': true }
-      : null;
+  passwordMatchValidator(group: FormGroup): void {
+    const password = group.get('password');
+    const confirmPassword = group.get('confirmPassword');
+
+    if (!password || !confirmPassword) return;
+
+    if (confirmPassword.value && password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ passwordMismatch: true });
+    } else {
+      confirmPassword.setErrors(null);
+    }
   }
 
   // Update password strength
   onPasswordChange(): void {
     this.password = this.registrationForm.get('password')?.value || '';
-    this.calculatePasswordStrength(this.password);
+    this.validatePassword(this.password);
   }
 
+  // Validate password criteria
+  validatePassword(password: string): void {
+    const lengthValid = password.length >= 8;
 
-  // Calculate password strength
-  calculatePasswordStrength(password: string): void {
-    let strength = 0;
-    const lengthCriteria = /.{8,}/;
-    const lowercaseCriteria = /[a-z]/;
-    const uppercaseCriteria = /[A-Z]/;
-    const numberCriteria = /\d/;
-    const specialCharCriteria = /[!@#$%^&*(),.?":{}|<>]/;
+    this.passwordCriteria.capitalLetter = /[A-Z]/.test(password);
+    this.passwordCriteria.number = /\d/.test(password);
+    this.passwordCriteria.specialChar = /[#@$%^&*!]/.test(password);
+    this.passwordCriteria.minLength = lengthValid;
 
-    if (lengthCriteria.test(password)) strength++;
-    if (lowercaseCriteria.test(password)) strength++;
-    if (uppercaseCriteria.test(password)) strength++;
-    if (numberCriteria.test(password)) strength++;
-    if (specialCharCriteria.test(password)) strength++;
+    let criteriaMet = Object.values(this.passwordCriteria).filter(Boolean).length;
 
-    this.passwordStrengthPercent = (strength / 5) * 100;
-
-    if (strength <= 1) {
-      this.passwordStrengthClass = 'bg-danger';
-      this.passwordStrengthText = 'Weak';
-    } else if (strength === 2 || strength === 3) {
-      this.passwordStrengthClass = 'bg-warning';
-      this.passwordStrengthText = 'Moderate';
-    } else {
-      this.passwordStrengthClass = 'bg-success';
-      this.passwordStrengthText = 'Strong';
+    switch (criteriaMet) {
+      case 0:
+      case 1:
+        this.passwordStrengthText = 'Weak';
+        this.passwordStrengthClass = 'bg-danger';
+        this.passwordStrengthPercent = 25;
+        break;
+      case 2:
+        this.passwordStrengthText = 'Medium';
+        this.passwordStrengthClass = 'bg-warning';
+        this.passwordStrengthPercent = 50;
+        break;
+      case 3:
+        this.passwordStrengthText = 'Good';
+        this.passwordStrengthClass = 'bg-success-emphasis';
+        this.passwordStrengthPercent = 75;
+        break;
+      case 4:
+        this.passwordStrengthText = 'Strong';
+        this.passwordStrengthClass = 'bg-success';
+        this.passwordStrengthPercent = 100;
+        break;
     }
   }
+
 
   changeImage(fileInput: HTMLInputElement): void {
     if (!fileInput.files || fileInput.files.length === 0) {
@@ -125,14 +149,12 @@ export class RegisterComponent implements OnInit {
     };
   }
 
-
   onSubmit(): void {
     if (this.registrationForm.invalid) {
       return;
     }
     this.isSubmitting = true;
     const userType: string = this.registrationForm.get('userType')?.value;
-    // Build the user object
     let user: any = {
       type: userType,
       name: this.registrationForm.get('name')?.value,
@@ -152,9 +174,7 @@ export class RegisterComponent implements OnInit {
     }
 
     const formData = new FormData();
-    // Append the user object as a JSON string with key "user"
     formData.append('user', JSON.stringify(user));
-    // Append the image file with key "image"
     if (this.registrationForm.get('imageUrl')?.value) {
       formData.append('image', this.registrationForm.get('imageUrl')?.value);
     }
@@ -164,7 +184,7 @@ export class RegisterComponent implements OnInit {
         this.registrationForm.reset();
         this.imageUrl = null;
         this.isSubmitting = false;
-        this.router.navigate(['/auth/login']).then(() => {});
+        this.router.navigate(['/auth/login']);
       },
       error: (error) => {
         console.error('Registration error:', error);
