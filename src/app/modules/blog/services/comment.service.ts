@@ -18,4 +18,15 @@ export class CommentService {
 
     return this.http.post(`${this.baseUrl}/new`, null, { params, withCredentials: true });
   }
+
+  editComment(id_comment: number, comment: string): Observable<any> {
+    const params = new HttpParams()
+      .set('comment', comment);
+
+    return this.http.put(`${this.baseUrl}/${id_comment}`, null, { params, withCredentials: true });
+  }
+
+  deleteComment(id_comment: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id_comment}`, { withCredentials: true });
+  }
 }
