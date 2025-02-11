@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
-      preference: [[]],
+      preference: [[], Validators.required],
       imageUrl: [null, Validators.required],
       description: ['']
     });
@@ -76,6 +76,17 @@ export class RegisterComponent implements OnInit {
       this.registrationForm.get('preference')?.updateValueAndValidity();
     });
   }
+
+  dropdownSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'name',
+    selectAllText: 'Select All',
+    unSelectAllText: 'Deselect All',
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
+
 
   // Custom validator to check if passwords match
   passwordMatchValidator(group: FormGroup): void {
@@ -133,6 +144,15 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  validatePreferences(): void {
+    const preferenceControl = this.registrationForm.get('preference');
+
+    // Marcar como touched para que la validación se dispare
+    preferenceControl?.markAsTouched();
+    preferenceControl?.updateValueAndValidity();
+  }
+
+
 
   changeImage(fileInput: HTMLInputElement): void {
     if (!fileInput.files || fileInput.files.length === 0) {
@@ -184,7 +204,7 @@ export class RegisterComponent implements OnInit {
         this.registrationForm.reset();
         this.imageUrl = null;
         this.isSubmitting = false;
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/auth/login']).then(() => {});
       },
       error: (error) => {
         console.error('Registration error:', error);

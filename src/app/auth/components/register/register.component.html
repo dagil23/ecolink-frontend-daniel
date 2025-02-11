@@ -115,18 +115,22 @@
 
             <!-- Preferences (solo para client o startup) -->
             <div *ngIf="registrationForm.get('userType')?.value === 'client' || registrationForm.get('userType')?.value === 'startup'" class="form-group">
-              <label for="preference">Preferences</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-list"></i></span>
-                <select id="preference" formControlName="preference" class="form-control" multiple>
-                  <option *ngFor="let preference of preferences" [value]="preference.id">{{ preference.name }}</option>
-                </select>
-              </div>
-              <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple options</small>
-              <div *ngIf="registrationForm.get('preference')?.invalid && (registrationForm.get('preference')?.dirty || registrationForm.get('preference')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('preference')?.errors?.['required']" class="text-danger">Please select at least one preference.</div>
+              <label>Preferences</label>
+              <ng-multiselect-dropdown
+                [placeholder]="'Select Preferences'"
+                [data]="preferences"
+                [settings]="dropdownSettings"
+                formControlName="preference"
+                (onDropDownClose)="validatePreferences()">
+              </ng-multiselect-dropdown>
+
+              <!-- Error Message -->
+              <div *ngIf="registrationForm.get('preference')?.invalid && (registrationForm.get('preference')?.dirty || registrationForm.get('preference')?.touched)" class="text-danger">
+                Select at least 1 preference.
               </div>
             </div>
+
+
 
             <!-- Profile Image -->
             <div class="mb-3">
@@ -142,7 +146,6 @@
 
             <!-- Preview de imagen -->
             <img *ngIf="imageUrl" [src]="imageUrl" alt="Profile Image" class="img-thumbnail mb-3">
-
             <button type="submit" [disabled]="isSubmitting" class="btn btn-primary w-100">
               {{ isSubmitting ? 'Registering...' : 'Register' }}
             </button>

@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
+import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
 
 
 @NgModule({
@@ -15,11 +16,12 @@ import {SharedModule} from '../shared/shared.module';
     LoginComponent,
     RegisterComponent,
   ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    ReactiveFormsModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        ReactiveFormsModule,
+        SharedModule,
+        NgMultiSelectDropDownModule
+    ]
 })
 export class AuthModule { }
