@@ -72,6 +72,17 @@
               <i class="bi bi-box-arrow-right me-2"></i> Log Out
             </a>
           </li>
+          <!-- Opciones Log In y Sign Up si NO está logueado -->
+          <li class="nav-item mx-1 d-lg-none" *ngIf="!isLogged">
+            <a class="nav-link fs-5 text-light" href="/auth/login">
+              <i class="bi bi-box-arrow-in-right me-2"></i> Log In
+            </a>
+          </li>
+          <li class="nav-item mx-1 d-lg-none" *ngIf="!isLogged">
+            <a class="nav-link fs-5 text-light" href="/auth/register">
+              <i class="bi bi-person-plus me-2"></i> Sign Up
+            </a>
+          </li>
         </ul>
       </div>
     </div>

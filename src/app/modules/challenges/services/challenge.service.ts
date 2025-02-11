@@ -20,4 +20,7 @@ private baseUrl: string = environment.apiUrl + '/challenge';
   getChallengeById(id: string | null): Observable<Challenge> {
     return this.http.get<Challenge>(`${this.baseUrl}/${id}`);
   }
+  getCurrentUser(): Observable<any> {
+    return this.http.get(environment.apiUrl + '/auth/user/me', { withCredentials: true });
+  }
 }
