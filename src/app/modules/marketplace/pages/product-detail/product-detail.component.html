@@ -1,5 +1,5 @@
 <div *ngIf="product">
-  <h1>{{ product.name }}</h1>  <img [src]="product.image" alt="{{ product.name }}" class="product-image">
+  <img src="assets/images/cafe.jpg" [alt]="product.name">
   <p>{{ product.description }}</p>
   <p><strong>Price:</strong> {{ product.price | currency }}</p>
 <p><strong>Startup:</strong> {{ product.startupName }}</p>
