@@ -2,12 +2,12 @@ import { Ods } from "./Ods";
 
 export interface Post {
   id: number;
-  startupName: string;
-  title: string;
-  shortDescription: string;
-  description: string;
+  imageUrl: string;
   likesCount: number;
+  numberComents: number;
   odsList: Ods[];
   postDate: Date;
-  numberComents: number;
+  shortDescription: string;
+  startupName: string;
+  title: string;
 }
