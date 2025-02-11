@@ -1,0 +1,46 @@
+<div class="container mt-5">
+    <div class="d-flex align-items-center justify-content-center">
+        <i class="bi bi-tree text-primary fs-1"></i>
+        <h1 class="text-greendark">Reto Ecológico</h1>
+    </div>
+    <h4 class="text-center">Upload your proposal and connect with the company</h4>
+    <form (ngSubmit)="onSubmit()" #proposalForm="ngForm">
+  
+      <!-- Proposal tittle -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Proposal tittle</label>
+        <input type="text" id="title" class="form-control" required [(ngModel)]="proposal.title" name="title" #title="ngModel" placeholder="Sistema de reciclaje inteligente">
+        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger">
+          El título es obligatorio.
+        </div>
+      </div>
+  
+      <!-- Proposal description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Proposal description</label>
+        <textarea id="description" class="form-control" rows="5" required [(ngModel)]="proposal.description" name="description" #description="ngModel"></textarea>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+          Description is required.
+        </div>
+      </div>
+  
+      <!-- Upload document -->
+      <!-- <div class="mb-3">
+        <label for="proposalFile" class="form-label">Subir Documento de Propuesta</label>
+        <input type="file" id="proposalFile" class="form-control" (change)="onFileSelect($event)" />
+      </div> -->
+  
+      <!-- Enlace al Producto -->
+      <div class="mb-3">
+        <label for="productLink" class="form-label">Enlace al producto(opcional)</label>
+        <input type="url" id="productLink" class="form-control" [(ngModel)]="proposal.link" name="productLink" placeholder="https://...">
+      </div>
+  
+      <!-- Buttons -->
+      <div>
+        <button type="submit" class="btn btn-success" [disabled]="proposalForm.invalid">Enviar Propuesta</button>
+      </div>
+  
+    </form>
+  </div>
+  

@@ -78,9 +78,7 @@
   <div class="col-md-6 pb-sm-3" *ngIf="isStartup">
     <h3 class="fs-4 mb-2">How to Join?</h3>
     <div class="rounded-3">
-      <button class="btn btn-outline-secondary btn-lg">
-        Join the Challenge
-      </button>
+      <a [routerLink]="['/challenges/form', challengeId]" class="d-flex justify-content-center btn btn-primary text-add1 fw-semibold rounded-0 mt-3">Join the Challenge</a>
     </div>
   </div>
 
