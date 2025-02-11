@@ -1,4 +1,5 @@
 import { Ods } from "../../../core/models/Ods";
+import { Comment } from "./Comment";
 
 export interface PostDetails {
   id: number;
