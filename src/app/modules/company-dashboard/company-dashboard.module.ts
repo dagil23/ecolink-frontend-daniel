@@ -5,7 +5,8 @@ import { CompanyDashboardRoutingModule } from './company-dashboard-routing.modul
 import { CompanyChallengesComponent } from './pages/company-challenges/company-challenges.component';
 import { CompanyChallengeFormComponent } from './pages/company-challenge-form/company-challenge-form.component';
 import { CompanyChallengeFiltersComponent } from './components/company-challenge-filters/company-challenge-filters.component';
-
+import { SharedModule } from '../../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { CompanyChallengeFiltersComponent } from './components/company-challenge
   ],
   imports: [
     CommonModule,
-    CompanyDashboardRoutingModule
+    CompanyDashboardRoutingModule,
+    SharedModule,
+    FormsModule
   ]
 })
 export class CompanyDashboardModule { }

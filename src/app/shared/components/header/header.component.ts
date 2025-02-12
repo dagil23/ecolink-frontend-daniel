@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   isLogged: boolean = false;
   isClient: boolean = false;
   isStartup: boolean = false;
+  isCompany: boolean = false;
   imageUrl: string | null = null;
   username: string | null = null;
   userFullName: string | null = null;
@@ -31,6 +32,8 @@ export class HeaderComponent implements OnInit {
           this.isClient = true;
         } else if (user.userType.toUpperCase() === 'STARTUP') {
           this.isStartup = true;
+        } else if (user.userType.toUpperCase() === 'COMPANY') {
+          this.isCompany = true;
         }
       }
 

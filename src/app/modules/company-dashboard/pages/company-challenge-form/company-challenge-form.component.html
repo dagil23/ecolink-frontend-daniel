@@ -1,1 +1,56 @@
-<p>company-challenge-form works!</p>
+<shared-header></shared-header>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">
+    {{ challenge.id ? "Edit Challenge" : "Create Challenge" }}
+  </h2>
+  <form (ngSubmit)="saveChallenge()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        [(ngModel)]="challenge.title"
+        name="title"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        [(ngModel)]="challenge.description"
+        name="description"
+        rows="5"
+        required
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="budget" class="form-label">Budget</label>
+      <input
+        type="number"
+        id="budget"
+        class="form-control"
+        [(ngModel)]="challenge.budget"
+        name="budget"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="endDate" class="form-label">End Date</label>
+      <input
+        type="date"
+        id="endDate"
+        class="form-control"
+        [(ngModel)]="challenge.endDate"
+        name="endDate"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-success">
+      {{ challenge.id ? "Update" : "Create" }}
+    </button>
+  </form>
+</div>
+<shared-footer></shared-footer>

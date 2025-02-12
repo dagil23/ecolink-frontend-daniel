@@ -1,1 +1,28 @@
-<p>company-challenges works!</p>
+<shared-header></shared-header>
+<div class="d-flex flex-column min-vh-100">
+  <div class="container mt-5 flex-grow-1">
+    <h2 class="text-center mb-4">Company Challenges</h2>
+    <a
+      routerLink="/company-dashboard/challenges/new"
+      class="btn btn-primary mb-3"
+    >
+      Create New Challenge
+    </a>
+    <div *ngFor="let challenge of challenges" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ challenge.title }}</h5>
+        <p class="card-text">{{ challenge.description }}</p>
+        <a
+          [routerLink]="['/company-dashboard/challenges/edit', challenge.id]"
+          class="btn btn-warning"
+        >
+          Edit
+        </a>
+        <button (click)="deleteChallenge(challenge.id)" class="btn btn-danger">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+  <shared-footer></shared-footer>
+</div>
