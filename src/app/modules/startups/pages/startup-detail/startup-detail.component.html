@@ -50,8 +50,9 @@
               <p
                 class="border border-1 fw-semibold rounded-pill px-2"
                 style="font-size: 0.8rem"
+                *ngFor="let category of product.categories"
               >
-                Example
+                {{category.name}}
               </p>
             </div>
             <p class="text-grey">{{ product.description }}</p>

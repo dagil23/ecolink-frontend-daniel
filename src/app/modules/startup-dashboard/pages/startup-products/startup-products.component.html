@@ -1,1 +1,53 @@
-<p>startup-products works!</p>
+<shared-header></shared-header>
+<div class="container my-5">
+  <!-- nombre, descripcion, precio, categoria, stock, imagen -->
+   <h1>Administration panel</h1>
+   <div class="row g-0 row-cols-3 bg-secondary-subtle p-1 rounded mb-3">
+    <a class="col btn" [ngClass]="true ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Products</a>
+    <a class="col btn" [ngClass]="false ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Sales</a>
+    <a class="col btn" [ngClass]="false ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Add product</a>
+  </div>
+  <div class="border border-1 rounded-3 p-3">
+    <h2 class="m-0">List of products</h2>
+    <small>Manage your products here</small>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">Product 1</td>
+          <td scope="row">19,99€</td>
+          <td scope="row">100</td>
+          <td scope="row">
+            <button class="btn btn-sm btn-outline-info me-2">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Product 1</td>
+          <td scope="row">19,99€</td>
+          <td scope="row">100</td>
+          <td scope="row">
+            <button class="btn btn-sm btn-outline-info me-2">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<shared-footer></shared-footer>

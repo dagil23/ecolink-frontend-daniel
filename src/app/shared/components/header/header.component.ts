@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   isLogged: boolean = false;
   isClient: boolean = false;
+  isStartup: boolean = false;
   imageUrl: string | null = null;
   username: string | null = null;
   userFullName: string | null = null;
@@ -28,6 +29,8 @@ export class HeaderComponent implements OnInit {
         this.userFullName = user.name;
         if (user.userType.toUpperCase() === 'CLIENT') {
           this.isClient = true;
+        } else if (user.userType.toUpperCase() === 'STARTUP') {
+          this.isStartup = true;
         }
       }
 
