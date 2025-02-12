@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Pagination } from '../../../core/models/Pagination';
 import { Startup } from '../../../core/models/Startup';
+import { StartupDetails } from '../models/StartupDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class StartupService {
     return this.http.get<Pagination<Startup>>(`${this.baseUrl}?page=${page}&size=${size}`, { params });
   }
 
-  findStartupById(id: string): Observable<Startup> {
-    return this.http.get<Startup>(`${this.baseUrl}/${id}`);
+  findStartupById(id: string): Observable<StartupDetails> {
+    return this.http.get<StartupDetails>(`${this.baseUrl}/${id}`);
   }
 }

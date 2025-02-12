@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Proposal } from '../../../../core/models/Proposal';
 import { ProposalService } from '../../services/proposal.service';
-import { string } from 'mathjs';
 
 @Component({
   selector: 'app-challenge-form',

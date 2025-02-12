@@ -23,7 +23,7 @@ export class StartupsListComponent implements OnInit {
   }
 
   loadStartups(): void {
-    this.startupService.getStartups(this.filters, this.currentPage, 8).subscribe((data: Pagination<Startup>) => {
+    this.startupService.getStartups(this.filters, this.currentPage, 6).subscribe((data: Pagination<Startup>) => {
       this.startups = data.content;
       this.totalPages = data.totalPages;
     }, () => {

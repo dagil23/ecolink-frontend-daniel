@@ -1,12 +1,12 @@
 <shared-header></shared-header>
 <div class="container">
-  <h1 class="fw-bold mt-5">EcoBlog</h1>
+  <h1 class="fw-bold mt-5 mb-3">EcoBlog</h1>
   <!-- Filtros -->
    <!-- Mensaje de error -->
   <!-- <div class="alert alert-warning text-center" *ngIf="startups.length === 0">
     <p class="m-0">{{message}}</p>
   </div> -->
-  <div class="row row-cols-auto d-flex justify-content-center mt-5 mb-3 gap-4">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mb-3 g-3">
     <blog-card *ngFor="let article of articles" [article]="article"></blog-card>
   </div>
 

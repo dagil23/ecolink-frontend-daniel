@@ -72,6 +72,9 @@
   <div>
     <div class="mt-5">
       <blog-add-comment (commentAdded)="addComment($event)"></blog-add-comment>
+      <div class="alert alert-{{messages['comment']?.type}} text-center mt-3" *ngIf="messages['comment']">
+        {{messages['comment']?.text}}
+      </div>
       <h3 class="text-success mt-5">Comments ({{comments.length}})</h3>
       <hr>
       <blog-comment *ngFor="let comment of comments" [comment]="comment" (deleteComment)="deleteComment($event)" (editComment)="editComment($event)"></blog-comment>
