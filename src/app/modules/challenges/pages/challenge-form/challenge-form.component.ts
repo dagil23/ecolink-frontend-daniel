@@ -1,33 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Proposal } from '../../../../core/models/Proposal';
 import { ProposalService } from '../../services/proposal.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-challenge-form',
   templateUrl: './challenge-form.component.html',
-  styleUrl: './challenge-form.component.scss',
+  styleUrls: ['./challenge-form.component.scss'],
 })
-export class ChallengeFormComponent {
+export class ChallengeFormComponent implements OnInit {
   proposal: Proposal = {
-    id: 0,
-    challenge: 0,
+    challenge: '',
     title: '',
     description: '',
-    //archivo: '',
     link: '',
-    date: new Date(),
-    status: 'PENDING',
+    //archive: null
   };
 
-  constructor(private proposalservice: ProposalService) {}
+  successMessage: string = '';
+  errorMessage: string = '';
 
-  // onFileSelect(event: any) {
+  constructor(
+    private route: ActivatedRoute,
+    private proposalService: ProposalService
+  ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this.proposal.challenge = id || '';
+    });
+  }
+    // onFileSelect(event: any) {
   //   const file = event.target.files[0];
-  //   console.log('Archivo seleccionado:', file);
+  //   console.log('Selected file:', file);
   // }
 
   onSubmit() {
-    this.proposalservice.submitProposal(this.proposal);
     console.log('Proposal submitted:', this.proposal);
+    this.proposalService.submitProposal(this.proposal).subscribe({
+      next: (data) => {
+        console.log('Response:', data);
+        this.successMessage = 'Proposal submitted successfully!';
+        this.errorMessage = '';
+        setTimeout(() => {
+          this.successMessage = '';
+          window.location.href = '/challenges';
+        }, 3000);
+      },
+      error: (error) => {
+        console.error('Error:', error);
+        if (error.status === 400) {
+          this.errorMessage = error.error.message;
+        } else {
+          this.errorMessage = 'You alredy submitted a proposal for this challenge';
+        }
+      },
+    });
   }
 }

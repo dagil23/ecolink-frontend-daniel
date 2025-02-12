@@ -6,10 +6,15 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ProposalService {
-private baseUrl: string = environment.apiUrl + '/challenge/proposal';
+private baseUrl: string = environment.apiUrl + '/proposal/challenge';
   constructor(private http: HttpClient) { }
 
   submitProposal(proposal: any) {
-    return this.http.post(`${this.baseUrl}`, proposal);
+    const payload = {
+      title: proposal.title,
+      description: proposal.description,
+      link: proposal.link
+  };
+    return this.http.post(`${this.baseUrl}/${proposal.challenge}`, payload,{ withCredentials: true });
   }
 }

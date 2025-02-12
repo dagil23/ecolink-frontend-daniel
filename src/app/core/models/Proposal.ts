@@ -1,10 +1,7 @@
 export interface Proposal {
-  id: number;
-  challenge: number;
+  challenge: string;
   title: string;
   description: string;
   //archivo: string;
   link: string;
-  date: Date;
-  status: string;
 }
