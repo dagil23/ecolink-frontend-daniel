@@ -21,13 +21,24 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['',],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
+
   onSubmit(): void {
-    if (this.loginForm.invalid) return;
+
+    if (this.loginForm.invalid) {
+      Object.keys(this.loginForm.controls).forEach(field => {
+        const control = this.loginForm.get(field);
+        control?.markAsTouched();
+        control?.updateValueAndValidity();
+      });
+      return;
+    }
+
+
     const loginRequest: LoginRequest = {
       username: this.loginForm.value.email,
       password: this.loginForm.value.password

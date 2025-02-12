@@ -171,8 +171,14 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registrationForm.invalid) {
+      Object.keys(this.registrationForm.controls).forEach(field => {
+        const control = this.registrationForm.get(field);
+        control?.markAsTouched();
+        control?.updateValueAndValidity();
+      });
       return;
     }
+
     this.isSubmitting = true;
     const userType: string = this.registrationForm.get('userType')?.value;
     let user: any = {
@@ -213,4 +219,5 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
+
 }
