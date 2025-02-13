@@ -5,6 +5,7 @@ export interface Challenge {
   id: number;
   title: string;
   description: string;
+  shortDescription?: string;
   budget: number;
   startDate?: Date;
   endDate: Date;

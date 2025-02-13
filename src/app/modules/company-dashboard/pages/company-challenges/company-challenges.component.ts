@@ -20,7 +20,10 @@ export class CompanyChallengesComponent implements OnInit {
     this.challengeService
       .getCompanyChallenges()
       .subscribe((challenges: Challenge[]) => {
-        this.challenges = challenges;
+        this.challenges = challenges.map(challengeCompany => ({
+          ...challengeCompany,
+          numberOfParticipans: 0 // or any default value
+        }));
       });
   }
 

@@ -11,7 +11,21 @@
     <div *ngFor="let challenge of challenges" class="card mb-3">
       <div class="card-body">
         <h5 class="card-title">{{ challenge.title }}</h5>
+        <p class="card-text">{{ challenge.shortDescription }}</p>
         <p class="card-text">{{ challenge.description }}</p>
+        <p class="card-text">Budget: {{ challenge.budget }} €</p>
+        <p class="card-text">
+          End Date: {{ challenge.endDate | date : "dd/MM/yyyy" }}
+        </p>
+        <p class="card-text">ODS List: 
+          <span *ngFor="let ods of challenge.odsList; let i = index">
+            {{ ods.name }}<span *ngIf="i < challenge.odsList.length - 1">, </span>
+          </span>
+        </p>
+        <p class="card-text">
+          Requirements: {{ challenge.requirements?.join(", ") }}
+        </p>
+        <p class="card-text">Benefits: {{ challenge.benefits?.join(", ") }}</p>
         <a
           [routerLink]="['/company-dashboard/challenges/edit', challenge.id]"
           class="btn btn-warning"
