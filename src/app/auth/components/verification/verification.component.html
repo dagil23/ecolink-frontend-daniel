@@ -13,7 +13,19 @@
       <div class="mb-3">
         <label for="code" class="form-label">Verification Code:</label>
         <input type="text" id="code" formControlName="code" class="form-control" required>
+
+        <!-- Mensajes de error -->
+        <div *ngIf="verificationForm.controls['code'].invalid && verificationForm.controls['code'].touched" class="text-danger">
+          <span *ngIf="verificationForm.controls['code'].errors?.['required']">Code is required</span>
+          <span *ngIf="verificationForm.controls['code'].errors?.['invalidCode']">Invalid code</span>
+        </div>
+
+        <!-- Nuevo mensaje de éxito -->
+        <div *ngIf="showSuccess" class="alert alert-success mt-2 text-center">
+          Verification completed!
+        </div>
       </div>
+
 
       <button type="submit" class="btn btn-primary w-100">Validate</button>
     </form>

@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 export class VerificationComponent implements OnInit {
   verificationForm: FormGroup;
   email: string = '';
+  showSuccess: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,18 +30,25 @@ export class VerificationComponent implements OnInit {
   }
 
   verifyCode(): void {
-    if (this.verificationForm.valid) {
-      const { email, code } = this.verificationForm.getRawValue();
-      this.verificationService.verifyCode(email, code).subscribe(
-        response => {
-          console.log('Código verificado con éxito', response);
-          this.router.navigate(['/auth/login']).then(() => {});
-        },
-        error => {
-          console.error('Error en la verificación', error);
-        }
-      );
+    if (this.verificationForm.invalid) {
+      this.verificationForm.controls['code'].markAsTouched();
+      return;
     }
-  }
 
+    this.showSuccess = false; // Resetear estado anterior
+    const { email, code } = this.verificationForm.getRawValue();
+
+    this.verificationService.verifyCode(email, code).subscribe(
+      response => {
+        this.showSuccess = true; // Mostrar mensaje de éxito
+        setTimeout(() => {
+          this.router.navigate(['/auth/login']);
+        }, 2000); // Redirigir después de 2 segundos
+      },
+      error => {
+        console.error('Error en la verificación', error);
+        this.verificationForm.controls['code'].setErrors({ invalidCode: true });
+      }
+    );
+  }
 }
