@@ -19,6 +19,8 @@ export class RegisterComponent implements OnInit {
   passwordStrengthPercent: number = 0;
   passwordStrengthClass: string = 'bg-danger';
   password: string = '';
+  emailExistsError: boolean = false;
+  nameExistsError: boolean = false;
 
   passwordCriteria = {
     capitalLetter: false,
@@ -43,6 +45,15 @@ export class RegisterComponent implements OnInit {
       preference: [[], Validators.required],
       imageUrl: [null, Validators.required],
       description: ['']
+    });
+
+    // Resetear errores manuales al cambiar el correo o el nombre
+    this.registrationForm.get('email')?.valueChanges.subscribe(() => {
+      this.emailExistsError = false;
+    });
+
+    this.registrationForm.get('name')?.valueChanges.subscribe(() => {
+      this.nameExistsError = false;
     });
 
     // Revalidate every time password or confirmPassword values change
@@ -147,7 +158,6 @@ export class RegisterComponent implements OnInit {
   validatePreferences(): void {
     const preferenceControl = this.registrationForm.get('preference');
 
-    // Marcar como touched para que la validación se dispare
     preferenceControl?.markAsTouched();
     preferenceControl?.updateValueAndValidity();
   }
@@ -208,20 +218,34 @@ export class RegisterComponent implements OnInit {
     this.registrationService.addUser(formData).subscribe({
       next: (response) => {
         const email = this.registrationForm.get('email')?.value;
-        // Guardar el email en localStorage
         localStorage.setItem('userEmail', email);
-
         this.registrationForm.reset();
         this.imageUrl = null;
-
         this.router.navigate(['/auth/verification']).then(() => {});
       },
       error: (error) => {
         console.error('Registration error:', error);
-        alert('Registration failed!');
         this.isSubmitting = false;
+
+        // Manejar errores manualmente
+        if (error.status === 403 && error.error?.message) {
+          const errorMessage = error.error.message;
+
+          if (errorMessage.includes("Email already exists")) {
+            this.emailExistsError = true;
+          } else {
+            this.emailExistsError = false;
+          }
+
+          if (errorMessage.includes("Name already exists")) {
+            this.nameExistsError = true;
+          } else {
+            this.nameExistsError = false;
+          }
+        } else {
+          alert('Registration failed!');
+        }
       }
     });
   }
-
 }

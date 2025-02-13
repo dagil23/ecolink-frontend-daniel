@@ -18,6 +18,8 @@
                 <div *ngIf="registrationForm.get('name')?.errors?.['required']" class="text-danger">Name is required.</div>
                 <div *ngIf="registrationForm.get('name')?.errors?.['minlength']" class="text-danger">Name must be at least 4 characters long.</div>
               </div>
+              <!-- Show error -->
+              <div *ngIf="nameExistsError" class="text-danger">Name already in use.</div>
             </div>
 
             <!-- Email -->
@@ -31,6 +33,8 @@
                 <div *ngIf="registrationForm.get('email')?.errors?.['required']" class="text-danger">Email is required.</div>
                 <div *ngIf="registrationForm.get('email')?.errors?.['email']" class="text-danger">Please enter a valid email.</div>
               </div>
+              <!-- Show error -->
+              <div *ngIf="emailExistsError" class="text-danger">Email already in use.</div>
             </div>
 
             <!-- Password -->
