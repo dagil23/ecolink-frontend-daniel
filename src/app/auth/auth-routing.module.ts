@@ -4,6 +4,7 @@ import { AuthComponent } from './auth.component';
 import { RegisterComponent } from './components/register/register.component';
 import {LoginComponent} from './components/login/login.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import {VerificationComponent} from './components/verification/verification.component';
 
 
 
@@ -16,6 +17,9 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'verification', component: VerificationComponent, canActivate: [AuthGuard]
   }
 ];
 

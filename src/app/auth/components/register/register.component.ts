@@ -206,11 +206,15 @@ export class RegisterComponent implements OnInit {
     }
 
     this.registrationService.addUser(formData).subscribe({
-      next: () => {
+      next: (response) => {
+        const email = this.registrationForm.get('email')?.value;
+        // Guardar el email en localStorage
+        localStorage.setItem('userEmail', email);
+
         this.registrationForm.reset();
         this.imageUrl = null;
-        this.isSubmitting = false;
-        this.router.navigate(['/auth/login']).then(() => {});
+
+        this.router.navigate(['/auth/verification']).then(() => {});
       },
       error: (error) => {
         console.error('Registration error:', error);

@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
+import { VerificationComponent } from './components/verification/verification.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
     AuthComponent,
     LoginComponent,
     RegisterComponent,
+    VerificationComponent,
   ],
     imports: [
         CommonModule,
