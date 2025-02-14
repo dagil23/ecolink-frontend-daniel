@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {LoginService} from '../../services/LoginService.service';
 import { LoginRequest } from '../../models/loginRequest';
 import { Router } from '@angular/router';
@@ -16,14 +16,29 @@ export class LoginComponent implements OnInit {
   // Form
   loginForm!: FormGroup;
   isSubmitting = false;
+  showPassword: boolean = false; // Estado inicial: contraseña oculta
 
   constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      email: ['', [Validators.required, this.emailOrUsernameValidator]],
+      password: ['', [Validators.required,]],
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+  private emailOrUsernameValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) return { required: true };
+
+    if (value.includes('@')) {
+      return Validators.email(control);
+    }
+
+    return null;
   }
 
 
@@ -37,7 +52,6 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
-
 
     const loginRequest: LoginRequest = {
       username: this.loginForm.value.email,
