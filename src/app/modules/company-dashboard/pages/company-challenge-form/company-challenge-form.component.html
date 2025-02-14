@@ -1,39 +1,75 @@
 <shared-header></shared-header>
-<div class="container mt-5">
+<div class="container mt-5 mb-4">
   <h2 class="text-center mb-4">
     {{ this.challengeId ? "Edit Challenge" : "Create Challenge" }}
   </h2>
   <form (ngSubmit)="saveChallenge()">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input type="text" id="title" class="form-control" [(ngModel)]="challenge.title" name="title" required />
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        [(ngModel)]="challenge.title"
+        name="title"
+        required
+      />
     </div>
     <div class="mb-3">
       <label for="shortDescription" class="form-label">Short Description</label>
-      <textarea id="shortDescription" class="form-control" [(ngModel)]="challenge.shortDescription"
-        name="shortDescription" rows="3" required></textarea>
+      <textarea
+        id="shortDescription"
+        class="form-control"
+        [(ngModel)]="challenge.shortDescription"
+        name="shortDescription"
+        rows="3"
+        required
+      ></textarea>
     </div>
     <div class="mb-3">
       <label for="description" class="form-label">Description</label>
-      <textarea id="description" class="form-control" [(ngModel)]="challenge.description" name="description" rows="5"
-        required></textarea>
+      <textarea
+        id="description"
+        class="form-control"
+        [(ngModel)]="challenge.description"
+        name="description"
+        rows="5"
+        required
+      ></textarea>
     </div>
     <div class="mb-3">
       <label for="budget" class="form-label">Budget</label>
-      <input type="number" id="budget" class="form-control" [(ngModel)]="challenge.budget" name="budget" required />
+      <input
+        type="number"
+        id="budget"
+        class="form-control"
+        [(ngModel)]="challenge.budget"
+        name="budget"
+        required
+      />
     </div>
     <div class="mb-3">
       <label for="endDate" class="form-label">End Date</label>
-      <select id="endDate" class="form-select" [(ngModel)]="challenge.endDate" name="endDate" required>
-        <option value="1">1 day</option>
-        <option value="7">7 days</option>
-        <option value="30">1 month</option>
-        <option value="90">3 months</option>
-      </select>
+      <input
+        type="date"
+        id="endDate"
+        class="form-control"
+        (change)="onEndDateChange($event)"
+        [value]="formattedEndDate"
+        required
+      />
     </div>
+
     <div class="mb-3">
       <label for="odsList" class="form-label">ODS List</label>
-      <select id="odsList" class="form-select" [(ngModel)]="odsIds" name="odsList" multiple required>
+      <select
+        id="odsList"
+        class="form-select"
+        [(ngModel)]="odsIds"
+        name="odsList"
+        multiple
+        required
+      >
         <option *ngFor="let ods of odsList" [value]="ods.id">
           {{ ods.name }}
         </option>
@@ -42,10 +78,23 @@
 
     <div class="mb-3">
       <label for="requirements" class="form-label">Requirements</label>
-      <div *ngFor="let requirement of challenge.requirements; let i = index" class="input-group mb-2">
-        <input type="text" class="form-control" [value]="requirement" (blur)="updateRequirement($event, i)"
-          placeholder="Enter requirement" required />
-        <button type="button" class="btn btn-danger" (click)="removeRequirement(i)">
+      <div
+        *ngFor="let requirement of challenge.requirements; let i = index"
+        class="input-group mb-2"
+      >
+        <input
+          type="text"
+          class="form-control"
+          [value]="requirement"
+          (blur)="updateRequirement($event, i)"
+          placeholder="Enter requirement"
+          required
+        />
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="removeRequirement(i)"
+        >
           Remove
         </button>
       </div>
@@ -55,9 +104,18 @@
     </div>
     <div class="mb-3">
       <label for="benefits" class="form-label">Benefits</label>
-      <div *ngFor="let benefit of challenge.benefits; let i = index" class="input-group mb-2">
-        <input type="text" class="form-control" [value]="benefit" (blur)="updateBenefit($event, i)"
-          placeholder="Enter benefit" required />
+      <div
+        *ngFor="let benefit of challenge.benefits; let i = index"
+        class="input-group mb-2"
+      >
+        <input
+          type="text"
+          class="form-control"
+          [value]="benefit"
+          (blur)="updateBenefit($event, i)"
+          placeholder="Enter benefit"
+          required
+        />
         <button type="button" class="btn btn-danger" (click)="removeBenefit(i)">
           Remove
         </button>

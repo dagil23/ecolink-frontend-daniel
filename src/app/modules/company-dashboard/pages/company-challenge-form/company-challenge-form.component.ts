@@ -15,7 +15,7 @@ export class CompanyChallengeFormComponent implements OnInit {
     description: '',
     shortDescription: '',
     budget: 0,
-    endDate: 0, // Asegura formato 'YYYY-MM-DD'
+    endDate: 0,
     odsList: [],
     requirements: [''],
     benefits: [''],
@@ -24,6 +24,7 @@ export class CompanyChallengeFormComponent implements OnInit {
   odsList: Ods[] = [];
   odsIds: number[] = [];
   challengeId: string | null = null;
+  formattedEndDate: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -55,7 +56,20 @@ export class CompanyChallengeFormComponent implements OnInit {
         this.odsIds = this.challenge.odsList
           .map((ods) => this.odsList.find((o) => o.name === ods.name)?.id)
           .filter((id) => id !== undefined) as number[];
+
+        console.log(this.challenge.endDate);
+        this.formattedEndDate = this.challenge.endDate.toString();
       });
+  }
+
+  onEndDateChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const customEndDate = new Date(inputElement.value);
+    const today = new Date();
+    const diffDays = Math.ceil(
+      (customEndDate.getTime() - today.getTime()) / (1000 * 3600 * 24)
+    );
+    this.challenge.endDate = diffDays;
   }
 
   addRequirement(): void {
@@ -98,12 +112,22 @@ export class CompanyChallengeFormComponent implements OnInit {
       return;
     }
 
+      // Ensure endDate is a number
+      let endDate = this.challenge.endDate;
+      if (typeof endDate === 'string') {
+        const endDateObj = new Date(endDate);
+        const today = new Date();
+        endDate = Math.ceil(
+          (endDateObj.getTime() - today.getTime()) / (1000 * 3600 * 24)
+        );
+      }
+
     const payload = {
       title: String(this.challenge.title).trim(),
       description: String(this.challenge.description).trim(),
       shortDescription: String(this.challenge.shortDescription).trim(),
       budget: Number(this.challenge.budget),
-      endDate: this.challenge.endDate,
+      endDate: endDate,
       odsList: this.odsIds,
       requirements:
         this.challenge.requirements.map((req) => String(req).trim()) || [],
@@ -121,7 +145,6 @@ export class CompanyChallengeFormComponent implements OnInit {
       this.challengeService.createChallenge(payload).subscribe(() => {
         this.router.navigate(['/company-dashboard/challenges']);
       });
-      console.log('finall');
     }
   }
 }
