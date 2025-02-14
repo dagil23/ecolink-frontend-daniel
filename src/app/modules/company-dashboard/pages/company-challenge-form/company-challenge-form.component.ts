@@ -134,7 +134,7 @@ export class CompanyChallengeFormComponent implements OnInit {
       this.errorMessage = 'End date is required.';
       return;
     }
-    
+
     if (this.odsIds.length === 0) {
       this.errorMessage = 'At least one ODS is required.';
       return;
@@ -153,7 +153,7 @@ export class CompanyChallengeFormComponent implements OnInit {
 
     // Check if endDate is in the past
     if (endDate < 0) {
-      this.errorMessage = 'La fecha de finalización no puede ser anterior al día de hoy.';
+      this.errorMessage = 'End date cannot be in the past.';
       return;
     }
 
