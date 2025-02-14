@@ -25,6 +25,7 @@ export class CompanyChallengeFormComponent implements OnInit {
   odsIds: number[] = [];
   challengeId: string | null = null;
   formattedEndDate: string = '';
+  errorMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -102,25 +103,60 @@ export class CompanyChallengeFormComponent implements OnInit {
     }
   }
 
+  cancel() {
+    this.router.navigate(['/company-dashboard']);
+  }
+
   saveChallenge(): void {
-    if (
-      !this.challenge.title ||
-      !this.challenge.description ||
-      !this.challenge.shortDescription
-    ) {
-      alert('Por favor, completa todos los campos obligatorios.');
+    this.errorMessage = ''; // Reset error message
+
+    if (!this.challenge.title) {
+      this.errorMessage = 'Title is required.';
       return;
     }
 
-      // Ensure endDate is a number
-      let endDate = this.challenge.endDate;
-      if (typeof endDate === 'string') {
-        const endDateObj = new Date(endDate);
-        const today = new Date();
-        endDate = Math.ceil(
-          (endDateObj.getTime() - today.getTime()) / (1000 * 3600 * 24)
-        );
-      }
+    if (!this.challenge.description) {
+      this.errorMessage = 'Description is required.';
+      return;
+    }
+
+    if (!this.challenge.shortDescription) {
+      this.errorMessage = 'Short description is required.';
+      return;
+    }
+
+    if (!this.challenge.budget) {
+      this.errorMessage = 'Budget is required and more than 0.';
+      return;
+    }
+
+    if (!this.challenge.endDate) {
+      this.errorMessage = 'End date is required.';
+      return;
+    }
+    
+    if (this.odsIds.length === 0) {
+      this.errorMessage = 'At least one ODS is required.';
+      return;
+    }
+
+
+    // Ensure endDate is a number and validate it
+    let endDate = this.challenge.endDate;
+    if (typeof endDate === 'string') {
+      const endDateObj = new Date(endDate);
+      const today = new Date();
+      endDate = Math.ceil(
+        (endDateObj.getTime() - today.getTime()) / (1000 * 3600 * 24)
+      );
+    }
+
+    // Check if endDate is in the past
+    if (endDate < 0) {
+      this.errorMessage = 'La fecha de finalización no puede ser anterior al día de hoy.';
+      return;
+    }
+
 
     const payload = {
       title: String(this.challenge.title).trim(),
