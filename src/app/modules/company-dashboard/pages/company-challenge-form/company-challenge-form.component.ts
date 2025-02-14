@@ -15,14 +15,17 @@ export class CompanyChallengeFormComponent implements OnInit {
     description: '',
     shortDescription: '',
     budget: 0,
-    endDate: 0, // Asegura formato 'YYYY-MM-DD'
+    endDate: 0,
     odsList: [],
     requirements: [''],
     benefits: [''],
   };
-  
+
   odsList: Ods[] = [];
-  odsIds: number[] = []; // Lista para almacenar solo los IDs de ODS
+  odsIds: number[] = [];
+  challengeId: string | null = null;
+  formattedEndDate: string = '';
+  errorMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,12 +35,42 @@ export class CompanyChallengeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOdsList();
+    this.challengeId = this.route.snapshot.paramMap.get('id'); // Obtener el ID de la URL
+    if (this.challengeId) {
+      this.loadChallengeData(this.challengeId);
+    }
   }
 
   loadOdsList(): void {
     this.challengeService.getOdsList().subscribe((data: Ods[]) => {
       this.odsList = data;
+      console.log('ODS List:', this.odsList);
     });
+  }
+
+  loadChallengeData(id: string): void {
+    this.challengeService
+      .getChallengeById(id)
+      .subscribe((data: ChallengeCompany) => {
+        this.challenge = data;
+        console.log('Challenge data:', this.challenge);
+        this.odsIds = this.challenge.odsList
+          .map((ods) => this.odsList.find((o) => o.name === ods.name)?.id)
+          .filter((id) => id !== undefined) as number[];
+
+        console.log(this.challenge.endDate);
+        this.formattedEndDate = this.challenge.endDate.toString();
+      });
+  }
+
+  onEndDateChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const customEndDate = new Date(inputElement.value);
+    const today = new Date();
+    const diffDays = Math.ceil(
+      (customEndDate.getTime() - today.getTime()) / (1000 * 3600 * 24)
+    );
+    this.challenge.endDate = diffDays;
   }
 
   addRequirement(): void {
@@ -70,34 +103,84 @@ export class CompanyChallengeFormComponent implements OnInit {
     }
   }
 
+  cancel() {
+    this.router.navigate(['/company-dashboard']);
+  }
+
   saveChallenge(): void {
-    if (!this.challenge.title || !this.challenge.description || !this.challenge.shortDescription) {
-      alert('Por favor, completa todos los campos obligatorios.');
+    this.errorMessage = ''; // Reset error message
+
+    if (!this.challenge.title) {
+      this.errorMessage = 'Title is required.';
       return;
     }
+
+    if (!this.challenge.description) {
+      this.errorMessage = 'Description is required.';
+      return;
+    }
+
+    if (!this.challenge.shortDescription) {
+      this.errorMessage = 'Short description is required.';
+      return;
+    }
+
+    if (!this.challenge.budget) {
+      this.errorMessage = 'Budget is required and more than 0.';
+      return;
+    }
+
+    if (!this.challenge.endDate) {
+      this.errorMessage = 'End date is required.';
+      return;
+    }
+
+    if (this.odsIds.length === 0) {
+      this.errorMessage = 'At least one ODS is required.';
+      return;
+    }
+
+
+    // Ensure endDate is a number and validate it
+    let endDate = this.challenge.endDate;
+    if (typeof endDate === 'string') {
+      const endDateObj = new Date(endDate);
+      const today = new Date();
+      endDate = Math.ceil(
+        (endDateObj.getTime() - today.getTime()) / (1000 * 3600 * 24)
+      );
+    }
+
+    // Check if endDate is in the past
+    if (endDate < 0) {
+      this.errorMessage = 'End date cannot be in the past.';
+      return;
+    }
+
 
     const payload = {
       title: String(this.challenge.title).trim(),
       description: String(this.challenge.description).trim(),
       shortDescription: String(this.challenge.shortDescription).trim(),
       budget: Number(this.challenge.budget),
-      endDate: this.challenge.endDate, // Formato "YYYY-MM-DD"
-      odsList: this.odsIds.map(id => Number(id)), // Convertir a números correctamente
-      requirements: this.challenge.requirements.map(req => String(req).trim()) || [],
-      benefits: this.challenge.benefits.map(ben => String(ben).trim()) || [],
+      endDate: endDate,
+      odsList: this.odsIds,
+      requirements:
+        this.challenge.requirements.map((req) => String(req).trim()) || [],
+      benefits: this.challenge.benefits.map((ben) => String(ben).trim()) || [],
     };
-    
-    
 
-    // if (this.challenge.id) {
-    //   this.challengeService.updateChallenge(payload).subscribe(() => {
-    //     this.router.navigate(['/company-dashboard/challenges']);
-    //   });
-    // } else {
+    if (this.challengeId) {
+      this.challengeService
+        .updateChallenge(this.challengeId, payload)
+        .subscribe(() => {
+          this.router.navigate(['/company-dashboard/challenges']);
+        });
+    } else {
       console.log('Creating challenge:', payload);
-      this.challengeService.createChallenge(payload).subscribe({
+      this.challengeService.createChallenge(payload).subscribe(() => {
+        this.router.navigate(['/company-dashboard/challenges']);
       });
-      console.log('finall');
     }
   }
-// }
+}
