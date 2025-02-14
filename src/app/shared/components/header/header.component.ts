@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   imageUrl: string | null = null;
   username: string | null = null;
   userFullName: string | null = null;
+  amount: number = 0;
 
   constructor(
     private authService: AuthService,
