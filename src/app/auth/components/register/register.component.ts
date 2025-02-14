@@ -203,10 +203,12 @@ export class RegisterComponent implements OnInit {
       user.description = this.registrationForm.get('description')?.value;
     }
 
+    const selectedPreferences = this.registrationForm.get('preference')?.value;
+
     if (userType === 'client') {
-      user.preferences = this.registrationForm.get('preference')?.value.map((id: any) => ({ id: +id }));
+      user.preferences = selectedPreferences.map((pref: Preference) => ({ id: pref.id }));
     } else if (userType === 'startup') {
-      user.odsList = this.registrationForm.get('preference')?.value.map((id: any) => ({ id: +id }));
+      user.odsList = selectedPreferences.map((pref: Preference) => ({ id: pref.id }));
     }
 
     const formData = new FormData();
