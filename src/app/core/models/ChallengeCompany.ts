@@ -1,4 +1,3 @@
-import { Ods } from './Ods';
 
 export interface ChallengeCompany {
   title: string;
@@ -6,7 +5,7 @@ export interface ChallengeCompany {
   shortDescription: string;
   budget: number;
   endDate: number;
-  odsList: number[];
+  odsList: { id: number, name: string }[];
   requirements: string[];
   benefits: string[];
 }

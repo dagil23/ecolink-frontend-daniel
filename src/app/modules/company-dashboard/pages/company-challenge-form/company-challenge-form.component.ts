@@ -20,9 +20,10 @@ export class CompanyChallengeFormComponent implements OnInit {
     requirements: [''],
     benefits: [''],
   };
-  
+
   odsList: Ods[] = [];
-  odsIds: number[] = []; // Lista para almacenar solo los IDs de ODS
+  odsIds: number[] = [];
+  challengeId: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,12 +33,29 @@ export class CompanyChallengeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOdsList();
+    this.challengeId = this.route.snapshot.paramMap.get('id'); // Obtener el ID de la URL
+    if (this.challengeId) {
+      this.loadChallengeData(this.challengeId);
+    }
   }
 
   loadOdsList(): void {
     this.challengeService.getOdsList().subscribe((data: Ods[]) => {
       this.odsList = data;
+      console.log('ODS List:', this.odsList);
     });
+  }
+
+  loadChallengeData(id: string): void {
+    this.challengeService
+      .getChallengeById(id)
+      .subscribe((data: ChallengeCompany) => {
+        this.challenge = data;
+        console.log('Challenge data:', this.challenge);
+        this.odsIds = this.challenge.odsList
+          .map((ods) => this.odsList.find((o) => o.name === ods.name)?.id)
+          .filter((id) => id !== undefined) as number[];
+      });
   }
 
   addRequirement(): void {
@@ -71,7 +89,11 @@ export class CompanyChallengeFormComponent implements OnInit {
   }
 
   saveChallenge(): void {
-    if (!this.challenge.title || !this.challenge.description || !this.challenge.shortDescription) {
+    if (
+      !this.challenge.title ||
+      !this.challenge.description ||
+      !this.challenge.shortDescription
+    ) {
       alert('Por favor, completa todos los campos obligatorios.');
       return;
     }
@@ -81,23 +103,25 @@ export class CompanyChallengeFormComponent implements OnInit {
       description: String(this.challenge.description).trim(),
       shortDescription: String(this.challenge.shortDescription).trim(),
       budget: Number(this.challenge.budget),
-      endDate: this.challenge.endDate, // Formato "YYYY-MM-DD"
-      odsList: this.odsIds.map(id => Number(id)), // Convertir a números correctamente
-      requirements: this.challenge.requirements.map(req => String(req).trim()) || [],
-      benefits: this.challenge.benefits.map(ben => String(ben).trim()) || [],
+      endDate: this.challenge.endDate,
+      odsList: this.odsIds,
+      requirements:
+        this.challenge.requirements.map((req) => String(req).trim()) || [],
+      benefits: this.challenge.benefits.map((ben) => String(ben).trim()) || [],
     };
-    
-    
 
-    // if (this.challenge.id) {
-    //   this.challengeService.updateChallenge(payload).subscribe(() => {
-    //     this.router.navigate(['/company-dashboard/challenges']);
-    //   });
-    // } else {
+    if (this.challengeId) {
+      this.challengeService
+        .updateChallenge(this.challengeId, payload)
+        .subscribe(() => {
+          this.router.navigate(['/company-dashboard/challenges']);
+        });
+    } else {
       console.log('Creating challenge:', payload);
-      this.challengeService.createChallenge(payload).subscribe({
+      this.challengeService.createChallenge(payload).subscribe(() => {
+        this.router.navigate(['/company-dashboard/challenges']);
       });
       console.log('finall');
     }
   }
-// }
+}

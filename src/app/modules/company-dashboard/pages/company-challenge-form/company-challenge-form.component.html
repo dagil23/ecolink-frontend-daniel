@@ -1,7 +1,7 @@
 <shared-header></shared-header>
 <div class="container mt-5">
   <h2 class="text-center mb-4">
-    <!-- {{ challenge.id ? "Edit Challenge" : "Create Challenge" }} -->
+    {{ this.challengeId ? "Edit Challenge" : "Create Challenge" }}
   </h2>
   <form (ngSubmit)="saveChallenge()">
     <div class="mb-3">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <button type="submit" class="btn btn-success">
-      <!-- {{ challenge.id ? "Update" : "Create" }} -->
+      {{ this.challengeId ? "Update" : "Create" }}
     </button>
   </form>
 </div>

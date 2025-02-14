@@ -27,14 +27,15 @@ export class CompanyChallengeService {
     return this.http.get<ChallengeCompany>(`${this.baseUrl}/${id}`);
   }
 
-  createChallenge(challenge: ChallengeCompany): Observable<ChallengeCompany> {
+  createChallenge(challenge: any): Observable<ChallengeCompany> {
     console.log(challenge);
     return this.http.post<ChallengeCompany>(this.baseUrl, challenge, { withCredentials: true });
   }
 
-  // updateChallenge(challenge: ChallengeCompany): Observable<ChallengeCompany> {
-  //   return this.http.put<ChallengeCompany>(`${this.baseUrl}/${challenge.id}`, challenge);
-  // }
+  updateChallenge(id: string, challenge:any): Observable<ChallengeCompany> {
+    console.log( 'update:', challenge);
+   return this.http.put<ChallengeCompany>(`${this.baseUrl}/${id}`, challenge, { withCredentials: true });
+  }
 
   deleteChallenge(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`, { withCredentials: true });
