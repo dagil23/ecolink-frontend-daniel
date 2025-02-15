@@ -1,1 +1,127 @@
-<p>startup-profile works!</p>
+<section class="bg-light py-5">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="bg-white rounded p-3 mb-4">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a class="text-greendark" href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+      </ol>
+    </nav>
+
+    <div class="row">
+      <!-- User Profile Info -->
+      <div class="col-lg-4 h-100">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img [src]="imageUrl" alt="avatar" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+            <h5 class="my-3">{{ startupProfile.name }}</h5>
+            <p class="text-muted mb-1">Startup</p>
+            <p class="text-muted mb-4">{{ startupProfile.status }}</p>
+          </div>
+        </div>
+
+        <!-- Social links (optional) -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="d-flex align-items-center mb-2"><i class="bi-globe me-2"></i> www.{{ startupProfile.name }}.com</li>
+              <li class="d-flex align-items-center mb-2"><i class="bi-github me-2"></i> {{ startupProfile.name }}</li>
+              <li class="d-flex align-items-center mb-2"><i class="bi-twitter me-2"></i> {{ startupProfile.name }}</li>
+              <li class="d-flex align-items-center mb-2"><i class="bi-instagram me-2"></i> {{ startupProfile.name }}</li>
+              <li class="d-flex align-items-center"><i class="bi-facebook me-2"></i> {{ startupProfile.name }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extended profile info -->
+      <div class="col-lg-8 h-100">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3"><p class="mb-0">Company Name</p></div>
+              <div class="col-sm-9"><p class="text-muted mb-0">{{ startupProfile.name }}</p></div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3"><p class="mb-0">Email</p></div>
+              <div class="col-sm-9"><p class="text-muted mb-0">{{ startupProfile.email }}</p></div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3"><p class="mb-0">Description</p></div>
+              <div class="col-sm-9"><p class="text-muted mb-0">{{ startupProfile.description }}</p></div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3"><p class="mb-0">Status</p></div>
+              <div class="col-sm-9"><p class="text-muted mb-0">{{ startupProfile.status }}</p></div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3"><p class="mb-0">ODS List</p></div>
+              <div class="col-sm-9">
+                <ul>
+                  <li *ngFor="let ods of startupProfile.odsList">
+                    <p class="mb-1">{{ ods.name }}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proposals -->
+        <div class="card mb-4" *ngIf="startupProfile.proposals.length > 0">
+          <div class="card-body">
+            <h5 class="text-greendark">Proposals</h5>
+            <ul>
+              <li *ngFor="let proposal of startupProfile.proposals">
+                <p class="mb-1"><strong>Challenge Title:</strong> {{ proposal.challengeTitle }}</p>
+                <p class="mb-1"><strong>Description:</strong> {{ proposal.description }}</p>
+                <p class="mb-1"><strong>Status:</strong> {{ proposal.status }}</p>
+              </li>
+            </ul>
+            <button class="mt-3 btn btn-outline-greendark"><a href="/proposal-dashboard" class="text-decoration-none text-greendark">All proposals</a></button>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h5 class="text-greendark">Products</h5>
+                <ul>
+                  <li *ngFor="let product of startupProfile.products">
+                    <p><strong>Name:</strong> {{ product.name }}</p>
+                    <p><strong>Description:</strong> {{ product.description }}</p>
+                    <p><strong>Price:</strong> ${{ product.price }}</p>
+                    <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.name }}" class="img-fluid" style="max-width: 100px;">
+                  </li>
+                </ul>
+                <button class="mt-3 btn btn-outline-greendark"><a href="/products" class="text-decoration-none text-greendark">All products</a></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Posts Liked -->
+        <div *ngIf="startupProfile.listLikePost.length > 0" class="row mt-3">
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h5 class="text-greendark">Posts Liked</h5>
+                <ul>
+                  <li *ngFor="let post of startupProfile.listLikePost">
+                    <p class="mb-1">{{ post.title }}</p>
+                  </li>
+                </ul>
+                <button class="mt-3 btn btn-outline-greendark"><a href="/blog" class="text-decoration-none text-greendark">All posts</a></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
