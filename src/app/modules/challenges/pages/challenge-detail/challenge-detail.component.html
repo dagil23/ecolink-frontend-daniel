@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <div class="col-md-6 pb-sm-3" *ngIf="isStartup">
+  <div class="col-md-6 pb-sm-3" *ngIf="isStartup && challenge.endDate >= today">
     <h3 class="fs-4 mb-2">How to Join?</h3>
       <a [routerLink]="['/challenges/form', challengeId]" class="btn w-auto btn-primary text-add1 fw-semibold rounded-pill mt-3 px-3 fs-5">Join the Challenge</a>
   </div>
