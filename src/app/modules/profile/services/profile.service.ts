@@ -18,4 +18,18 @@ export class ProfileService {
   getCurrentUser(): Observable<any> {
     return this.http.get(environment.apiUrl + '/auth/user/me', { withCredentials: true });
   }
+
+  // updateProfile(data: { odsIdList: number[]; description: string }, image?: File) {
+    updateProfile(data: { description: string }, image?: File) {
+      const formData = new FormData();
+      formData.append('data', JSON.stringify(data)); 
+    
+      if (image) {
+        formData.append('image', image);
+        console.log('Imagen adjuntada:', formData.get('image'));
+      }
+    
+      return this.http.put(this.profileUrl + '/update', formData, { withCredentials: true });
+    }
+    
 }

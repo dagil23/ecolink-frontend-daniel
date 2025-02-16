@@ -8,6 +8,7 @@ import { ClientProfileComponent } from './pages/client-profile/client-profile.co
 import { CompanyProfileComponent } from './pages/company-profile/company-profile.component';
 import { StartupProfileComponent } from './pages/startup-profile/startup-profile.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class ProfileModule { }
