@@ -1,4 +1,4 @@
-<body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+<div style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
   <shared-header></shared-header>
 
   <div class="container my-5" style="flex: 1;">
@@ -21,15 +21,15 @@
                 <td><img [src]="orderLine.product.imageUrl" class="img-thumbnail" [alt]="orderLine.product.name"></td>
                 <td>{{orderLine.product.name}}</td>
                 <td>
-                  <div class="input-group">
-                    <button class="btn btn-outline-success" type="button" (click)="decrement(orderLine)">−</button>
-                    <input type="text" class="form-control text-center" [value]="orderLine.amount" readonly style="max-width: 35px; padding: 2px;">
-                    <button class="btn btn-success" type="button" (click)="increment(orderLine)">+</button>
+                  <div class="input-group d-flex flex-column flex-lg-row">
+                    <button class="btn btn-sm btn-outline-success" type="button" (click)="decrement(orderLine)">−</button>
+                    <input type="text" class="form-control text-center" [value]="orderLine.amount" readonly style="width: 25px; padding: 2px;">
+                    <button class="btn btn-sm btn-success" type="button" (click)="increment(orderLine)">+</button>
                   </div>
                 </td>
                 <td>{{orderLine.product.categories[0].name}}</td>
                 <td>{{orderLine.product.price | number:'1.2-2'}}€</td>
-                <td><button (click)="removeProduct(orderLine.id)" class="btn btn-outline-danger"><i class="bi bi-trash3"></i></button></td>
+                <td><button (click)="removeProduct(orderLine.id)" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash3"></i></button></td>
             </tr>
         </tbody>
     </table>
@@ -57,8 +57,8 @@
             </tr>
         </tbody>
     </table>
-    <button *ngIf="cart?.orderLines?.length" class="btn btn-primary" [routerLink]="'/cart/checkout'">Checkout</button>
+    <button *ngIf="cart?.orderLines?.length" class="btn btn-success" [routerLink]="'/cart/checkout'">Checkout</button>
   </div>
 
   <shared-footer style="margin-top: auto; width: 100%;"></shared-footer>
-</body>
+</div>

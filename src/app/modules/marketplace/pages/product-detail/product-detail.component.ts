@@ -25,7 +25,7 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(): void {
     this.orderService.addProduct(this.product.id).subscribe(() => {
-      this.cartCountService.updateCount();
+      this.cartCountService.incrementCount();
     });
   }
 }

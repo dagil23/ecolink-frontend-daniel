@@ -16,8 +16,17 @@ export class CartCountService {
     this.loadCartCount();
   }
 
-  updateCount() {
+  incrementCount() {
     this.cartCount.next(this.cartCount.value + 1);
+  }
+
+  decrementCount() {
+    this.cartCount.next(this.cartCount.value - 1);
+  }
+
+  removeCount(amount: number) {
+    const newCount = Math.max(this.cartCount.value - amount, 0);
+    this.cartCount.next(newCount);
   }
 
   loadCartCount() {

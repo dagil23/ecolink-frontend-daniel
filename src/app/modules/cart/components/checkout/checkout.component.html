@@ -157,6 +157,9 @@
             Proceed to Payment
           </button>
         </form>
+          <div *ngIf="message" class="alert alert-success mt-3 text-center" role="alert">
+            {{message}}
+          </div>
       </div>
     </div>
 

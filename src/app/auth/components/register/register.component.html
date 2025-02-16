@@ -150,8 +150,12 @@
 
             <!-- Preview de imagen -->
             <img *ngIf="imageUrl" [src]="imageUrl" alt="Profile Image" class="img-thumbnail mb-3">
-            <button type="submit" [disabled]="isSubmitting" class="btn btn-primary w-100">
-              {{ isSubmitting ? 'Registering...' : 'Register' }}
+            <button type="submit" [disabled]="isSubmitting" class="btn btn-success w-100" [disabled]="isLoading">
+              <span *ngIf="!isLoading">Register</span>
+              <span *ngIf="isLoading">
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Registering...
+              </span>
             </button>
           </form>
         </div>

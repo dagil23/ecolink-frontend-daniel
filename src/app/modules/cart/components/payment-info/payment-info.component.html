@@ -2,76 +2,101 @@
 <div class="container my-5">
   <h2 class="text-center mb-4">Payment Details</h2>
   <div class="row justify-content-center">
-      <div class="col-md-6">
-          <div class="card p-4 shadow-sm">
-              <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
-                  <div class="mb-3">
-                      <label for="cardNumber" class="form-label">Card Number</label>
-                      <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber" placeholder="1234 5678 9012 3456">
-                      <div class="text-danger" *ngIf="paymentForm.controls['cardNumber'].invalid && paymentForm.controls['cardNumber'].touched">
-                          Invalid card number
-                      </div>
-                  </div>
-
-                  <div class="mb-3">
-                      <label for="cardHolder" class="form-label">Cardholder Name</label>
-                      <input type="text" class="form-control" id="cardHolder" formControlName="cardHolder" placeholder="John Doe">
-                      <div class="text-danger" *ngIf="paymentForm.controls['cardHolder'].invalid && paymentForm.controls['cardHolder'].touched">
-                          Name is required
-                      </div>
-                  </div>
-
-                  <div class="row">
-                      <div class="col-md-6 mb-3">
-                          <label for="cardExpiration" class="form-label">Expiration Date</label>
-                          <input type="text" class="form-control" id="cardExpiration" formControlName="cardExpiration" placeholder="MM/YY">
-                          <div class="text-danger" *ngIf="paymentForm.controls['cardExpiration'].invalid && paymentForm.controls['cardExpiration'].touched">
-                              Invalid expiration date
-                          </div>
-                      </div>
-                      <div class="col-md-6 mb-3">
-                          <label for="cardCVC" class="form-label">CVC</label>
-                          <input type="text" class="form-control" id="cardCVC" formControlName="cardCVC" placeholder="123">
-                          <div class="text-danger" *ngIf="paymentForm.controls['cardCVC'].invalid && paymentForm.controls['cardCVC'].touched">
-                              Invalid CVC
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="row">
-                      <div class="col-md-6 mb-3">
-                          <label for="cardType" class="form-label">Card Type</label>
-                          <select class="form-select" id="cardType" formControlName="cardType">
-                              <option value="">Select</option>
-                              <option>Visa</option>
-                              <option>Mastercard</option>
-                              <option>American Express</option>
-                          </select>
-                          <div class="text-danger" *ngIf="paymentForm.controls['cardType'].invalid && paymentForm.controls['cardType'].touched">
-                              Select a card type
-                          </div>
-                      </div>
-                      <div class="col-md-6 mb-3">
-                          <label for="cardCountry" class="form-label">Country</label>
-                          <input type="text" class="form-control" id="cardCountry" formControlName="cardCountry" placeholder="USA">
-                          <div class="text-danger" *ngIf="paymentForm.controls['cardCountry'].invalid && paymentForm.controls['cardCountry'].touched">
-                              Country is required
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="mb-3">
-                      <label for="cardZipCode" class="form-label">ZIP Code</label>
-                      <input type="text" class="form-control" id="cardZipCode" formControlName="cardZipCode" placeholder="10001">
-                      <div class="text-danger" *ngIf="paymentForm.controls['cardZipCode'].invalid && paymentForm.controls['cardZipCode'].touched">
-                          ZIP Code is required
-                      </div>
-                  </div>
-
-                  <button type="submit" class="btn btn-success w-100">Submit Payment</button>
-              </form>
+    <div class="col-md-6">
+      <div class="card p-4 shadow-sm">
+        <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="cardNumber" class="form-label">Card Number</label>
+            <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber" placeholder="1234 5678 9012 3456">
+            <div class="text-danger" *ngIf="paymentForm.controls['cardNumber'].invalid && paymentForm.controls['cardNumber'].touched">
+              Invalid card number
+            </div>
           </div>
+
+          <div class="mb-3">
+            <label for="cardHolder" class="form-label">Cardholder Name</label>
+            <input type="text" class="form-control" id="cardHolder" formControlName="cardHolder" placeholder="John Doe">
+            <div class="text-danger" *ngIf="paymentForm.controls['cardHolder'].invalid && paymentForm.controls['cardHolder'].touched">
+              Name is required
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="cardExpiration" class="form-label">Expiration Date</label>
+              <input type="text" class="form-control" id="cardExpiration" formControlName="cardExpiration" placeholder="MM/YY">
+              <div class="text-danger" *ngIf="paymentForm.controls['cardExpiration'].invalid && paymentForm.controls['cardExpiration'].touched">
+                Invalid expiration date
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="cardCVC" class="form-label">CVC</label>
+              <input type="text" class="form-control" id="cardCVC" formControlName="cardCVC" placeholder="123">
+              <div class="text-danger" *ngIf="paymentForm.controls['cardCVC'].invalid && paymentForm.controls['cardCVC'].touched">
+                Invalid CVC
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="cardType" class="form-label">Card Type</label>
+              <select class="form-select" id="cardType" formControlName="cardType">
+                <option value="">Select</option>
+                <option>Visa</option>
+                <option>Mastercard</option>
+                <option>American Express</option>
+              </select>
+              <div class="text-danger" *ngIf="paymentForm.controls['cardType'].invalid && paymentForm.controls['cardType'].touched">
+                Select a card type
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="cardCountry" class="form-label">Country</label>
+              <input type="text" class="form-control" id="cardCountry" formControlName="cardCountry" placeholder="USA">
+              <div class="text-danger" *ngIf="paymentForm.controls['cardCountry'].invalid && paymentForm.controls['cardCountry'].touched">
+                Country is required
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="cardZipCode" class="form-label">ZIP Code</label>
+            <input type="text" class="form-control" id="cardZipCode" formControlName="cardZipCode" placeholder="10001">
+            <div class="text-danger" *ngIf="paymentForm.controls['cardZipCode'].invalid && paymentForm.controls['cardZipCode'].touched">
+              ZIP Code is required
+            </div>
+          </div>
+
+          <!-- Botón de pago con tarjeta -->
+          <button type="submit" class="btn btn-success w-100" [disabled]="isLoading">
+            <span *ngIf="!isLoading">Submit Payment</span>
+            <span *ngIf="isLoading">
+              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              Processing Payment...
+            </span>
+          </button>
+
+          <div class="alert alert-success mt-3" *ngIf="message">
+            {{message}}
+          </div>
+
+          <!-- Separador -->
+          <div class="d-flex align-items-center my-3">
+            <hr class="flex-grow-1">
+            <span class="mx-2 text-muted fw-bold">OR</span>
+            <hr class="flex-grow-1">
+          </div>
+
+          <!-- Botón de PayPal -->
+          <button type="button" class="btn w-100" (click)="payWithPaypal()"
+                  style="background-color: #003087; color: white; font-weight: bold;">
+            <i class="bi bi-paypal me-2"></i> Pay with PayPal
+          </button>
+        </form>
       </div>
+    </div>
   </div>
 </div>
+
 <shared-footer></shared-footer>

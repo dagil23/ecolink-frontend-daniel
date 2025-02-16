@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CartService } from '../../services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-info',
@@ -8,10 +10,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PaymentInfoComponent {
   paymentForm: FormGroup;
+  isLoading: boolean = false;
+  message: string = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private cartService: CartService, private route: Router) {
     this.paymentForm = this.fb.group({
-      cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/), this.luhnValidator]],
+      cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
       cardHolder: ['', Validators.required],
       cardExpiration: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]],
       cardCVC: ['', [Validators.required, Validators.pattern(/^\d{3,4}$/)]],
@@ -22,29 +26,37 @@ export class PaymentInfoComponent {
   }
 
   onSubmit() {
-    if (this.paymentForm.valid) {
-      console.log('Payment submitted', this.paymentForm.value);
-      alert('Payment successful!');
-    } else {
+    if (!this.paymentForm.valid) {
       this.paymentForm.markAllAsTouched();
+      return ;
     }
+
+    this.isLoading = true;
+
+    const body = {
+      cardNumber: this.paymentForm.get('cardNumber')?.value || '',
+      cardHolder: this.paymentForm.get('cardHolder')?.value || '',
+      cardExpiration: this.paymentForm.get('cardExpiration')?.value || '',
+      cardCVC: this.paymentForm.get('cardCVC')?.value || '',
+      cardType: this.paymentForm.get('cardType')?.value || '',
+      cardCountry: this.paymentForm.get('cardCountry')?.value || '',
+      cardZipCode: this.paymentForm.get('cardZipCode')?.value || ''
+    };
+
+    this.cartService.payWithCard(body).subscribe((data) => {
+      this.isLoading = false;
+      this.message = 'Payment successful! Redirecting to the home page...';
+
+      setTimeout(() => {
+        this.message = '';
+        this.route.navigate(['/']);
+      }, 3000);
+    });
   }
 
-  private luhnValidator(control: any) { // 5105 1051 0510 5100 // 3714 4963 5398 431
-    const value = control.value;
-    if (!value) return null;
-
-    let sum = 0;
-    let alternate = false;
-    for (let i = value.length - 1; i >= 0; i--) {
-      let n = parseInt(value[i], 10);
-      if (alternate) {
-        n *= 2;
-        if (n > 9) n -= 9;
-      }
-      sum += n;
-      alternate = !alternate;
-    }
-    return sum % 10 === 0 ? null : { invalidCardNumber: true };
+  payWithPaypal() {
+    this.cartService.payWithPaypal().subscribe((data) => {
+      console.log('Paypal payment', data);
+    })
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -10,8 +11,9 @@ import { CartService } from '../../services/cart.service';
 export class CheckoutComponent {
   total: number = 0;
   checkoutForm: FormGroup;
+  message: string = '';
 
-  constructor(private cartService: CartService, private fb: FormBuilder) {
+  constructor(private cartService: CartService, private fb: FormBuilder, private router: Router) {
     this.checkoutForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -47,7 +49,11 @@ export class CheckoutComponent {
     }
 
     this.cartService.checkout(body).subscribe(response => {
-      console.log('Checkout Response:', response);
+      this.message = 'Order placed successfully';
+      setTimeout(() => {
+        this.message = '';
+        this.router.navigate(['/cart/payment-info']);
+      }, 3000);
     })
   }
 }

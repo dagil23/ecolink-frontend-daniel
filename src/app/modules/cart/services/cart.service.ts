@@ -10,6 +10,7 @@ import { OrderLine } from '../models/OrderLine';
 })
 export class CartService {
   private apiUrl: string = `${environment.apiUrl}/order`;
+  private apiUrlPaypal: string = `${environment.apiUrl}/paypal`;
 
   constructor(private http: HttpClient) { }
 
@@ -31,5 +32,13 @@ export class CartService {
 
   public checkout(body: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/checkout`, body, { withCredentials: true });
+  }
+
+  public payWithCard(body: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/pay`, body, { withCredentials: true });
+  }
+
+  public payWithPaypal(): Observable<any> {
+    return this.http.post(`${this.apiUrlPaypal}/pay`, { withCredentials: true });
   }
 }

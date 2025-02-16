@@ -12,6 +12,7 @@ export class VerificationComponent implements OnInit {
   verificationForm: FormGroup;
   email: string = '';
   showSuccess: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -35,12 +36,15 @@ export class VerificationComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
+
     this.showSuccess = false; // Resetear estado anterior
     const { email, code } = this.verificationForm.getRawValue();
 
     this.verificationService.verifyCode(email, code).subscribe(
       response => {
         this.showSuccess = true; // Mostrar mensaje de éxito
+        this.isLoading = false;
         setTimeout(() => {
           this.router.navigate(['/auth/login']);
         }, 2000); // Redirigir después de 2 segundos

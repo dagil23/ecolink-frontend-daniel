@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   password: string = '';
   emailExistsError: boolean = false;
   nameExistsError: boolean = false;
+  isLoading: boolean = false;
 
   passwordCriteria = {
     capitalLetter: false,
@@ -189,7 +190,8 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.isSubmitting = true;
+    this.isLoading = true;
+
     const userType: string = this.registrationForm.get('userType')?.value;
     let user: any = {
       type: userType,
@@ -223,11 +225,12 @@ export class RegisterComponent implements OnInit {
         localStorage.setItem('userEmail', email);
         this.registrationForm.reset();
         this.imageUrl = null;
+        this.isLoading = false;
         this.router.navigate(['/auth/verification']).then(() => {});
       },
       error: (error) => {
         console.error('Registration error:', error);
-        this.isSubmitting = false;
+        this.isLoading = false;
 
         // Manejar errores manualmente
         if (error.status === 403 && error.error?.message) {
