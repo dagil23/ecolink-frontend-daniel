@@ -77,7 +77,7 @@
                     <p class="mb-1">{{ project.shortDescription }}</p>
                   </li>
                 </ul>
-                <button class="mt-3 btn btn-outline-greendark"><a href="/company-dashboard/challenges" class="text-decoration-none text-greendark">All projects</a></button>
+                <button class="mt-3 btn btn-outline-greendark" [routerLink]="'/company-dashboard/challenges'">All projects</button>
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@
                     <p class="mb-1">{{ challenge.shortDescription }}</p>
                   </li>
                 </ul>
-                <button class="mt-3 btn btn-outline-greendark"><a href="/products" class="text-decoration-none text-greendark">All products</a></button>
+                <button class="mt-3 btn btn-outline-greendark" [routerLink]="'/products'">All products</button>
               </div>
             </div>
           </div>
@@ -105,7 +105,7 @@
                     <p class="mb-1">{{ post.title }}</p>
                   </li>
                 </ul>
-                <button class="mt-3 btn btn-outline-greendark"><a href="/blog" class="text-decoration-none text-greendark">All posts</a></button>
+                <button class="mt-3 btn btn-outline-greendark" [routerLink]="'/blog'">All posts</button>
               </div>
             </div>
           </div>
