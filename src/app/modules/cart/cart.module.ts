@@ -7,13 +7,17 @@ import { PaymentInfoComponent } from './components/payment-info/payment-info.com
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SharedModule } from "../../shared/shared.module";
 import { ReactiveFormsModule } from '@angular/forms';
+import { PaypalPendingComponent } from './components/paypal-pending/paypal-pending.component';
+import { PaypalCancelComponent } from './components/paypal-cancel/paypal-cancel.component';
 
 
 @NgModule({
   declarations: [
     CartListComponent,
     PaymentInfoComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    PaypalPendingComponent,
+    PaypalCancelComponent
   ],
   imports: [
     CommonModule,

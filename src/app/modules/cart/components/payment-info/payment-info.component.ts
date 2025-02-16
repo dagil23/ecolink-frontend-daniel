@@ -49,6 +49,7 @@ export class PaymentInfoComponent {
 
       setTimeout(() => {
         this.message = '';
+        window.location.reload();
         this.route.navigate(['/']);
       }, 3000);
     });
@@ -57,6 +58,7 @@ export class PaymentInfoComponent {
   payWithPaypal() {
     this.cartService.payWithPaypal().subscribe((data) => {
       console.log('Paypal payment', data);
+      window.location.href = data.message;
     })
   }
 }

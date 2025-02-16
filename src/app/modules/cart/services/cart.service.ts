@@ -39,6 +39,18 @@ export class CartService {
   }
 
   public payWithPaypal(): Observable<any> {
-    return this.http.post(`${this.apiUrlPaypal}/pay`, { withCredentials: true });
+    return this.http.post(`${this.apiUrlPaypal}/pay`, {}, { withCredentials: true });
+  }
+
+  public confirmPayment(paymentId: string, payerID: string): Observable<any> {
+    return this.http.get(`${this.apiUrlPaypal}/success?paymentId=${paymentId}&PayerID=${payerID}`, { withCredentials: true });
+  }
+
+  public cancelPayment(): Observable<any> {
+    return this.http.get(`${this.apiUrlPaypal}/cancel`, { withCredentials: true });
+  }
+
+  public cancelOrder(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/cancel`, {}, { withCredentials: true });
   }
 }

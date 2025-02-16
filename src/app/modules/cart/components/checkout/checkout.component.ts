@@ -54,6 +54,14 @@ export class CheckoutComponent {
         this.message = '';
         this.router.navigate(['/cart/payment-info']);
       }, 3000);
+    }, error => {
+      console.log('Error:', error);
     })
+  }
+
+  cancelOrder(): void {
+    this.cartService.cancelOrder().subscribe(response => {
+      this.router.navigate(['/']);
+    });
   }
 }
