@@ -44,11 +44,18 @@ export class BlogDetailComponent implements OnInit {
       this.post = post;
       this.userLikedPost();
       this.comments = post.comments || [];
+      // Obtenemos la imagen de perfil de cada usuario que ha comentado
       for (let i = 0; i < this.comments.length; i++) {
         this.authService.getImage('user', this.comments[i].imageUrl).subscribe((imageUrl: string) => {
           this.comments[i].imageUrl = imageUrl;
         });
       };
+      // Obtenemos la imagen de las ods
+      for (let i = 0; i < post.odsList.length; i++) {
+        this.authService.getImage('ods', post.odsList[i].image).subscribe((imageUrl: string) => {
+          this.post.odsList[i].image = imageUrl;
+        });
+      }
     });
 
     this.blogService.getRelevantPosts(this.postId).subscribe((posts: RelevantPost[]) => {
@@ -58,8 +65,8 @@ export class BlogDetailComponent implements OnInit {
 
   userLikedPost(): void {
     this.authService.getCurrentUser().subscribe(user => {
-      for(let i = 0; i < this.post.likes.length; i++) {
-        if(this.post.likes[i].id_user === user.id) {
+      for (let i = 0; i < this.post.likes.length; i++) {
+        if (this.post.likes[i].id_user === user.id) {
           this.userLike = true;
           break;
         }
@@ -105,7 +112,7 @@ export class BlogDetailComponent implements OnInit {
   editComment(comment: any) {
     this.commentService.editComment(comment.id, comment.text).subscribe(data => {
       const index = this.comments.findIndex(c => c.id === comment.id);
-      if(index !== -1) {
+      if (index !== -1) {
         this.comments[index].comment = comment.text;
       }
       this.setMessage('', data.success.message, 'success');

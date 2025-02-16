@@ -33,7 +33,6 @@ export class CheckoutComponent {
 
   onSubmit(): void {
     if (this.checkoutForm.valid) {
-      console.log('Checkout Data:', this.checkoutForm.value.firstName);
     } else {
       this.checkoutForm.markAllAsTouched(); // Muestra errores si los hay
     }
@@ -57,11 +56,5 @@ export class CheckoutComponent {
     }, error => {
       console.log('Error:', error);
     })
-  }
-
-  cancelOrder(): void {
-    this.cartService.cancelOrder().subscribe(response => {
-      this.router.navigate(['/']);
-    });
   }
 }

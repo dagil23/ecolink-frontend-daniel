@@ -1,82 +1,88 @@
-<shared-header></shared-header>
-<div class="container my-5">
-  <div class="d-flex mb-3 border border-1 border-greendark p-3 rounded-3">
-    <img
-      [src]="startup.imageStartup"
-      [alt]="startup.name"
-      class="rounded-5 me-3"
-      style="width: 100px; height: 100px"
-    />
-    <div class="d-flex flex-column">
-      <h1>{{ startup.name }}</h1>
-      <p class="lead">{{ startup.description }}</p>
-      <div class="d-flex flex-wrap gap-1">
-        <p
-          *ngFor="let ods of startup?.odsList"
-          class="bg-primary text-light rounded-pill px-2 py-1"
-          style="font-size: 0.8rem"
-        >
-          {{ ods.name }}
-        </p>
+<div class="d-flex flex-column min-vh-100">
+  <shared-header></shared-header>
+
+  <div class="container my-5 flex-grow-1">
+    <div class="d-flex mb-3 border border-1 border-greendark p-3 rounded-3">
+      <img
+        [src]="startup.imageStartup"
+        [alt]="startup.name"
+        class="rounded-5 me-3"
+        style="width: 100px; height: 100px"
+      />
+      <div class="d-flex flex-column">
+        <h1>{{ startup.name }}</h1>
+        <p class="lead">{{ startup.description }}</p>
+        <div class="d-flex flex-wrap gap-1">
+          <div
+            *ngFor="let ods of startup?.odsList"
+            class="bg-primary text-light rounded-pill px-2 py-1"
+            style="font-size: 0.8rem"
+          >
+            <img class="rounded-circle" [src]="ods.image" [alt]="ods.name" width="35px" height="35px">
+            {{ ods.name }}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row g-0 row-cols-2 bg-secondary-subtle p-1 rounded">
-    <a class="col btn" (click)="setShowProducts()" [ngClass]="showProducts ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Products</a>
-    <a class="col btn" (click)="setShowProposals()" [ngClass]="showProposals ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Proposals</a>
-  </div>
+    <div class="row g-0 row-cols-2 bg-secondary-subtle p-1 rounded">
+      <a class="col btn" (click)="setShowProducts()" [ngClass]="showProducts ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Products</a>
+      <a class="col btn" (click)="setShowProposals()" [ngClass]="showProposals ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Proposals</a>
+    </div>
 
-  <div *ngIf="!startup.products.length && showProducts" class="alert alert-info mt-3 text-center" role="alert">
-    No products have been added by this startup
-  </div>
+    <div *ngIf="!startup.products.length && showProducts" class="alert alert-info mt-3 text-center" role="alert">
+      No products have been added by this startup
+    </div>
 
-  <div *ngIf="!startup.proposals.length && showProposals" class="alert alert-info mt-3 text-center" role="alert">
-    No proposals have been added by this startup
-  </div>
+    <div *ngIf="!startup.proposals.length && showProposals" class="alert alert-info mt-3 text-center" role="alert">
+      No proposals have been added by this startup
+    </div>
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-2">
-    <ng-container *ngIf="showProducts">
-      <div class="col" *ngFor="let product of startup.products">
-        <div class="card">
-          <img
-            [src]="product.imageUrl"
-            [alt]="product.name"
-            class="card-img-top"
-          />
-          <div class="card-body">
-            <div class="d-flex justify-content-between">
-              <h5 class="card-title">{{ product.name }}</h5>
-              <p
-                class="border border-1 fw-semibold rounded-pill px-2"
-                style="font-size: 0.8rem"
-                *ngFor="let category of product.categories"
-              >
-                {{category.name}}
-              </p>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-2">
+      <ng-container *ngIf="showProducts">
+        <div class="col" *ngFor="let product of startup.products">
+          <div class="card">
+            <img
+              [src]="product.imageUrl"
+              [alt]="product.name"
+              class="card-img-top"
+            />
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p
+                  class="border border-1 fw-semibold rounded-pill px-2"
+                  style="font-size: 0.8rem"
+                  *ngFor="let category of product.categories"
+                >
+                  {{category.name}}
+                </p>
+              </div>
+              <p class="text-grey">{{ product.description }}</p>
+              <p class="fs-4 fw-bold">{{ product.price }}€</p>
             </div>
-            <p class="text-grey">{{ product.description }}</p>
-            <p class="fs-4 fw-bold">{{ product.price }}€</p>
           </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <ng-container *ngIf="showProposals" class="mt-2">
+      <div class="border border-1 p-3 mb-3 rounded-3" *ngFor="let proposal of startup.proposals">
+        <div class="d-flex">
+          <i class="bi bi-lightbulb fs-4 me-2"></i>
+          <h3 class="m-0">{{ proposal.challengeTitle }}</h3>
+        </div>
+        <p class="lead">{{proposal.description}}</p>
+
+        <div class="d-inline-block rounded-pill text-light fw-semibold px-2 py-1" [ngClass]="proposal.status === 'PENDING' ? 'bg-grey' : (proposal.status === 'ACCEPTED' ? 'bg-success' : (proposal.status === 'REJECTED' ? 'bg-danger' : 'bg-warning'))">
+          <i class="bi bi-x-circle me-1" *ngIf="proposal.status === 'REJECTED'"></i>
+          <i class="bi bi-check-circle me-1" *ngIf="proposal.status === 'ACCEPTED'"></i>
+          <i class="bi bi-hourglass-split me-1" *ngIf="proposal.status === 'PENDING'"></i>
+          <span>{{ proposal.status }}</span>
         </div>
       </div>
     </ng-container>
   </div>
-  <ng-container *ngIf="showProposals" class="mt-2">
-    <div class="border border-1 p-3 mb-3 rounded-3" *ngFor="let proposal of startup.proposals">
-      <div class="d-flex">
-        <i class="bi bi-lightbulb fs-4 me-2"></i>
-        <h3 class="m-0">{{ proposal.challengeTitle }}</h3>
-      </div>
-      <p class="lead">{{proposal.description}}</p>
 
-      <div class="d-inline-block rounded-pill text-light fw-semibold px-2 py-1" [ngClass]="proposal.status === 'PENDING' ? 'bg-grey' : (proposal.status === 'ACCEPTED' ? 'bg-success' : (proposal.status === 'REJECTED' ? 'bg-danger' : 'bg-warning'))">
-        <i class="bi bi-x-circle me-1" *ngIf="proposal.status === 'REJECTED'"></i>
-        <i class="bi bi-check-circle me-1" *ngIf="proposal.status === 'ACCEPTED'"></i>
-        <i class="bi bi-hourglass-split me-1" *ngIf="proposal.status === 'PENDING'"></i>
-        <span>{{ proposal.status }}</span>
-      </div>
-    </div>
-  </ng-container>
+  <shared-footer class="mt-auto"></shared-footer>
 </div>
-<shared-footer></shared-footer>

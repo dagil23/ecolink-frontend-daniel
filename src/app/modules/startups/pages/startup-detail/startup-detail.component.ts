@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StartupService } from '../../services/startup.service';
 import { StartupDetails } from '../../models/StartupDetails';
+import { AuthService } from '../../../../auth/services/AuthService.service';
 
 @Component({
   selector: 'startup-detail',
@@ -14,16 +15,22 @@ export class StartupDetailComponent implements OnInit {
   showProducts: boolean = true;
   showProposals: boolean = false;
 
-  constructor(private route: ActivatedRoute, private startupService: StartupService) { }
+  constructor(private route: ActivatedRoute, private startupService: StartupService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.startupId = this.route.snapshot.paramMap.get('id');
     if (this.startupId === null) return;
     this.startupService.findStartupById(this.startupId).subscribe((startup: StartupDetails) => {
       this.startup = startup;
+      for (let i = 0; i < this.startup.odsList.length; i++) {
+        this.authService.getImage('ods', this.startup.odsList[i].image).subscribe((imageUrl: string) => {
+          this.startup.odsList[i].image = imageUrl;
+        });
+      }
     }, error => {
       console.error(error);
     });
+
   }
 
   setShowProposals(): void {

@@ -93,7 +93,21 @@
                   style="background-color: #003087; color: white; font-weight: bold;">
             <i class="bi bi-paypal me-2"></i> Pay with PayPal
           </button>
+
+          <!-- Separador -->
+          <div class="d-flex align-items-center my-3">
+            <hr class="flex-grow-1">
+            <span class="mx-2 text-muted fw-bold">OR</span>
+            <hr class="flex-grow-1">
+          </div>
         </form>
+        <button (click)="cancelOrder()" class="btn btn-danger w-100" [disabled]="isCanceled">
+          <span *ngIf="!isCanceled">Cancel Order</span>
+          <span *ngIf="isCanceled">
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Cancelling Order...
+          </span>
+        </button>
       </div>
     </div>
   </div>

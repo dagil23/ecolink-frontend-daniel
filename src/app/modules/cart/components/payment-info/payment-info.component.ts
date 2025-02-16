@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class PaymentInfoComponent {
   paymentForm: FormGroup;
   isLoading: boolean = false;
+  isCanceled: boolean = false;
   message: string = '';
 
   constructor(private fb: FormBuilder, private cartService: CartService, private route: Router) {
@@ -60,5 +61,12 @@ export class PaymentInfoComponent {
       console.log('Paypal payment', data);
       window.location.href = data.message;
     })
+  }
+
+  cancelOrder(): void {
+    this.isCanceled = true;
+    this.cartService.cancelOrder().subscribe(() => {
+      this.route.navigate(['/']);
+    });
   }
 }
