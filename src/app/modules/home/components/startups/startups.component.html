@@ -6,7 +6,7 @@
         <img [src]="startup.imageUrl" [alt]="startup.name" class="card-img-top rounded-circle" width="50px" height="50px"/>
         <h5 class="card-title text-greendark">{{ startup.name }}</h5>
         <p class="card-text">{{ startup.description }}</p>
-        <a href="#" class="d-flex text-greendark text-decoration-none text-light fw-bold">Learn more</a>
+        <a [routerLink]="'/startups/' + startup.id" class="d-flex text-greendark text-decoration-none text-light fw-bold">Learn more</a>
       </div>
     </div>
   </div>

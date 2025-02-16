@@ -14,7 +14,6 @@ export class StartupsComponent implements OnInit {
   ngOnInit(): void {
     this.startupService.getRelevantStartups().subscribe((startups: Startup[]) => {
       this.startups = startups;
-      console.log(startups)
     })
   }
 }

@@ -21,7 +21,7 @@
                       {{ formatTime(challenge.timeLeft) }}
                     </p>
                   </div>
-                  <a class="btn btn-success w-100">{{isStartup ? 'Join Challenge' : 'See details'}}</a>
+                  <button [routerLink]="'/challenges/' + challenge.id" class="btn btn-success w-100">{{isStartup ? 'Join Challenge' : 'See details'}}</button>
                 </div>
               </div>
             </div>

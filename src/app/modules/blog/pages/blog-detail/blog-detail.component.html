@@ -15,9 +15,10 @@
   </div>
   <h1>{{post?.title}}</h1>
   <div class="d-flex flex-wrap gap-1">
-    <p class="m-0 rounded-pill bg-primary text-light px-2 py-1" style="font-size: .8rem;"
+    <div class="m-0 rounded-pill bg-primary text-light px-2 py-1" style="font-size: .8rem;"
       *ngFor="let ods of post?.odsList">
-      {{ods.name}}</p>
+      <img [src]="ods.image" [alt]="ods.name" width="35" height="35" class="rounded-circle">
+      {{ods.name}}</div>
   </div>
   <hr>
   <div class="row mt-5">

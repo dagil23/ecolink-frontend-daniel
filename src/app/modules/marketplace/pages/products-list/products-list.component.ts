@@ -37,7 +37,7 @@ export class ProductsListComponent {
 
   onAddProduct(productId: number) {
     this.orderService.addProduct(productId).subscribe((data) => {
-      this.cartCountService.updateCount();
+      this.cartCountService.incrementCount();
     });
   }
 

@@ -52,6 +52,14 @@
               <i class="bi bi-journal-text me-2 d-lg-none"></i> EcoBlog
             </a>
           </li>
+
+          <!-- Solo si es admin -->
+          <li class="nav-item mx-1" *ngIf="isAdmin">
+            <a class="nav-link fs-5 text-light" href="/admin">
+              <i class="bi bi-briefcase me-2 d-lg-none"></i> User Management
+            </a>
+          </li>
+
           <li class="nav-item mx-1" *ngIf="isStartup">
             <a class="nav-link fs-5 text-light" href="/startup-dashboard">
               <i class="bi bi-shop me-2 d-lg-none"></i> My products

@@ -3,6 +3,8 @@ import { Product } from '../../../../core/models/Product';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../../marketplace/services/order.service';
 import { CartCountService } from '../../../../core/services/cart-count.service';
+import { AuthService } from '../../../../auth/services/AuthService.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'home-products',
@@ -11,7 +13,7 @@ import { CartCountService } from '../../../../core/services/cart-count.service';
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
-  constructor(private productService: ProductService, private orderService: OrderService, private cartCountService: CartCountService) { }
+  constructor(private productService: ProductService, private orderService: OrderService, private cartCountService: CartCountService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.productService.getRelevantProducts().subscribe((products: Product[]) => {
@@ -20,8 +22,13 @@ export class ProductsComponent implements OnInit {
   }
 
   addToCart(productId: number) {
+    this.authService.getCurrentUser().subscribe(() => {{
+    }}, () => {
+      this.router.navigate(['/auth/login']);
+    });
+
     this.orderService.addProduct(productId).subscribe(() => {
-      this.cartCountService.updateCount();
+      this.cartCountService.incrementCount();
     });
   }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChallengeService } from '../../services/challenge.service';
 import { Challenge } from '../../../../core/models/Challenge';
 import { User } from '../../../../core/models/User';
+import { AuthService } from '../../../../auth/services/AuthService.service';
 
 @Component({
   selector: 'challenge-detail',
@@ -16,8 +17,9 @@ export class ChallengeDetailComponent {
   today: Date = new Date();
   constructor(
     private route: ActivatedRoute,
-    private challengeService: ChallengeService
-  ) {}
+    private challengeService: ChallengeService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.challengeId = this.route.snapshot.paramMap.get('id');
@@ -25,6 +27,20 @@ export class ChallengeDetailComponent {
       .getChallengeById(this.challengeId)
       .subscribe((challenge: Challenge) => {
         this.challenge = challenge;
+        // Get image for each ODS
+        for (let i = 0; i < challenge.odsList.length; i++) {
+          this.authService.getImage('ods', challenge.odsList[i].image).subscribe((imageUrl: string) => {
+            this.challenge.odsList[i].image = imageUrl;
+          });
+        }
+
+        if(challenge.company?.imageUrl) {
+          this.authService.getImage('user', challenge.company?.imageUrl).subscribe((imageUrl: string) => {
+            if (this.challenge.company) {
+              this.challenge.company.imageUrl = imageUrl;
+            }
+          });
+        }
       });
     this.challengeService.getCurrentUser().subscribe((user: User) => {
       if (user.userType.toUpperCase() === 'STARTUP') {

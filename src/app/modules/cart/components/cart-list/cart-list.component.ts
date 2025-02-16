@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Cart } from '../../models/Cart';
 import { OrderLine } from '../../models/OrderLine';
+import { CartCountService } from '../../../../core/services/cart-count.service';
 
 @Component({
   selector: 'app-cart-list',
@@ -11,7 +12,7 @@ import { OrderLine } from '../../models/OrderLine';
 export class CartListComponent implements OnInit {
   cart: Cart | undefined;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private cartCountService: CartCountService) {}
 
   ngOnInit(): void {
     this.cartService.getCart().subscribe((cart: Cart) => {
@@ -25,6 +26,7 @@ export class CartListComponent implements OnInit {
 
     this.cartService.updateAmount(updatedOrderLine).subscribe((data) => {
       orderLine.amount--;
+      this.cartCountService.decrementCount();
       this.updateTotal();
     });
   }
@@ -34,13 +36,18 @@ export class CartListComponent implements OnInit {
 
     this.cartService.updateAmount(updatedOrderLine).subscribe((data) => {
       orderLine.amount++;
+      this.cartCountService.incrementCount();
       this.updateTotal();
     })
   }
 
   removeProduct(orderLineId: number): void {
+    if (!this.cart) return;
+    const index = this.cart.orderLines.findIndex(orderLine => orderLine.id === orderLineId);
+
     this.cartService.removeProduct(orderLineId).subscribe((data) => {
       if (this.cart) {
+        this.cartCountService.removeCount(this.cart.orderLines[index].amount);
         this.cart.orderLines = this.cart.orderLines.filter(orderLine => orderLine.id !== orderLineId);
         this.updateTotal();
       }

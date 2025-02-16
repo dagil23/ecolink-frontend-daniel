@@ -8,9 +8,9 @@
     </p>
   </div>
   <img
-    src="assets/images/cafe.jpg"
-    class="rounded-circle"
-    alt=""
+    [src]="challenge.company?.imageUrl"
+    class="text-white rounded-circle"
+    [alt]="challenge.company?.name"
     width="75px"
     height="75px"
   />
@@ -69,6 +69,7 @@
           *ngFor="let ods of challenge?.odsList"
           class="bg-primary text-add1 px-3 py-1 rounded-5 m-0"
         >
+          <img [src]="ods.image" class="rounded-circle" [alt]="ods.name" width="35px" height="35px"/>
           {{ ods.name }}
         </p>
       </div>
