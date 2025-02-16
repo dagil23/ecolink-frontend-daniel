@@ -81,7 +81,7 @@
                 <p class="mb-1"><strong>Status:</strong> {{ proposal.status }}</p>
               </li>
             </ul>
-            <button class="mt-3 btn btn-outline-greendark"><a href="/proposal-dashboard" class="text-decoration-none text-greendark">All proposals</a></button>
+            <button class="mt-3 btn btn-outline-greendark" [routerLink]="'/proposal-dashboard'">All proposals</button>
           </div>
         </div>
 
@@ -99,7 +99,7 @@
                     <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.name }}" class="img-fluid" style="max-width: 100px;">
                   </li>
                 </ul>
-                <button class="mt-3 btn btn-outline-greendark"><a href="/products" class="text-decoration-none text-greendark">All products</a></button>
+                <button class="mt-3 btn btn-outline-greendark" [routerLink]="'/products'"><a href="/products" class="text-decoration-none text-greendark">All products</a></button>
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@
                     <p class="mb-1">{{ post.title }}</p>
                   </li>
                 </ul>
-                <button class="mt-3 btn btn-outline-greendark"><a href="/blog" class="text-decoration-none text-greendark">All posts</a></button>
+                <button class="mt-3 btn btn-outline-greendark" [routerLink]="'/blog'">All posts</button>
               </div>
             </div>
           </div>
