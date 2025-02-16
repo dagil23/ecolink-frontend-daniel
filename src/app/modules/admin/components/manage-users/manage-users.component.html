@@ -1,0 +1,37 @@
+<div class="d-flex flex-column min-vh-100">
+
+  <shared-header></shared-header>
+
+  <div class="container mt-5 flex-grow-1">
+      <h2 class="mb-4">User Requests</h2>
+      <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of users">
+              <div>
+                  <img [src]="user.imageUrl" class="rounded-circle me-2" width="40" height="40" [alt]="user.name">
+                  <strong>{{user.name}}</strong> - {{user.email}} ({{user.userType}})
+              </div>
+              <div>
+                  <button (click)="validateUser(user, 'ACCEPTED')" class="btn btn-success btn-sm me-2" [disabled]="isAccepted">
+                    <span *ngIf="!isAccepted">Accept</span>
+                    <span *ngIf="isAccepted">
+                      <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      Accepting...
+                    </span>
+                  </button>
+                  <button (click)="validateUser(user, 'REJECTED')" class="btn btn-danger btn-sm" [disabled]="isCanceled">
+                    <span *ngIf="!isCanceled">Reject</span>
+                    <span *ngIf="isCanceled">
+                      <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      Rejecting...
+                    </span>
+                  </button>
+              </div>
+          </li>
+      </ul>
+      <div class="alert alert-info text-center mt-4" *ngIf="users.length === 0">
+        No user requests found.
+      </div>
+  </div>
+
+  <shared-footer class="mt-auto"></shared-footer>
+</div>
