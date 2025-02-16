@@ -14,7 +14,7 @@ export class ChallengeDetailComponent {
   challengeId: string | null = null;
   challenge!: Challenge;
   isStartup: boolean = false;
-
+  today: Date = new Date();
   constructor(
     private route: ActivatedRoute,
     private challengeService: ChallengeService,
