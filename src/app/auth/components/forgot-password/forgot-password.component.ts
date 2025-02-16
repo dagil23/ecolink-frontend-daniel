@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent {
   forgotPasswordForm: FormGroup;
   isSubmitting = false;
+  isLoading: boolean = false;
   message: string = '';
   success: boolean = false;
 
@@ -23,12 +24,15 @@ export class ForgotPasswordComponent {
   onSubmit(): void {
     if (this.forgotPasswordForm.invalid) return;
 
+    this.isLoading = true;
+
     this.isSubmitting = true;
     const email = this.forgotPasswordForm.value.email;
     localStorage.setItem('resetEmail', email); // Guardar email en localStorage
 
     this.authService.resetPassword(email).subscribe(
       () => {
+        this.isLoading = false;
         this.success = true;
         this.message = 'A verification email has been sent if the email exists.';
         setTimeout(() => this.router.navigate(['/auth/reset-password']), 3000);

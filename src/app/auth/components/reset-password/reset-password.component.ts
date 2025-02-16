@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
   isSubmitting = false;
+  isLoading: boolean = false;
   message: string = '';
   success: boolean = false;
 
@@ -43,6 +44,7 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
     this.isSubmitting = true;
     this.authService.changePassword({
       email: this.resetPasswordForm.getRawValue().email,
@@ -51,6 +53,7 @@ export class ResetPasswordComponent implements OnInit {
     }).subscribe(
       () => {
         this.success = true;
+        this.isLoading = false;
         this.message = 'Password changed successfully!';
         localStorage.removeItem('resetEmail'); // Eliminar email guardado tras cambiar la contraseña
         setTimeout(() => this.router.navigate(['/auth/login']), 3000);
