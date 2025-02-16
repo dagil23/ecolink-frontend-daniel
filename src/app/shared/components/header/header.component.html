@@ -74,10 +74,10 @@
           <hr class="text-light my-3">
 
           <li class="nav-item mx-1 d-lg-none" *ngIf="isLogged">
-            <a href="#" class="position-relative">
+            <a href="/cart" class="position-relative">
               <i class="bi bi-cart3 text-light fs-4"></i>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{amount}}
+                {{countCart}}
               </span>
             </a>
           </li>
@@ -109,10 +109,10 @@
 
     <!-- Vista escritorio -->
     <div class="d-none d-lg-flex align-items-center me-3">
-      <a *ngIf="isLogged" href="#" class="me-4 position-relative">
+      <a *ngIf="isLogged" href="/cart" class="me-4 position-relative">
         <i class="bi bi-cart3 text-light fs-4"></i>
         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          {{amount}}
+          {{countCart}}
         </span>
       </a>
       <a *ngIf="!isLogged" href="/auth/login" class="btn btn-outline-light me-2">Log In</a>

@@ -1,8 +1,9 @@
-<a [routerLink]="['/products', product.id]" class="text-decoration-none">
 <div class="card shadow-big-default text-center">
-  <img src="assets/images/cafe.jpg" [alt]="product.name">
-  <p class="fw-bold mt-2 m-0">{{product.name}}</p>
-  <p class="fw-light m-0">{{product.price}} €</p>
-  <p class="text-grey mb-2">By {{product.startupName}}</p>
+  <a [routerLink]="['/products', product.id]" class="text-decoration-none text-reset">
+    <img [src]="product.imageUrl" [alt]="product.name">
+    <p class="fw-bold mt-2 m-0">{{product.name}}</p>
+    <p class="fw-light m-0">{{product.price}} €</p>
+    <p class="text-grey mb-2">By {{product.startupName}}</p>
+  </a>
+  <a (click)="addProduct()" class="text-light fw-bold btn btn-greendark rounded-0">Add to cart</a>
 </div>
-</a>

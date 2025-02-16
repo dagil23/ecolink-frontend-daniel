@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Product } from '../../../../core/models/Product';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Product } from '../../models/Product';
 
 @Component({
   selector: 'product-card',
@@ -8,4 +8,11 @@ import { Product } from '../../../../core/models/Product';
 })
 export class ProductCardComponent {
   @Input() product!: Product;
+  @Output() addProductEvent = new EventEmitter<number>();
+
+  constructor() {}
+
+  addProduct(): void {
+    this.addProductEvent.emit(this.product.id);
+  }
 }

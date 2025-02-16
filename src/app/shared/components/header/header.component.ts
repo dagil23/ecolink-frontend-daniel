@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth/services/AuthService.service';
 import { User } from '../../../core/models/User';
 import { Router } from '@angular/router';
+import { CartCountService } from '../../../core/services/cart-count.service';
 
 @Component({
   selector: 'shared-header',
@@ -16,11 +17,12 @@ export class HeaderComponent implements OnInit {
   imageUrl: string | null = null;
   username: string | null = null;
   userFullName: string | null = null;
-  amount: number = 0;
+  countCart: number = 0;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cartCountService: CartCountService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,10 @@ export class HeaderComponent implements OnInit {
           this.imageUrl = imageUrl;
         });
       }
+
+      this.cartCountService.currentCount.subscribe((count: number) => {
+        this.countCart = count;
+      })
     });
   }
 

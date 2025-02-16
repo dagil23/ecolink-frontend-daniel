@@ -5,7 +5,7 @@
     <div class="card-body text-center">
       <h5 class="card-title">{{product.name}}</h5>
       <p class="card-text text-greyprice">{{product.price}} €</p>
-      <a href="#" class="text-light fw-bold btn btn-greendark">Add to cart</a>
+      <a (click)="addToCart(product.id)" class="text-light fw-bold btn btn-greendark">Add to cart</a>
     </div>
   </div>
 </div>
