@@ -6,18 +6,25 @@ import { StartupProductsComponent } from './pages/startup-products/startup-produ
 import { StartupProductFormComponent } from './pages/startup-product-form/startup-product-form.component';
 import { StartupProductFiltersComponent } from './components/startup-product-filters/startup-product-filters.component';
 import { SharedModule } from "../../shared/shared.module";
+import { StartupProposalsComponent } from './pages/startup-proposals/startup-proposals.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 
 @NgModule({
   declarations: [
     StartupProductsComponent,
     StartupProductFormComponent,
-    StartupProductFiltersComponent
+    StartupProductFiltersComponent,
+    StartupProposalsComponent
   ],
   imports: [
     CommonModule,
     StartupDashboardRoutingModule,
-    SharedModule
-]
+    SharedModule,
+    FormsModule,
+    NgMultiSelectDropDownModule,
+    ReactiveFormsModule
+  ]
 })
 export class StartupDashboardModule { }
