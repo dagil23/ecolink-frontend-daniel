@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Pagination } from '../../../../core/models/Pagination';
-import { Product } from '../../../../core/models/Product';
 import { ProductService } from '../../services/product.service';
+import { Product } from '../../models/Product';
+import { OrderService } from '../../services/order.service';
+import { CartCountService } from '../../../../core/services/cart-count.service';
 
 @Component({
   selector: 'app-products-list',
@@ -15,7 +17,7 @@ export class ProductsListComponent {
   currentPage = 0;
   totalPages = 0;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private orderService: OrderService, private cartCountService: CartCountService) { }
 
   ngOnInit() {
     this.loadProducts();
@@ -26,9 +28,16 @@ export class ProductsListComponent {
       this.products = data.content;
       this.totalPages = data.totalPages;
       this.message = '';
+      console.log(data.content)
     }, error => {
       this.products = [];
       this.message = 'Products not found';
+    });
+  }
+
+  onAddProduct(productId: number) {
+    this.orderService.addProduct(productId).subscribe((data) => {
+      this.cartCountService.updateCount();
     });
   }
 
