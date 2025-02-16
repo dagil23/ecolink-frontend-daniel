@@ -19,13 +19,21 @@ export class AuthService {
     return of(`${this.baseUrl}/image?type=${type}&name_image=${name_image}`);
   }
 
-
   isAuthenticated(): Observable<any> {
     return this.http.get(this.baseUrl + '/auth/user/me', { withCredentials: true }).pipe(
       map(() => true),
       catchError(() => of(false))
     );
   }
+
+  resetPassword(email: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/auth/reset-password?email=${email}`);
+  }
+
+  changePassword(data: { email: string, code: string, newPassword: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/auth/reset-password`, data);
+  }
+
 
   logout(): Observable<any> {
     return this.http.post(this.baseUrl + '/auth/logout', {}, { withCredentials: true });
