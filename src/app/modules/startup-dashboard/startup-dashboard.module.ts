@@ -6,13 +6,17 @@ import { StartupProductsComponent } from './pages/startup-products/startup-produ
 import { StartupProductFormComponent } from './pages/startup-product-form/startup-product-form.component';
 import { StartupProductFiltersComponent } from './components/startup-product-filters/startup-product-filters.component';
 import { SharedModule } from "../../shared/shared.module";
+import { StartupPostsComponent } from './components/startup-posts/startup-posts.component';
+import { StartupFormPostComponent } from './components/startup-form-post/startup-form-post.component';
 
 
 @NgModule({
   declarations: [
     StartupProductsComponent,
     StartupProductFormComponent,
-    StartupProductFiltersComponent
+    StartupProductFiltersComponent,
+    StartupPostsComponent,
+    StartupFormPostComponent
   ],
   imports: [
     CommonModule,
