@@ -22,6 +22,7 @@ export class BlogListComponent implements OnInit {
   loadArticles(): void {
     this.blogService.getPosts(this.currentPage, 6).subscribe((data: Pagination<Post>) => {
       this.articles = data.content;
+      console.log(data.content)
       this.totalPages = data.totalPages;
     }, () => {
       alert('Error al obtener las startups');
