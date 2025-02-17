@@ -3,6 +3,7 @@ import {Product} from '../../models/Product';
 import { StartupProductsService } from '../../services/StartupProducts.service';
 import {Category} from '../../../startups/models/Category';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../../../auth/services/AuthService.service';
 
 @Component({
   selector: 'app-startup-products',
@@ -10,16 +11,16 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./startup-products.component.scss']
 })
 export class StartupProductsComponent implements OnInit {
-  // Variables para controlar las vistas
   showProducts: boolean = true;
   showSales: boolean = false;
   showAddProduct: boolean = false;
-  page: number = 0;
-  size: number = 8;
   products: Product[] = [];
   categories: Category[] = [];
+  productForm: FormGroup;
+  editingProduct: Product | null = null;
+  imageUrl: string | null = null;
 
-  dropdownSettings = { // Initialize here as before for now
+  dropdownSettings = {
     singleSelection: false,
     idField: 'id',
     textField: 'name',
@@ -27,16 +28,13 @@ export class StartupProductsComponent implements OnInit {
     unSelectAllText: 'Unselect All',
     allowSearchFilter: true,
     itemsShowLimit: 3,
-    noDataAvailablePlaceholderText: 'No categories found', // Mensaje si no hay datos
+    noDataAvailablePlaceholderText: 'No categories found'
   };
-
-  productForm: FormGroup;
-
-  editingProduct: Product | null = null;
 
   constructor(
     private startupProductService: StartupProductsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService,
   ) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
@@ -52,11 +50,35 @@ export class StartupProductsComponent implements OnInit {
     this.loadProducts();
   }
 
-  validateCategories(): void {
-    const categoriesControl = this.productForm.get('categories');
-    categoriesControl?.markAsTouched();
-    categoriesControl?.updateValueAndValidity();
+  loadCategories() {
+    this.startupProductService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (err) => console.error('Error al cargar categorías:', err)
+    });
   }
+
+  loadProducts(): void {
+    this.startupProductService.getStartupProducts().subscribe({
+      next: (data: Product[]) => {
+        this.products = data;
+
+        this.products.forEach((product) => {
+          if (product.imageUrl) {
+            this.authService.getImage('product', product.imageUrl).subscribe({
+              next: (imageUrl: string) => {
+                product.imageUrl = imageUrl;
+              },
+              error: (err) => console.error('Error al obtener la imagen:', err)
+            });
+          }
+        });
+      },
+      error: (error) => console.error('Error al cargar productos:', error)
+    });
+  }
+
 
   setShowProducts() {
     this.showProducts = true;
@@ -75,8 +97,6 @@ export class StartupProductsComponent implements OnInit {
   setShowAddProduct() {
     this.showProducts = false;
     this.showSales = false;
-    // Log dropdownSettings right before showing the add product form
-    console.log("dropdownSettings before showing Add Product:", this.dropdownSettings);
     this.showAddProduct = true;
 
     if (!this.editingProduct) {
@@ -84,43 +104,47 @@ export class StartupProductsComponent implements OnInit {
     }
   }
 
-  loadCategories() {
-    this.startupProductService.getCategories().subscribe({
-      next: (data) => {
-        this.categories = data;
-        console.log('Categorías cargadas:', data);
-      },
-      error: (err) => console.error('Error al cargar las categorías:', err)
-    });
+  changeImage(fileInput: HTMLInputElement): void {
+    if (!fileInput.files || fileInput.files.length === 0) {
+      this.productForm.get('imageUrl')?.setValue(this.editingProduct ? this.editingProduct.imageUrl : null);
+      this.imageUrl = this.editingProduct ? this.editingProduct.imageUrl : null;
+      return;
+    }
+
+    const file = fileInput.files[0]; // Obtener el archivo
+
+    console.log("📸 Archivo seleccionado:", file); // DEBUG
+
+    this.productForm.get('imageUrl')?.setValue(file); // Guardar el archivo en el FormControl
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      this.imageUrl = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
-  loadProducts(): void {
-    this.startupProductService.getProducts(this.page, this.size).subscribe(
-      (data: Product[]) => {
-        this.products = data;
-      },
-      (error) => {
-        console.error('Error al cargar productos', error);
-      }
-    );
-  }
 
 
   onSubmitAddProduct() {
     if (this.productForm.invalid) return;
 
-    const formData = new FormData();
+    const selectedCategories = this.productForm.get('categories')?.value || [];
     const productData = {
       name: this.productForm.get('name')?.value,
       description: this.productForm.get('description')?.value,
       price: this.productForm.get('price')?.value,
-      categoryIds: this.productForm.get('categories')?.value.map((c: Category) => c.id)
+      categories: selectedCategories.map((category: Category) => category.id)
     };
 
-    formData.append('product', new Blob([JSON.stringify(productData)], { type: 'application/json' }));
+    const formData = new FormData();
+    formData.append('product', JSON.stringify(productData));
 
-    const imageFile = this.productForm.get('image')?.value;
-    if (imageFile) {
+    const imageFile = this.productForm.get('imageUrl')?.value;
+
+    console.log("✅ Archivo en el FormData antes de enviar:", imageFile); // DEBUG
+
+    if (imageFile && imageFile instanceof File) {
       formData.append('image', imageFile);
     }
 
@@ -133,7 +157,7 @@ export class StartupProductsComponent implements OnInit {
           this.editingProduct = null;
           this.setShowProducts();
         },
-        error: (err) => console.error('Error al actualizar:', err)
+        error: (err) => console.error('❌ Error al actualizar producto:', err)
       });
     } else {
       this.startupProductService.addProduct(formData).subscribe({
@@ -142,21 +166,12 @@ export class StartupProductsComponent implements OnInit {
           this.resetForm();
           this.setShowProducts();
         },
-        error: (err) => console.error('Error al agregar:', err)
+        error: (err) => console.error('❌ Error al agregar producto:', err)
       });
     }
   }
 
-  resetForm() {
-    this.productForm.reset({
-      name: '',
-      price: null,
-      categories: [],
-      description: '',
-      image: null,
-      imageUrl: ''
-    });
-  }
+
 
   onEditProduct(product: Product) {
     this.editingProduct = product;
@@ -164,7 +179,7 @@ export class StartupProductsComponent implements OnInit {
       name: product.name,
       price: product.price,
       description: product.description,
-      imageUrl: product.image,
+      image: product.imageUrl,
       categories: product.categories
     });
     this.setShowAddProduct();
@@ -179,20 +194,21 @@ export class StartupProductsComponent implements OnInit {
     }
   }
 
-  changeImage(fileInput: HTMLInputElement): void {
-    if (!fileInput.files || fileInput.files.length === 0) {
-      this.productForm.get('image')?.setValue(null);
-      this.productForm.get('imageUrl')?.setValue(null);
-      return;
-    }
+  validateCategories(): void {
+    const categoriesControl = this.productForm.get('categories');
+    categoriesControl?.markAsTouched();
+    categoriesControl?.updateValueAndValidity();
+  }
 
-    const file = fileInput.files[0];
-    this.productForm.get('image')?.setValue(file);
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      this.productForm.get('imageUrl')?.setValue(reader.result as string);
-    };
+  resetForm() {
+    this.productForm.reset({
+      name: '',
+      price: null,
+      categories: [],
+      description: '',
+      image: null,
+      imageUrl: ''
+    });
+    this.imageUrl = null;
   }
 }

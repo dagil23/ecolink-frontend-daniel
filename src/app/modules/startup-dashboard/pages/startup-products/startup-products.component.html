@@ -1,6 +1,6 @@
 <shared-header></shared-header>
 <div class="container my-5">
-  <h1>Administration Panel</h1>
+  <h1>Products Administration</h1>
   <div class="row g-0 row-cols-3 bg-secondary-subtle p-1 rounded mb-3">
     <a class="col btn" (click)="setShowProducts()"
        [ngClass]="showProducts ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">
@@ -30,7 +30,10 @@
         </thead>
         <tbody>
         <tr *ngFor="let product of products">
-          <td>{{ product.name }}</td>
+          <td>
+            <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="Product Image" style="width: 40px; height: 40px; object-fit: cover; margin-right: 10px;">
+            {{ product.name }}
+          </td>
           <td>{{ product.price | currency:'EUR' }}</td>
           <td>
             <button class="btn btn-sm btn-outline-info me-2" (click)="onEditProduct(product)">
@@ -64,8 +67,8 @@
             <label for="category">Category</label>
             <ng-multiselect-dropdown
               [placeholder]="'Select categories'"
-              [data]="categories"
               [settings]="dropdownSettings"
+              [data]="categories"
               formControlName="categories"
               (onDropDownClose)="validateCategories()">
             </ng-multiselect-dropdown>
