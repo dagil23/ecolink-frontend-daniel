@@ -1,1 +1,13 @@
-<p>profile-edit-form works!</p>
+<button (click)="toggleEditForm()" class="btn btn-primary">Edit Profile</button>
+
+<form *ngIf="showEditForm" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea id="description" formControlName="description" class="form-control"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="imageUrl" class="form-label">Profile Image</label>
+    <input type="file" id="imageUrl" (change)="onFileChange($event)" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-success">Save</button>
+</form>

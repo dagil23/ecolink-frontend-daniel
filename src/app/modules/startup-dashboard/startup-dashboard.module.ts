@@ -8,6 +8,9 @@ import { StartupProductFiltersComponent } from './components/startup-product-fil
 import { SharedModule } from "../../shared/shared.module";
 import { StartupPostsComponent } from './components/startup-posts/startup-posts.component';
 import { StartupFormPostComponent } from './components/startup-form-post/startup-form-post.component';
+import { StartupProposalsComponent } from './pages/startup-proposals/startup-proposals.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -16,12 +19,16 @@ import { StartupFormPostComponent } from './components/startup-form-post/startup
     StartupProductFormComponent,
     StartupProductFiltersComponent,
     StartupPostsComponent,
-    StartupFormPostComponent
+    StartupFormPostComponent,
+    StartupProposalsComponent
   ],
   imports: [
     CommonModule,
     StartupDashboardRoutingModule,
-    SharedModule
-]
+    SharedModule,
+    FormsModule,
+    NgMultiSelectDropDownModule,
+    ReactiveFormsModule
+  ]
 })
 export class StartupDashboardModule { }

@@ -23,9 +23,12 @@ export class ChallengeDetailComponent {
 
   ngOnInit(): void {
     this.challengeId = this.route.snapshot.paramMap.get('id');
+    this.today.setHours(0, 0, 0, 0);
     this.challengeService
       .getChallengeById(this.challengeId)
       .subscribe((challenge: Challenge) => {
+        challenge.endDate = new Date(challenge.endDate); // Convertir string a Date
+    challenge.endDate.setHours(0, 0, 0, 0);
         this.challenge = challenge;
         // Get image for each ODS
         for (let i = 0; i < challenge.odsList.length; i++) {

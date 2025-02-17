@@ -1,97 +1,103 @@
 <shared-header></shared-header>
 <div class="container my-5">
-  <!-- nombre, descripcion, precio, categoria, stock, imagen -->
-  <h1>Administration panel</h1>
+  <h1>Administration Panel</h1>
   <div class="row g-0 row-cols-3 bg-secondary-subtle p-1 rounded mb-3">
     <a class="col btn" (click)="setShowProducts()"
-      [ngClass]="showProducts ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Products</a>
+       [ngClass]="showProducts ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">
+      Products
+    </a>
     <a class="col btn" (click)="setShowSales()"
-      [ngClass]="showSales ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Sales</a>
+       [ngClass]="showSales ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">
+      Sales
+    </a>
     <a class="col btn" (click)="setShowAddProduct()"
-      [ngClass]="showAddProduct ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">Add
-      product</a>
+       [ngClass]="showAddProduct ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">
+      {{ editingProduct ? 'Edit product' : 'Add product' }}
+    </a>
   </div>
+
   <div class="border border-1 rounded-3 p-3">
     <div *ngIf="showProducts">
       <h2 class="m-0">List of products</h2>
       <small class="text-grey">Manage your products here</small>
       <table class="table table-success border-3 mt-3">
         <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Actions</th>
-          </tr>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Actions</th>
+        </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope="row">Product 1</td>
-            <td scope="row">19,99€</td>
-            <td scope="row">100</td>
-            <td scope="row">
-              <button class="btn btn-sm btn-outline-info me-2">
-                <i class="bi bi-pencil-square"></i>
-              </button>
-              <button class="btn btn-sm btn-outline-danger">
-                <i class="bi bi-trash"></i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">Product 1</td>
-            <td scope="row">19,99€</td>
-            <td scope="row">100</td>
-            <td scope="row">
-              <button class="btn btn-sm btn-outline-info me-2">
-                <i class="bi bi-pencil-square"></i>
-              </button>
-              <button class="btn btn-sm btn-outline-danger">
-                <i class="bi bi-trash"></i>
-              </button>
-            </td>
-          </tr>
+        <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency:'EUR' }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-info me-2" (click)="onEditProduct(product)">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="onDeleteProduct(product.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
+
     <div *ngIf="showAddProduct">
-      <h2 class="m-0">Add product</h2>
-      <small class="text-grey">Enter the details of the new product</small>
-      <form class="mt-2">
+      <h2 class="m-0">{{ editingProduct ? 'Edit product' : 'Add product' }}</h2>
+      <small class="text-grey">
+        {{ editingProduct ? 'Edit the details of the product' : 'Enter the details of the new product' }}
+      </small>
+      <form class="mt-2" (ngSubmit)="onSubmitAddProduct()" [formGroup]="productForm">
         <div class="row">
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mb-3">
             <label for="productName">Product Name</label>
-            <input type="text" name="productName" class="form-control" placeholder="Enter the product name">
+            <input id="productName" type="text" formControlName="name" class="form-control" placeholder="Enter the product name" required>
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mb-3">
             <label for="price">Price</label>
-            <input type="number" name="price" class="form-control" placeholder="Enter the price">
+            <input id="price" type="number" formControlName="price" class="form-control" placeholder="Enter the price" required>
           </div>
-          <div class="col-12 col-md-6">
-            <label for="stock">Stock</label>
-            <input type="number" name="stock" class="form-control" placeholder="Enter the amount in stock">
-          </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mb-3">
             <label for="category">Category</label>
-            <select name="category" class="form-select">
-              <option [value]="null" selected disabled>Select a category</option>
-              <option value="1">Category 1</option>
-              <option value="2">Category 2</option>
-              <option value="3">Category 3</option>
-            </select>
+            <ng-multiselect-dropdown
+              [placeholder]="'Select categories'"
+              [data]="categories"
+              [settings]="dropdownSettings"
+              formControlName="categories"
+              (onDropDownClose)="validateCategories()">
+            </ng-multiselect-dropdown>
+
+            <div *ngIf="productForm.get('categories')?.invalid && (productForm.get('categories')?.dirty || productForm.get('categories')?.touched)" class="text-danger">
+              Select at least 1 category.
+            </div>
           </div>
-          <div>
-            <label for="description" >Description</label>
-            <textarea name="description" rows="3" class="form-control" placeholder="Enter product description"></textarea>
-          </div>
-          <div>
+          <div class="col-12 col-md-6 mb-3">
             <label for="image">Product image</label>
-            <input class="form-control" type="file">
+            <input type="file" class="form-control" name="image" id="image" #fileImage (change)="changeImage(fileImage)" accept="image/*">
+          </div>
+          <div *ngIf="productForm.get('imageUrl')?.value" class="d-flex justify-content-center mt-3">
+            <img [src]="productForm.get('imageUrl')?.value" alt="Vista previa" style="max-width: 400px; max-height: 400px;">
+          </div>
+          <div class="col-12 mb-3">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="3" class="form-control" placeholder="Enter product description"
+                      formControlName="description"></textarea>
           </div>
         </div>
-        <input type="submit" value="Add product" class="btn btn-greendark mt-3">
+        <button type="submit" class="btn btn-greendark mt-3">
+          {{ editingProduct ? 'Update product' : 'Add product' }}
+        </button>
       </form>
+    </div>
+
+    <div *ngIf="showSales">
+      <h2>Sales view</h2>
+      <p>Here you can manage your sales data.</p>
     </div>
   </div>
 </div>
+
 <shared-footer></shared-footer>
