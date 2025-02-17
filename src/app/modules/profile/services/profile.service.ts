@@ -24,10 +24,11 @@ export class ProfileService {
     return this.http.get<Ods[]>(environment.apiUrl + '/ods', { withCredentials: true });
   }
 
-  // updateProfile(data: { odsIdList: number[]; description: string }, image?: File) {
-    updateProfile(data: { description: string }, image?: File) {
+   updateProfile(data: { odsIdList: number[]; description: string }, image?: File) {
+    // updateProfile(data: { description: string }, image?: File) {
       const formData = new FormData();
       formData.append('data', JSON.stringify(data)); 
+      console.log('Data adjuntada:', formData.get('data'));
     
       if (image) {
         formData.append('image', image);

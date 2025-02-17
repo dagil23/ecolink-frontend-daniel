@@ -17,13 +17,15 @@ export class ProfileEditFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private profileService: ProfileService) {
     this.editForm = this.fb.group({
-      description: ['']
+      description: [''],
+      ods: [[]]
     });
   }
 
   ngOnInit(): void {
     this.editForm.patchValue({
-      description: this.profile.description
+      description: this.profile.description,
+      ods: this.profile.ods || []
     });
     this.profileService.getOds().subscribe((ods: Ods[]) => {
       this.odsList = ods;
@@ -46,7 +48,8 @@ export class ProfileEditFormComponent implements OnInit {
   onSubmit(): void {
     if (this.editForm.valid) {
       const data = {
-        description: this.editForm.get('description')?.value || ''
+        description: this.editForm.get('description')?.value || '',
+        odsIdList: this.editForm.get('ods')?.value.map((odsId: number) => odsId) || []
       };
   
       console.log('Enviando data:', data);
