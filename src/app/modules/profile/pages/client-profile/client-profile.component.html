@@ -67,7 +67,7 @@
         </div>
 
         <!-- Posts Liked -->
-        <div *ngIf="clientProfile.listLikePost.length > 0" class="row">
+        <div *ngIf="clientProfile.listLikePost.length > 0" class="row mb-4">
           <div class="col-12">
             <div class="card mb-4">
               <div class="card-body">
@@ -83,7 +83,7 @@
           </div>
         </div>
         <!-- Edit Form -->
-        <!-- <app-profile-edit-form [profile]="clientProfile"></app-profile-edit-form> -->
+        <app-profile-edit-form [profile]="clientProfile"></app-profile-edit-form>
       </div>
     </div>
   </div>

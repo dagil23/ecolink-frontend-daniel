@@ -25,7 +25,6 @@ export class ProfileService {
   }
 
    updateProfile(data: { odsIdList: number[]; description: string }, image?: File) {
-    // updateProfile(data: { description: string }, image?: File) {
       const formData = new FormData();
       formData.append('data', JSON.stringify(data)); 
       console.log('Data adjuntada:', formData.get('data'));

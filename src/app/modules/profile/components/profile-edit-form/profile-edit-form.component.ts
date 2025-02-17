@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Ods } from '../../../../core/models/Ods';
 import { ProfileService } from '../../services/profile.service';
+import { AuthService } from '../../../../auth/services/AuthService.service';
+import { User } from '../../../../core/models/User';
 
 @Component({
   selector: 'app-profile-edit-form',
@@ -14,8 +16,14 @@ export class ProfileEditFormComponent implements OnInit {
   showEditForm = false;
   selectedFile?: File;
   odsList: Ods[] = [];
+  
+  isLogged: boolean = false;
+  isClient: boolean = false;
+  isStartup: boolean = false;
+  isCompany: boolean = false;
+  userType: 'client' | 'company' | 'startup' | null = null;
 
-  constructor(private fb: FormBuilder, private profileService: ProfileService) {
+  constructor(private fb: FormBuilder, private profileService: ProfileService, private authService: AuthService) {
     this.editForm = this.fb.group({
       description: [''],
       ods: [[]]
@@ -23,13 +31,43 @@ export class ProfileEditFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editForm.patchValue({
-      description: this.profile.description,
-      ods: this.profile.ods || []
-    });
+    this.authService.getCurrentUser().subscribe((user: User) => {
+          this.isLogged = !!user;
+          if (user) {
+            if (user.userType.toUpperCase() === 'CLIENT') {
+              this.isClient = true;
+              this.userType = 'client';
+            } else if (user.userType.toUpperCase() === 'STARTUP') {
+              this.isStartup = true;
+              this.userType = 'startup';
+            } else if (user.userType.toUpperCase() === 'COMPANY') {
+              this.isCompany = true;
+              this.userType = 'company';
+            }
+          }
+        });
+    console.log('Profile data:', this.profile);
     this.profileService.getOds().subscribe((ods: Ods[]) => {
       this.odsList = ods;
       console.log('ODS data:', this.odsList);
+
+      if (this.isStartup || this.isClient) {
+        // Convert ODS names to IDs
+        const odsIds = this.profile.odsList.map((profileOds: any) => {
+          const ods = this.odsList.find(o => o.name === profileOds.name);
+          return ods ? ods.id : null;
+        }).filter((id: number | null) => id !== null);
+  
+        this.editForm.patchValue({
+          description: this.profile.description,
+          ods: odsIds
+        });
+      } else if (this.isCompany) {
+        this.editForm.patchValue({
+          description: this.profile.description
+        });
+      }
+      console.log('Form data:', this.editForm.value);
     });
   }
 

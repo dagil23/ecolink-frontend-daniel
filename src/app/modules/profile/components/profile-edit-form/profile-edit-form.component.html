@@ -1,11 +1,11 @@
 <button (click)="toggleEditForm()" class="btn btn-primary">Edit Profile</button>
 
-<form *ngIf="showEditForm" [formGroup]="editForm" (ngSubmit)="onSubmit()">
-  <div class="mb-3">
+<form *ngIf="showEditForm " [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3" *ngIf="!isClient">
     <label for="description" class="form-label">Description</label>
     <textarea id="description" formControlName="description" class="form-control"></textarea>
   </div>
-  <div class="mb-3">
+  <div class="mb-3" *ngIf="isStartup || isClient">
     <label for="ods" class="form-label">ODS</label>
     <select id="ods" formControlName="ods" class="form-control" multiple>
       <option *ngFor="let ods of odsList" [value]="ods.id">{{ ods.name }}</option>
