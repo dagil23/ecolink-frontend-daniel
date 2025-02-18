@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Startup } from '../../../../core/models/Startup';
 import { StartupService } from '../../services/startup.service';
 import { Pagination } from '../../../../core/models/Pagination';
+import { AuthService } from '../../../../auth/services/AuthService.service';
 
 @Component({
   selector: 'startups-list',
@@ -16,7 +17,7 @@ export class StartupsListComponent implements OnInit {
   // Alert message
   message: string = '';
 
-  constructor(private startupService: StartupService) { }
+  constructor(private startupService: StartupService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadStartups();
@@ -25,6 +26,13 @@ export class StartupsListComponent implements OnInit {
   loadStartups(): void {
     this.startupService.getStartups(this.filters, this.currentPage, 6).subscribe((data: Pagination<Startup>) => {
       this.startups = data.content;
+      this.startups.forEach((startup: Startup) => {
+        if (startup?.imageUrl) {
+          this.authService.getImage('user', startup.imageUrl).subscribe((imageUrl: string) => {
+            startup.imageUrl = imageUrl;
+          });
+        }
+      });
       this.totalPages = data.totalPages;
     }, () => {
       alert('Error al obtener las startups');

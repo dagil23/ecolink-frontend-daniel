@@ -4,6 +4,7 @@ import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/Product';
 import { OrderService } from '../../services/order.service';
 import { CartCountService } from '../../../../core/services/cart-count.service';
+import { AuthService } from '../../../../auth/services/AuthService.service';
 
 @Component({
   selector: 'app-products-list',
@@ -17,7 +18,7 @@ export class ProductsListComponent {
   currentPage = 0;
   totalPages = 0;
 
-  constructor(private productService: ProductService, private orderService: OrderService, private cartCountService: CartCountService) { }
+  constructor(private productService: ProductService, private orderService: OrderService, private cartCountService: CartCountService, private authService: AuthService) { }
 
   ngOnInit() {
     this.loadProducts();
@@ -28,7 +29,15 @@ export class ProductsListComponent {
       this.products = data.content;
       this.totalPages = data.totalPages;
       this.message = '';
-      console.log(data.content)
+     this.products.forEach(product => {
+      if (product?.imageUrl) {
+        this.authService.getImage('product', product.imageUrl).subscribe((imageUrl: string) => {
+          product.imageUrl = imageUrl;
+        });
+      }
+
+     });
+
     }, error => {
       this.products = [];
       this.message = 'Products not found';
