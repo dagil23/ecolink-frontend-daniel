@@ -22,6 +22,11 @@ export class StartupDetailComponent implements OnInit {
     if (this.startupId === null) return;
     this.startupService.findStartupById(this.startupId).subscribe((startup: StartupDetails) => {
       this.startup = startup;
+      if (startup?.imageUrl) {
+        this.authService.getImage('user', this.startup?.imageUrl).subscribe((imageUrl: string) => {
+          this.startup.imageUrl = imageUrl;
+        });
+      }
       for (let i = 0; i < this.startup.odsList.length; i++) {
         this.authService.getImage('ods', this.startup.odsList[i].image).subscribe((imageUrl: string) => {
           this.startup.odsList[i].image = imageUrl;

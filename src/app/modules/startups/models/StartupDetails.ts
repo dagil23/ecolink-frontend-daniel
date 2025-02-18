@@ -4,7 +4,7 @@ import { Proposal } from "./Proposal";
 
 export interface StartupDetails {
   description: string;
-  imageStartup: string;
+  imageUrl: string;
   listLikePost: null;
   name: string;
   odsList: Ods[];
