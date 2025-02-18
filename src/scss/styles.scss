@@ -2,21 +2,9 @@
 
 @import 'variables';
 @import 'mixins';
-@import 'base';
-@import 'layout';
 @import 'components';
-// @import "../../node_modules/bootstrap/scss/bootstrap";
-
 
 @import "../../node_modules/bootstrap/scss/mixins/banner";
-@include bsBanner("");
-
-
-// scss-docs-start import-stack
-// Configuration
-
-
-
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/variables-dark";
@@ -24,11 +12,8 @@
 $theme-colors: map-merge($theme-colors, $colors);
 $theme-colors: map-merge($theme-colors, $icon-colors);
 @import "../../node_modules/bootstrap/scss/maps";
-
 @import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap/scss/utilities";
-
-// Layout & components
 @import "../../node_modules/bootstrap/scss/root";
 @import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
@@ -60,11 +45,7 @@ $theme-colors: map-merge($theme-colors, $icon-colors);
 @import "../../node_modules/bootstrap/scss/spinners";
 @import "../../node_modules/bootstrap/scss/offcanvas";
 @import "../../node_modules/bootstrap/scss/placeholders";
-
-// Helpers
 @import "../../node_modules/bootstrap/scss/helpers";
-
-// Utilities
 @import "../../node_modules/bootstrap/scss/utilities/api";
-// scss-docs-end import-stack
+
 
