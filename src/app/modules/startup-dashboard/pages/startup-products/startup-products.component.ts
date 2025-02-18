@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from '../../models/Product';
+import { Product } from '../../models/Product';
 import { StartupProductsService } from '../../services/StartupProducts.service';
-import {Category} from '../../../startups/models/Category';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../../../auth/services/AuthService.service';
+import { Category } from '../../../startups/models/Category';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../../auth/services/AuthService.service';
 
 @Component({
   selector: 'app-startup-products',
@@ -37,10 +37,10 @@ export class StartupProductsComponent implements OnInit {
     private authService: AuthService,
   ) {
     this.productForm = this.fb.group({
-      name: ['', Validators.required],
-      price: [null, Validators.required],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      price: [null, [Validators.required, Validators.min(0.01)]],
       categories: [[], Validators.required],
-      description: [''],
+      description: ['', [Validators.required, Validators.maxLength(500)]],
       imageUrl: ['']
     });
   }
@@ -79,7 +79,6 @@ export class StartupProductsComponent implements OnInit {
     });
   }
 
-
   setShowProducts() {
     this.showProducts = true;
     this.showSales = false;
@@ -111,11 +110,8 @@ export class StartupProductsComponent implements OnInit {
       return;
     }
 
-    const file = fileInput.files[0]; // Obtener el archivo
-
-    console.log("📸 Archivo seleccionado:", file); // DEBUG
-
-    this.productForm.get('imageUrl')?.setValue(file); // Guardar el archivo en el FormControl
+    const file = fileInput.files[0];
+    this.productForm.get('imageUrl')?.setValue(file);
 
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -124,9 +120,12 @@ export class StartupProductsComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-
-
   onSubmitAddProduct() {
+    // Marcar todos los controles como touched para mostrar errores
+    Object.values(this.productForm.controls).forEach(control => {
+      control.markAsTouched();
+    });
+
     if (this.productForm.invalid) return;
 
     const selectedCategories = this.productForm.get('categories')?.value || [];
@@ -141,9 +140,6 @@ export class StartupProductsComponent implements OnInit {
     formData.append('product', JSON.stringify(productData));
 
     const imageFile = this.productForm.get('imageUrl')?.value;
-
-    console.log("✅ Archivo en el FormData antes de enviar:", imageFile); // DEBUG
-
     if (imageFile && imageFile instanceof File) {
       formData.append('image', imageFile);
     }
@@ -171,17 +167,16 @@ export class StartupProductsComponent implements OnInit {
     }
   }
 
-
-
   onEditProduct(product: Product) {
     this.editingProduct = product;
     this.productForm.patchValue({
       name: product.name,
       price: product.price,
       description: product.description,
-      image: product.imageUrl,
+      imageUrl: product.imageUrl,
       categories: product.categories
     });
+    this.imageUrl = product.imageUrl;
     this.setShowAddProduct();
   }
 
@@ -196,6 +191,9 @@ export class StartupProductsComponent implements OnInit {
 
   validateCategories(): void {
     const categoriesControl = this.productForm.get('categories');
+    if (!categoriesControl?.value || categoriesControl.value.length === 0) {
+      categoriesControl?.setErrors({ required: true });
+    }
     categoriesControl?.markAsTouched();
     categoriesControl?.updateValueAndValidity();
   }
@@ -206,8 +204,7 @@ export class StartupProductsComponent implements OnInit {
       price: null,
       categories: [],
       description: '',
-      image: null,
-      imageUrl: ''
+      imageUrl: '',
     });
     this.imageUrl = null;
   }
