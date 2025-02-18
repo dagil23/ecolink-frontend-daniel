@@ -10,7 +10,7 @@
 //   @include box-shadow(map-get($icon-colors, dollar), 5px, 10px);
 // }
 
-// Generar clases de sombra para cada tamaño y color
+// Generar clases de sombra para cada tamaño y color de los iconos
 @each $size-name, $size-values in $sizes {
   $blur: nth($size-values, 1);
   $spread: nth($size-values, 2);
