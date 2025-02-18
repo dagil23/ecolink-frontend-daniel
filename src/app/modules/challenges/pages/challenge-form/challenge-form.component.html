@@ -8,12 +8,12 @@
     <form class="mb-3" (ngSubmit)="onSubmit()" #proposalForm="ngForm">
 
 
-      <!-- Proposal tittle -->
+      <!-- Proposal Title -->
       <div class="mb-3">
-        <label for="title" class="form-label">Proposal tittle</label>
+        <label for="title" class="form-label">Proposal Title</label>
         <input type="text" id="title" class="form-control" required [(ngModel)]="proposal.title" name="title" #title="ngModel" placeholder="Sistema de reciclaje inteligente">
         <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger">
-          Tittle is required
+          Title is required
         </div>
       </div>
   
