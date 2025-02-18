@@ -1,7 +1,7 @@
 <a class="text-decoration-none" [routerLink]="['/startups', startup.id]">
   <div class="card p-3">
     <div class="d-flex align-items-center">
-      <img src="assets/images/startup.webp" width="60" height="60" [alt]="startup.name" class="me-2 rounded-circle">
+      <img [src]="startup.imageUrl || 'assets/images/startup.webp'" width="60" height="60" [alt]="startup.name" class="me-2 rounded-circle">
       <h3>{{startup.name}}</h3>
     </div>
     <p class="text-grey mb-0">{{startup.odsList[0].name}}</p>

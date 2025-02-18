@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Post } from '../../../../core/models/Post';
 import { BlogService } from '../../services/blog.service';
 import { Pagination } from '../../../../core/models/Pagination';
+import { AuthService } from '../../../../auth/services/AuthService.service';
 
 @Component({
   selector: 'blog-list',
@@ -13,7 +14,7 @@ export class BlogListComponent implements OnInit {
   currentPage = 0;
   totalPages = 0;
 
-  constructor(private blogService: BlogService) { }
+  constructor(private blogService: BlogService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadArticles();
@@ -22,7 +23,11 @@ export class BlogListComponent implements OnInit {
   loadArticles(): void {
     this.blogService.getPosts(this.currentPage, 6).subscribe((data: Pagination<Post>) => {
       this.articles = data.content;
-      console.log(data.content)
+      this.articles.forEach(article => {
+        this.authService.getImage('user', article?.imageUrl).subscribe((imageUrl: string) => {
+          article.imageUrl = imageUrl;
+        });
+      });
       this.totalPages = data.totalPages;
     }, () => {
       alert('Error al obtener las startups');

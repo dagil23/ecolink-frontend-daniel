@@ -22,7 +22,7 @@ export class ChallengesComponent implements OnInit, OnDestroy {
     this.challengeService.getRelevantChallenges().subscribe((challenges: Challenge[]) => {
       this.challenges = challenges;
       this.updateTimeLeft();
-      this.startTimer();
+      this.startTimer();      
     });
 
     this.authService.getCurrentUser().subscribe((user: User) => {
