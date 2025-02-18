@@ -2,26 +2,36 @@
 <div class="container my-5">
   <h2 class="mb-4">Add New Post</h2>
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
-      <div class="mb-3">
+      <div class="row row-cols-1 row-cols-md-2">
+        <div class="col mb-3">
           <label for="title" class="form-label">Title</label>
           <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter title" [class.is-invalid]="postForm.controls['title'].invalid && postForm.controls['title'].touched">
           <div class="invalid-feedback" *ngIf="postForm.controls['title'].invalid && postForm.controls['title'].touched">
               Title is required.
           </div>
-      </div>
-      <div class="mb-3">
-          <label for="startup" class="form-label">Startup Name</label>
-          <input type="text" class="form-control" id="startup" formControlName="startup" placeholder="Enter startup name" [class.is-invalid]="postForm.controls['startup'].invalid && postForm.controls['startup'].touched">
-          <div class="invalid-feedback" *ngIf="postForm.controls['startup'].invalid && postForm.controls['startup'].touched">
-              Startup name is required.
+        </div>
+        <div class="col mb-3">
+            <label for="startup" class="form-label">Startup Name</label>
+            <input type="text" class="form-control" id="startup" formControlName="startup" placeholder="Enter startup name" [class.is-invalid]="postForm.controls['startup'].invalid && postForm.controls['startup'].touched">
+            <div class="invalid-feedback" *ngIf="postForm.controls['startup'].invalid && postForm.controls['startup'].touched">
+                Startup name is required.
+            </div>
+        </div>
+        <div class="col mb-3">
+            <label for="shortDescription" class="form-label">Short Description</label>
+            <input type="text" class="form-control" id="shortDescription" formControlName="shortDescription" placeholder="Enter a short description" [class.is-invalid]="postForm.controls['shortDescription'].invalid && postForm.controls['shortDescription'].touched">
+            <div class="invalid-feedback" *ngIf="postForm.controls['shortDescription'].invalid && postForm.controls['shortDescription'].touched">
+                Short description is required.
+            </div>
+        </div>
+        <div class="col mb-3">
+          <label for="imageUrl" class="form-label">Image Upload</label>
+          <input type="file" class="form-control" id="imageUrl" formControlName="imageUrl" accept="image/*"
+            [class.is-invalid]="postForm.controls['imageUrl'].invalid && postForm.controls['imageUrl'].touched">
+          <div class="invalid-feedback" *ngIf="postForm.controls['imageUrl'].invalid && postForm.controls['imageUrl'].touched">
+            Image file is required.
           </div>
-      </div>
-      <div class="mb-3">
-          <label for="shortDescription" class="form-label">Short Description</label>
-          <input type="text" class="form-control" id="shortDescription" formControlName="shortDescription" placeholder="Enter a short description" [class.is-invalid]="postForm.controls['shortDescription'].invalid && postForm.controls['shortDescription'].touched">
-          <div class="invalid-feedback" *ngIf="postForm.controls['shortDescription'].invalid && postForm.controls['shortDescription'].touched">
-              Short description is required.
-          </div>
+        </div>
       </div>
       <div class="mb-3">
           <label for="description" class="form-label">Full Description</label>
@@ -30,46 +40,22 @@
               Full description is required.
           </div>
       </div>
-      <div class="mb-3">
-          <label for="postDate" class="form-label">Publication Date</label>
-          <input type="date" class="form-control" id="postDate" formControlName="postDate" [class.is-invalid]="postForm.controls['postDate'].invalid && postForm.controls['postDate'].touched">
-          <div class="invalid-feedback" *ngIf="postForm.controls['postDate'].invalid && postForm.controls['postDate'].touched">
-              Publication date is required.
-          </div>
+      <div class="form-group mb-3">
+        <label>Ods</label>
+        <ng-multiselect-dropdown
+          [placeholder]="'Select Ods'"
+          [data]="odsList"
+          [settings]="dropdownSettings"
+          formControlName="ods"
+          (onDropDownClose)="validateOdsList()">
+        </ng-multiselect-dropdown>
+
+        <!-- Error Message -->
+        <div *ngIf="postForm.get('ods')?.invalid && (postForm.get('ods')?.dirty || postForm.get('ods')?.touched)" class="text-danger">
+          Select at least 1 preference.
+        </div>
       </div>
-      <div class="mb-3">
-          <label for="imageUrl" class="form-label">Image URL</label>
-          <input type="url" class="form-control" id="imageUrl" formControlName="imageUrl" placeholder="Enter image URL" [class.is-invalid]="postForm.controls['imageUrl'].invalid && postForm.controls['imageUrl'].touched">
-          <div class="invalid-feedback" *ngIf="postForm.controls['imageUrl'].invalid && postForm.controls['imageUrl'].touched">
-              Image URL is required.
-          </div>
-      </div>
-      <div class="mb-3">
-          <label for="ods" class="form-label">Related ODS</label>
-          <select multiple class="form-select" id="ods" formControlName="ods" [class.is-invalid]="postForm.controls['ods'].invalid && postForm.controls['ods'].touched">
-              <option value="1">End of Poverty</option>
-              <option value="2">Zero Hunger</option>
-              <option value="3">Good Health and Well-being</option>
-              <option value="4">Quality Education</option>
-              <option value="5">Gender Equality</option>
-              <option value="6">Clean Water and Sanitation</option>
-              <option value="7">Affordable and Clean Energy</option>
-              <option value="8">Decent Work and Economic Growth</option>
-              <option value="9">Industry, Innovation, and Infrastructure</option>
-              <option value="10">Reduced Inequalities</option>
-              <option value="11">Sustainable Cities and Communities</option>
-              <option value="12">Responsible Consumption and Production</option>
-              <option value="13">Climate Action</option>
-              <option value="14">Life Below Water</option>
-              <option value="15">Life on Land</option>
-              <option value="16">Peace, Justice, and Strong Institutions</option>
-              <option value="17">Partnerships for the Goals</option>
-          </select>
-          <div class="invalid-feedback" *ngIf="postForm.controls['ods'].invalid && postForm.controls['ods'].touched">
-              Please select at least one ODS.
-          </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Add Post</button>
+      <button type="submit" class="btn btn-success">Add Post</button>
   </form>
 </div>
 <shared-footer></shared-footer>
