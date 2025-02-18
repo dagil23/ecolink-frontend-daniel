@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { User } from '../../../../core/models/User';
 import { AuthService } from '../../../../auth/services/AuthService.service';
+import { Product } from '../../../startups/models/Product';
 
 @Component({
   selector: 'startup-profile',
@@ -30,6 +31,11 @@ export class StartupProfileComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (profile) => {
         this.startupProfile = profile;
+      this.startupProfile.products.forEach((product: Product) => {
+        this.authService.getImage('product', product.imageUrl).subscribe((imageUrl: string) => {
+          product.imageUrl = imageUrl;
+        });
+      });
       },
       (error) => {
         console.error('Error al obtener el perfil:', error);

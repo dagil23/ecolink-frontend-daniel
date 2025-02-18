@@ -3,6 +3,7 @@ import { CartService } from '../../services/cart.service';
 import { Cart } from '../../models/Cart';
 import { OrderLine } from '../../models/OrderLine';
 import { CartCountService } from '../../../../core/services/cart-count.service';
+import { AuthService } from '../../../../auth/services/AuthService.service';
 
 @Component({
   selector: 'app-cart-list',
@@ -12,16 +13,23 @@ import { CartCountService } from '../../../../core/services/cart-count.service';
 export class CartListComponent implements OnInit {
   cart: Cart | undefined;
 
-  constructor(private cartService: CartService, private cartCountService: CartCountService) {}
+  constructor(private cartService: CartService, private cartCountService: CartCountService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.cartService.getCart().subscribe((cart: Cart) => {
       this.cart = cart;
+      this.cart.orderLines.forEach(orderLine => {
+        this.authService.getImage('product', orderLine.product?.imageUrl).subscribe((imageUrl: string) => {
+          if (orderLine.product?.imageUrl) {
+            orderLine.product.imageUrl = imageUrl;
+          }
+        });
+      });
     });
   }
 
   decrement(orderLine: OrderLine): void {
-    if(orderLine.amount === 1) return ;
+    if (orderLine.amount === 1) return;
     const updatedOrderLine = { ...orderLine, amount: orderLine.amount - 1 };
 
     this.cartService.updateAmount(updatedOrderLine).subscribe((data) => {
