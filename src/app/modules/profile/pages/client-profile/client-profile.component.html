@@ -82,6 +82,38 @@
             </div>
           </div>
         </div>
+        <!-- Orders -->
+        <div *ngIf="clientProfile.orders.length > 0" class="row mt-3 mb-4">
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h5 class="text-greendark">Orders</h5>
+                <ul>
+                  <li *ngFor="let order of clientProfile.orders">
+                    <p><strong>Order ID:</strong> {{ order.id }}</p>
+                    <p><strong>Status:</strong> {{ order.status }}</p>
+                    <p><strong>Purchase Date:</strong> {{ order.purchaseDate }}</p>
+                    <p><strong>Total:</strong> ${{ order.total }}</p>
+                    
+                    <!-- Order Lines -->
+                    <div *ngIf="order.orderLines.length > 0">
+                      <h6 class="mt-2">Order Details:</h6>
+                      <ul>
+                        <li *ngFor="let line of order.orderLines">
+                          <p><strong>Product Name:</strong> {{ line.product.name }}</p>
+                          <p><strong>Description:</strong> {{ line.product.description }}</p>
+                          <p><strong>Price:</strong> ${{ line.product.price }}</p>
+                          <p><strong>Quantity:</strong> {{ line.amount }}</p>
+                          <img *ngIf="line.product.imageUrl" [src]="line.product.imageUrl" alt="{{ line.product.name }}" class="img-fluid" style="max-width: 100px;">
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- Edit Form -->
         <app-profile-edit-form [profile]="clientProfile"></app-profile-edit-form>
       </div>
