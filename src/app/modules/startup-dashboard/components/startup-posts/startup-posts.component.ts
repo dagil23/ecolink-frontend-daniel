@@ -26,4 +26,11 @@ export class StartupPostsComponent implements OnInit {
       }
     });
   };
+
+  deletePost(id: number): void {
+    this.startupPosts.deletePost(id).subscribe(() => {
+      this.posts = this.posts.filter(post => post.id !== id);
+      console.log('Post deleted');
+    });
+  }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ods } from '../../../../core/models/Ods';
 import { OdsService } from '../../../startups/services/ods.service';
+import { StartupPostsService } from '../../services/startup-posts.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-startup-form-post',
@@ -11,13 +13,15 @@ import { OdsService } from '../../../startups/services/ods.service';
 export class StartupFormPostComponent implements OnInit {
   postForm!: FormGroup;
   odsList: Ods[] = [];
+  selectedFile?: File;
+  isEditing: boolean = false;
+  postId: string | null = null;
 
-  constructor(private fb: FormBuilder, private odsService: OdsService) { }
+  constructor(private fb: FormBuilder, private odsService: OdsService, private startupPosts: StartupPostsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
-      startup: ['', Validators.required],
       shortDescription: ['', Validators.required],
       description: ['', Validators.required],
       imageUrl: [null, Validators.required],
@@ -27,24 +31,54 @@ export class StartupFormPostComponent implements OnInit {
     this.odsService.getOds().subscribe((ods: Ods[]) => {
       this.odsList = ods;
     });
+
+    this.postId = this.route.snapshot.paramMap.get('id');
+    if(this.postId) {
+      this.isEditing = true;
+      this.loadPostData();
+    }
+  }
+
+  loadPostData() {
+    this.startupPosts.getPostById(this.postId!).subscribe(post => {
+      this.postForm.patchValue(post);
+    });
   }
 
   onSubmit(): void {
-    console.log('h')
-    if(!this.postForm.valid) {
+    if (!this.postForm.valid) {
       this.postForm.markAllAsTouched();
-      return ;
+      return;
     };
 
-    console.log('gg')
-    console.log(this.postForm.value);
+    const formData = new FormData();
 
-    const post = {
-      title: '',
-      shortDescription: '',
-      description: '',
-      odsList: []
+    const postData = {
+      title: this.postForm.get('title')?.value,
+      shortDescription: this.postForm.get('shortDescription')?.value,
+      description: this.postForm.get('description')?.value,
+      odsList: [...this.postForm.get('ods')?.value.map((ods: any) => ods.id)]
     };
+
+    formData.append('post', JSON.stringify(postData));
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+      console.log("Image:", this.selectedFile);
+    } else {
+      console.error('No file selected');
+    }
+
+    if(this.isEditing) {
+      this.startupPosts.updatePost(this.postId!, formData).subscribe(() => {
+        console.log('Post updated successfully');
+        window.location.href = '/startup-dashboard/posts';
+      });
+    } else {
+      this.startupPosts.createPost(formData).subscribe(() => {
+        console.log('Post created successfully');
+        window.location.href = '/startup-dashboard/posts';
+      });
+    }
   }
 
   dropdownSettings = {
@@ -57,9 +91,19 @@ export class StartupFormPostComponent implements OnInit {
     allowSearchFilter: true
   };
 
+  onFileSelected(event: any): void {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }
+  }
+
   validateOdsList(): void {
     const preferenceControl = this.postForm.get('ods');
-
+    if (preferenceControl && preferenceControl.value.length === 0) {
+      preferenceControl.setErrors({ required: true });
+    } else {
+      preferenceControl?.setErrors(null);
+    }
     preferenceControl?.markAsTouched();
     preferenceControl?.updateValueAndValidity();
   }

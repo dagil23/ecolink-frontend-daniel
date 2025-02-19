@@ -10,11 +10,11 @@ import { Ods } from '../../../core/models/Ods';
 export class ProfileService {
   private profileUrl = `${environment.apiUrl}/profile`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getProfile(): Observable<any[]> {
-      return this.http.get<any[]>(this.profileUrl, { withCredentials: true });
-    }
+    return this.http.get<any[]>(this.profileUrl, { withCredentials: true });
+  }
 
   getCurrentUser(): Observable<any> {
     return this.http.get(environment.apiUrl + '/auth/user/me', { withCredentials: true });
@@ -24,17 +24,17 @@ export class ProfileService {
     return this.http.get<Ods[]>(environment.apiUrl + '/ods', { withCredentials: true });
   }
 
-   updateProfile(data: { odsIdList: number[]; description: string }, image?: File) {
-      const formData = new FormData();
-      formData.append('data', JSON.stringify(data)); 
-      console.log('Data adjuntada:', formData.get('data'));
-    
-      if (image) {
-        formData.append('image', image);
-        console.log('Imagen adjuntada:', formData.get('image'));
-      }
-    
-      return this.http.put(this.profileUrl + '/update', formData, { withCredentials: true });
+  updateProfile(data: { odsIdList: number[]; description: string }, image?: File) {
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(data));
+    console.log('Data adjuntada:', formData.get('data'));
+
+    if (image) {
+      formData.append('image', image);
+      console.log('Imagen adjuntada:', formData.get('image'));
     }
-    
+
+    return this.http.put(this.profileUrl + '/update', formData, { withCredentials: true });
+  }
+
 }

@@ -33,6 +33,10 @@ const routes: Routes = [
     component: StartupPostsComponent
   },
   {
+    path: 'edit-post/:id',
+    component: StartupFormPostComponent
+  },
+  {
     path: '**',
     redirectTo: ''
   }

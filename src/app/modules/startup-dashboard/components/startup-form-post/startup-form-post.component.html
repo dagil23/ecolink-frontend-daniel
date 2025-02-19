@@ -1,6 +1,6 @@
 <shared-header></shared-header>
 <div class="container my-5 p-4" style="max-width: 800px; background: #f8f9fa; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-  <h2 class="mb-4 text-center text-primary">Add New Post</h2>
+  <h2 class="mb-4 text-center text-primary">{{ isEditing ? 'Edit Post' : 'Add New Post' }}</h2>
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
     <div class="row g-3">
       <div class="col-md-6">
@@ -15,8 +15,7 @@
       </div>
       <div class="col-md-6">
         <label for="imageUrl" class="form-label fw-bold">Image Upload</label>
-        <input type="file" class="form-control" id="imageUrl" formControlName="imageUrl" accept="image/*" [class.is-invalid]="postForm.controls['imageUrl'].invalid && postForm.controls['imageUrl'].touched">
-        <div class="invalid-feedback">Image file is required.</div>
+        <input type="file" class="form-control" id="imageUrl" (change)="onFileSelected($event)" formControlName="imageUrl" accept="image/*">
       </div>
       <div class="col-md-6">
         <label class="form-label fw-bold">Ods</label>
@@ -30,9 +29,8 @@
       <div class="invalid-feedback">Full description is required.</div>
     </div>
     <div class="text-center mt-4">
-      <button type="submit" class="btn btn-success px-4 py-2" style="border-radius: 5px; font-weight: bold;">Add Post</button>
+      <button type="submit" class="btn btn-success px-4 py-2" style="border-radius: 5px; font-weight: bold;">{{ isEditing ? 'Update Post' : 'Add Post' }}</button>
     </div>
   </form>
 </div>
-
 <shared-footer></shared-footer>
