@@ -4,4 +4,5 @@ export interface UserPending {
   imageUrl: string;
   name: string;
   userType: string;
+  description: string;
 }

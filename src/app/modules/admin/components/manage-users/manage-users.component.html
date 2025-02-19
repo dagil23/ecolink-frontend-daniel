@@ -3,15 +3,19 @@
   <shared-header></shared-header>
 
   <div class="container mt-5 flex-grow-1">
-      <h2 class="mb-4">User Requests</h2>
-      <ul class="list-group">
-          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of users">
+    <h2 class="mb-4">User Requests</h2>
+    <div class="accordion" id="accordionUserRequest">
+      <div class="accordion-item" *ngFor="let user of users; let i = index">
+        <h2 class="accordion-header" [id]="'heading' + i">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">
+            <div class="d-flex align-items-center">
+              <img [src]="user.imageUrl" class="rounded-circle me-2" width="40" height="40" [alt]="user.name">
               <div>
-                  <img [src]="user.imageUrl" class="rounded-circle me-2" width="40" height="40" [alt]="user.name">
-                  <strong>{{user.name}}</strong> - {{user.email}} ({{user.userType}})
-              </div>
-              <div>
-                  <button (click)="validateUser(user, 'ACCEPTED')" class="btn btn-success btn-sm me-2" [disabled]="isAccepted">
+                <strong>{{user.name}}</strong> - {{user.email}} ({{user.userType}})
+                <div class="mt-2">
+                  <button (click)="validateUser(user, 'ACCEPTED')" class="btn btn-success btn-sm me-2"
+                    [disabled]="isAccepted">
                     <span *ngIf="!isAccepted">Accept</span>
                     <span *ngIf="isAccepted">
                       <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
@@ -25,12 +29,22 @@
                       Rejecting...
                     </span>
                   </button>
+                </div>
               </div>
-          </li>
-      </ul>
-      <div class="alert alert-info text-center mt-4" *ngIf="users.length === 0">
-        No user requests found.
+            </div>
+          </button>
+        </h2>
+        <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i"
+          data-bs-parent="#accordionUserRequest">
+          <div class="accordion-body">
+            {{user.description}}
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="alert alert-info text-center mt-4" *ngIf="users.length === 0">
+      No user requests found.
+    </div>
   </div>
 
   <shared-footer class="mt-auto"></shared-footer>
