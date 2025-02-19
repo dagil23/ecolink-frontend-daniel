@@ -30,6 +30,7 @@ export class CompanyProfileComponent implements OnInit {
     this.profileService.getProfile().subscribe(
       (profile) => {
         this.companyProfile = profile;
+        console.log('Perfil de la empresa:', this.companyProfile);
       },
       (error) => {
         console.error('Error al obtener el perfil:', error);

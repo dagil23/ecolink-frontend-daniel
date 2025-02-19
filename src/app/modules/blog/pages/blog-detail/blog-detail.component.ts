@@ -42,6 +42,7 @@ export class BlogDetailComponent implements OnInit {
 
     this.blogService.getPostById(this.postId).subscribe((post: PostDetails) => {
       this.post = post;
+      console.log(post)
       this.userLikedPost();
       this.comments = post.comments || [];
       // Obtenemos la imagen de perfil de cada usuario que ha comentado

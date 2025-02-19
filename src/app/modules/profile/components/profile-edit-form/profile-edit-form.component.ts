@@ -16,7 +16,7 @@ export class ProfileEditFormComponent implements OnInit {
   showEditForm = false;
   selectedFile?: File;
   odsList: Ods[] = [];
-  
+
   isLogged: boolean = false;
   isClient: boolean = false;
   isStartup: boolean = false;
@@ -46,10 +46,8 @@ export class ProfileEditFormComponent implements OnInit {
             }
           }
         });
-    console.log('Profile data:', this.profile);
     this.profileService.getOds().subscribe((ods: Ods[]) => {
       this.odsList = ods;
-      console.log('ODS data:', this.odsList);
 
       if (this.isStartup || this.isClient) {
         // Convert ODS names to IDs
@@ -57,7 +55,7 @@ export class ProfileEditFormComponent implements OnInit {
           const ods = this.odsList.find(o => o.name === profileOds.name);
           return ods ? ods.id : null;
         }).filter((id: number | null) => id !== null);
-  
+
         this.editForm.patchValue({
           description: this.profile.description,
           ods: odsIds
@@ -67,7 +65,6 @@ export class ProfileEditFormComponent implements OnInit {
           description: this.profile.description
         });
       }
-      console.log('Form data:', this.editForm.value);
     });
   }
 
@@ -77,11 +74,10 @@ export class ProfileEditFormComponent implements OnInit {
 
   onFileChange(event: any): void {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0]; 
-      console.log('Archivo seleccionado:', this.selectedFile);
+      this.selectedFile = event.target.files[0];
     }
   }
-  
+
 
   onSubmit(): void {
     if (this.editForm.valid) {
@@ -89,10 +85,8 @@ export class ProfileEditFormComponent implements OnInit {
         description: this.editForm.get('description')?.value || '',
         odsIdList: this.editForm.get('ods')?.value.map((odsId: number) => odsId) || []
       };
-  
-      console.log('Enviando data:', data);
-      console.log('Enviando imagen:', this.selectedFile);
-  
+
+
       this.profileService.updateProfile(data, this.selectedFile).subscribe(() => {
         this.toggleEditForm();
         window.location.reload();
@@ -100,4 +94,4 @@ export class ProfileEditFormComponent implements OnInit {
     }
   }
 }
-  
+

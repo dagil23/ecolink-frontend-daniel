@@ -16,6 +16,10 @@
             <h5 class="my-3">{{ companyProfile.name }}</h5>
             <p class="text-muted mb-1">Company</p>
             <p class="text-muted mb-4">{{ companyProfile.status }}</p>
+            <p>Level: {{companyProfile.level}}</p>
+            <div class="progress mb-3" role="progressbar" aria-label="Success example" [attr.aria-valuenow]="companyProfile.xp" aria-valuemin="0" [attr.aria-valuemax]="companyProfile.nextLevelXp">
+              <div class="progress-bar bg-success" [ngStyle]="{ 'width': (companyProfile.xp / companyProfile.nextLevelXp * 100) + '%' }"></div>
+            </div>
             <!-- Edit Form -->
         <app-profile-edit-form [profile]="companyProfile"></app-profile-edit-form>
           </div>
@@ -124,7 +128,7 @@
                     <p><strong>Status:</strong> {{ order.status }}</p>
                     <p><strong>Purchase Date:</strong> {{ order.purchaseDate }}</p>
                     <p><strong>Total:</strong> ${{ order.total }}</p>
-                    
+
                     <!-- Order Lines -->
                     <div *ngIf="order.orderLines.length > 0">
                       <h6 class="mt-2">Order Details:</h6>

@@ -6,21 +6,14 @@
       <img
         [src]="startup.imageUrl"
         [alt]="startup.name"
-        class="rounded-5 me-3"
+        class="rounded-circle me-3"
         style="width: 100px; height: 100px"
       />
       <div class="d-flex flex-column">
         <h1>{{ startup.name }}</h1>
         <p class="lead">{{ startup.description }}</p>
-        <div class="d-flex flex-wrap gap-1">
-          <div
-            *ngFor="let ods of startup?.odsList"
-            class="bg-primary text-light rounded-pill px-2 py-1"
-            style="font-size: 0.8rem"
-          >
-            <img class="rounded-circle" [src]="ods.image" [alt]="ods.name" width="35px" height="35px">
-            {{ ods.name }}
-          </div>
+        <div class="d-flex flex-wrap gap-2">
+          <img class="rounded" [src]="ods.image" [alt]="ods.name" width="50px" height="50px" *ngFor="let ods of startup?.odsList" />
         </div>
       </div>
     </div>

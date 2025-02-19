@@ -1,4 +1,4 @@
-<button (click)="toggleEditForm()" class="btn btn-primary">Edit Profile</button>
+<button (click)="toggleEditForm()" class="btn btn-success">Edit Profile</button>
 
 <form *ngIf="showEditForm " [formGroup]="editForm" (ngSubmit)="onSubmit()">
   <div class="mb-3" *ngIf="!isClient">
