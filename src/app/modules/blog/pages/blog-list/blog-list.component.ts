@@ -23,11 +23,18 @@ export class BlogListComponent implements OnInit {
   loadArticles(): void {
     this.blogService.getPosts(this.currentPage, 6).subscribe((data: Pagination<Post>) => {
       this.articles = data.content;
-      this.articles.forEach(article => {
-        this.authService.getImage('user', article?.imageUrl).subscribe((imageUrl: string) => {
-          article.imageUrl = imageUrl;
+      console.log(this.articles)
+      for(let i = 0; i < this.articles.length; i++) {
+        this.authService.getImage('post', this.articles[i]?.imageUrl).subscribe((imageUrl: string) => {
+          this.articles[i].imageUrl = imageUrl;
         });
-      });
+
+        for (let j = 0; j < this.articles[i].odsList.length; j++) {
+          this.authService.getImage('ods', this.articles[i].odsList[j].image).subscribe((imageUrl: string) => {
+            this.articles[i].odsList[j].image = imageUrl;
+          });
+        }
+      };
       this.totalPages = data.totalPages;
     }, () => {
       alert('Error al obtener las startups');

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -10,7 +10,7 @@ export class PaypalPendingComponent implements OnInit {
   paymentId: string = '';
   token: string = '';
 
-  constructor(private route: ActivatedRoute, private cartService: CartService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -19,13 +19,11 @@ export class PaypalPendingComponent implements OnInit {
     });
 
     this.cartService.confirmPayment(this.paymentId, this.token).subscribe(
-      response => {
-        console.log(response);
-        this.router.navigate(['/']);
+      () => {
+        window.location.href = '/';
       },
-      error => {
-        console.log(error);
-        this.router.navigate(['/']);
+      () => {
+        window.location.href = '/';
       }
     );
   }

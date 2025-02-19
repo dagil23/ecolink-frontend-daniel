@@ -20,7 +20,7 @@ export class StartupFormPostComponent implements OnInit {
       startup: ['', Validators.required],
       shortDescription: ['', Validators.required],
       description: ['', Validators.required],
-      imageUrl: ['', Validators.required],
+      imageUrl: [null, Validators.required],
       ods: [[], Validators.required]
     });
 
@@ -30,9 +30,20 @@ export class StartupFormPostComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('h')
     if(!this.postForm.valid) {
       this.postForm.markAllAsTouched();
       return ;
+    };
+
+    console.log('gg')
+    console.log(this.postForm.value);
+
+    const post = {
+      title: '',
+      shortDescription: '',
+      description: '',
+      odsList: []
     };
   }
 

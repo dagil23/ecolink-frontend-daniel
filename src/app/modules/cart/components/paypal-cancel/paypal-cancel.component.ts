@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paypal-cancel',
@@ -8,15 +7,15 @@ import { Router } from '@angular/router';
 })
 export class PaypalCancelComponent implements OnInit {
 
-  constructor(private cartService: CartService, private router: Router) { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     this.cartService.cancelPayment().subscribe(
       () => {
-        this.router.navigate(['/']);
+        window.location.href = '/';
       },
       error => {
-        this.router.navigate(['/']);
+        window.location.href = '/';
       }
     );
   }

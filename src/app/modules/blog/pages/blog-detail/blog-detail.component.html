@@ -14,11 +14,8 @@
     </div>
   </div>
   <h1>{{post?.title}}</h1>
-  <div class="d-flex flex-wrap gap-1">
-    <div class="m-0 rounded-pill bg-primary text-light px-2 py-1" style="font-size: .8rem;"
-      *ngFor="let ods of post?.odsList">
-      <img [src]="ods.image" [alt]="ods.name" width="35" height="35" class="rounded-circle">
-      {{ods.name}}</div>
+  <div class="d-flex flex-wrap gap-2">
+    <img [src]="ods.image" [alt]="ods.name" width="50" height="50" class="rounded" *ngFor="let ods of post?.odsList"/>
   </div>
   <hr>
   <div class="row mt-5">
@@ -32,12 +29,12 @@
 
       <div class="d-flex justify-content-between align-items-center">
         <button (click)="userLike ? removeLike(post.id) : addLike(post.id)" class="btn px-4 py-2" [ngClass]="userLike ? 'btn-success' : 'btn-outline-success'">
-          <i class="bi bi-tree me-2" *ngIf="!userLike"></i>
-          <i class="bi bi-tree-fill me-2" *ngIf="userLike"></i>
+          <i class="bi bi-hand-thumbs-up me-1" *ngIf="!userLike"></i>
+          <i class="bi bi-hand-thumbs-up-fill me-1" *ngIf="userLike"></i>
           <span class="fw-bold">{{post.likesCount}} Likes</span>
         </button>
         <div class="d-flex">
-          <i class="bi bi-chat-right me-2 text-greendark"></i>
+          <i class="bi bi-chat-fill me-1 text-greendark"></i>
           <p class="m-0 text-greendark">{{comments.length}} comments</p>
         </div>
       </div>

@@ -50,8 +50,7 @@ export class PaymentInfoComponent {
 
       setTimeout(() => {
         this.message = '';
-        window.location.reload();
-        this.route.navigate(['/']);
+        window.location.href = '/';
       }, 3000);
     });
   }
