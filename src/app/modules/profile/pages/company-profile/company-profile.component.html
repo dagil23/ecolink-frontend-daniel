@@ -16,6 +16,8 @@
             <h5 class="my-3">{{ companyProfile.name }}</h5>
             <p class="text-muted mb-1">Company</p>
             <p class="text-muted mb-4">{{ companyProfile.status }}</p>
+            <!-- Edit Form -->
+        <app-profile-edit-form [profile]="companyProfile"></app-profile-edit-form>
           </div>
         </div>
 
@@ -142,8 +144,6 @@
             </div>
           </div>
         </div>
-        <!-- Edit Form -->
-        <app-profile-edit-form [profile]="companyProfile"></app-profile-edit-form>
       </div>
     </div>
   </div>
