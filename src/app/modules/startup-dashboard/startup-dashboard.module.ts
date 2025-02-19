@@ -11,6 +11,11 @@ import { StartupFormPostComponent } from './components/startup-form-post/startup
 import { StartupProposalsComponent } from './pages/startup-proposals/startup-proposals.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import { ProductListComponent } from './pages/startup-products/components/product-list/product-list.component';
+import { ProductFormComponent } from './pages/startup-products/components/product-form/product-form.component';
+import {ProductSalesComponent} from './pages/startup-products/components/product-sales/product-sales.component';
+import { ProposalListComponent } from './pages/startup-proposals/proposal-list/proposal-list.component';
+import {ProposalFormComponent} from './pages/startup-proposals/proposal-form/proposal-form.component';
 
 
 @NgModule({
@@ -20,7 +25,12 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
     StartupProductFiltersComponent,
     StartupPostsComponent,
     StartupFormPostComponent,
-    StartupProposalsComponent
+    StartupProposalsComponent,
+    ProductListComponent,
+    ProductFormComponent,
+    ProductSalesComponent,
+    ProposalListComponent,
+    ProposalFormComponent,
   ],
   imports: [
     CommonModule,

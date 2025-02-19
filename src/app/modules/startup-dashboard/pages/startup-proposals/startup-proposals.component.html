@@ -1,1 +1,18 @@
-<p>startup-proposals works!</p>
+<shared-header></shared-header>
+<div class="container my-5">
+  <h1>Proposals Management</h1>
+  <div class="d-flex bg-secondary-subtle p-1 rounded mb-3">
+    <a routerLink="/startup-dashboard/proposals" class="btn flex-grow-1"
+       [ngClass]="{'btn-success': router.isActive('/startup-dashboard/proposals', true)}">
+      Proposals
+    </a>
+    <a [routerLink]="editMode ? '/startup-dashboard/proposals/edit/' + proposalId : '/startup-dashboard/proposals/new'"
+       class="btn flex-grow-1"
+       [ngClass]="{'btn-success': isAddOrEditActive()}">
+      {{ editMode ? 'Edit Proposal' : 'Add Proposal' }}
+    </a>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
+<shared-footer></shared-footer>

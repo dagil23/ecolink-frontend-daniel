@@ -2,132 +2,23 @@
 <div class="container my-5">
   <h1>Products Administration</h1>
   <div class="row g-0 row-cols-3 bg-secondary-subtle p-1 rounded mb-3">
-    <a class="col btn" (click)="setShowProducts()"
-       [ngClass]="showProducts ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">
+    <a routerLink="/startup-dashboard/products" class="col btn"
+       [ngClass]="{'btn-success': router.isActive('/startup-dashboard/products', true)}">
       Products
     </a>
-    <a class="col btn" (click)="setShowSales()"
-       [ngClass]="showSales ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">
+    <a routerLink="/startup-dashboard/sales" class="col btn"
+       [ngClass]="{'btn-success': router.isActive('/startup-dashboard/sales', false)}">
       Sales
     </a>
-    <a class="col btn" (click)="setShowAddProduct()"
-       [ngClass]="showAddProduct ? 'btn-success' : 'text-secondary-emphasis text-center d-flex align-items-center justify-content-center text-decoration-none cursor-pointer'">
-      {{ editingProduct ? 'Edit product' : 'Add product' }}
+    <a [routerLink]="editMode ? '/startup-dashboard/products/edit/' + productId : '/startup-dashboard/products/new'"
+       class="col btn"
+       [ngClass]="{'btn-success': isAddOrEditActive()}">
+      {{ editMode ? 'Edit Product' : 'Add Product' }}
     </a>
+
   </div>
 
-  <div class="border border-1 rounded-3 p-3">
-    <div *ngIf="showProducts">
-      <h2 class="m-0">List of products</h2>
-      <small class="text-grey">Manage your products here</small>
-      <table class="table table-success border-3 mt-3">
-        <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Price</th>
-          <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let product of products">
-          <td>
-            <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="Product Image" style="width: 40px; height: 40px; object-fit: cover; margin-right: 10px;">
-            {{ product.name }}
-          </td>
-          <td>{{ product.price | currency:'EUR' }}</td>
-          <td>
-            <button class="btn btn-sm btn-outline-info me-2" (click)="onEditProduct(product)">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="onDeleteProduct(product.id)">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div *ngIf="showAddProduct">
-      <h2 class="m-0">{{ editingProduct ? 'Edit product' : 'Add product' }}</h2>
-      <small class="text-grey">
-        {{ editingProduct ? 'Edit the details of the product' : 'Enter the details of the new product' }}
-      </small>
-      <form class="mt-2" (ngSubmit)="onSubmitAddProduct()" [formGroup]="productForm">
-        <div class="row">
-          <!-- Nombre -->
-          <div class="col-12 col-md-6 mb-3">
-            <label for="productName">Product Name</label>
-            <input id="productName" type="text" formControlName="name" class="form-control"
-                   [ngClass]="{ 'is-invalid': productForm.get('name')?.invalid && (productForm.get('name')?.dirty || productForm.get('name')?.touched) }">
-            <div *ngIf="productForm.get('name')?.invalid" class="invalid-feedback">
-              <div *ngIf="productForm.get('name')?.errors?.['required']">Product name is required</div>
-              <div *ngIf="productForm.get('name')?.errors?.['minlength']">Minimum 3 characters</div>
-              <div *ngIf="productForm.get('name')?.errors?.['maxlength']">Maximum 100 characters</div>
-            </div>
-          </div>
-
-          <!-- Precio -->
-          <div class="col-12 col-md-6 mb-3">
-            <label for="price">Price</label>
-            <input id="price" type="number" step="0.01" formControlName="price" class="form-control"
-                   [ngClass]="{ 'is-invalid': productForm.get('price')?.invalid && (productForm.get('price')?.dirty || productForm.get('price')?.touched) }">
-            <div *ngIf="productForm.get('price')?.invalid" class="invalid-feedback">
-              <div *ngIf="productForm.get('price')?.errors?.['required']">Price is required</div>
-              <div *ngIf="productForm.get('price')?.errors?.['min']">Minimum price is €0.01</div>
-            </div>
-          </div>
-
-          <!-- Categorías -->
-          <div class="col-12 col-md-6 mb-3">
-            <label>Category</label>
-            <ng-multiselect-dropdown
-              [ngClass]="{ 'is-invalid': productForm.get('categories')?.invalid && (productForm.get('categories')?.dirty || productForm.get('categories')?.touched) }"
-              [placeholder]="'Select categories'"
-              [settings]="dropdownSettings"
-              [data]="categories"
-              formControlName="categories"
-              (onDropDownClose)="validateCategories()">
-            </ng-multiselect-dropdown>
-            <div *ngIf="productForm.get('categories')?.invalid" class="invalid-feedback">
-              At least 1 category is required
-            </div>
-          </div>
-
-          <!-- Imagen -->
-          <div class="col-12 col-md-6 mb-3">
-            <label for="image">Product image</label>
-            <input type="file" class="form-control" name="image" id="image" #fileImage (change)="changeImage(fileImage)" accept="image/*">
-          </div>
-
-          <!-- Vista previa de la imagen -->
-          <div *ngIf="imageUrl" class="d-flex justify-content-center mt-3">
-            <img [src]="imageUrl" alt="Vista previa" style="max-width: 400px; max-height: 400px;">
-          </div>
-
-          <!-- Descripción -->
-          <div class="col-12 mb-3">
-            <label for="description">Description</label>
-            <textarea id="description" formControlName="description" class="form-control"
-                      [ngClass]="{ 'is-invalid': productForm.get('description')?.invalid && (productForm.get('description')?.dirty || productForm.get('description')?.touched) }"></textarea>
-            <div *ngIf="productForm.get('description')?.invalid" class="invalid-feedback">
-              <div *ngIf="productForm.get('description')?.errors?.['required']">Description is required</div>
-              <div *ngIf="productForm.get('description')?.errors?.['maxlength']">
-                Maximum 500 characters ({{ (productForm.get('description')?.value || '').length }}/500)
-              </div>
-            </div>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-greendark mt-3" [disabled]="productForm.invalid || productForm.pending">
-          {{ editingProduct ? 'Update product' : 'Add product' }}
-        </button>
-      </form>
-    </div>
-
-    <div *ngIf="showSales">
-      <h2>Sales view</h2>
-      <p>Here you can manage your sales data.</p>
-    </div>
-  </div>
+  <!-- Contenedor de vistas hijas -->
+  <router-outlet></router-outlet>
 </div>
 <shared-footer></shared-footer>

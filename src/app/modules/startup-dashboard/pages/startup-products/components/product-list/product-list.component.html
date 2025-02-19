@@ -1,0 +1,37 @@
+<div class="border border-1 rounded-3 p-3">
+  <h2 class="m-0">List of products</h2>
+  <small class="text-grey">Manage your products here</small>
+
+  <!-- Mostrar mensaje si no hay productos -->
+  <div *ngIf="products.length === 0" class="alert alert-warning mt-3 text-center">
+    {{ noProductsMessage }}
+  </div>
+
+  <table *ngIf="products.length > 0" class="table table-success border-3 mt-3">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>
+        <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="Product Image"
+             style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+        {{ product.name }}
+      </td>
+      <td>{{ product.price | currency:'EUR' }}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-info me-2" (click)="onEditProduct(product)">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="onDeleteProduct(product.id)">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

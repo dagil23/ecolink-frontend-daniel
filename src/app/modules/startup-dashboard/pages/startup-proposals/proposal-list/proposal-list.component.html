@@ -1,0 +1,45 @@
+<div class="border border-1 rounded-3 p-3 mt-3">
+  <h2 class="m-0">Proposals</h2>
+  <small class="text-grey">Manage your investment proposals</small>
+
+  <!-- Tabla de propuestas -->
+  <table class="table mt-3" *ngIf="proposals.length > 0">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Company</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let proposal of proposals">
+      <td>{{ proposal.title }}</td>
+      <td>{{ proposal.targetCompany }}</td>
+      <td>
+          <span [ngClass]="{
+            'badge bg-warning': proposal.status === 'draft',
+            'badge bg-primary': proposal.status === 'sent',
+            'badge bg-success': proposal.status === 'accepted',
+            'badge bg-danger': proposal.status === 'rejected'
+          }">
+            {{ proposal.status | uppercase }}
+          </span>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-primary me-2" (click)="onEdit(proposal.id)">
+          Edit
+        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="onDelete(proposal.id)">
+          Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Mensaje cuando no hay propuestas -->
+  <div *ngIf="proposals.length === 0" class="alert alert-info mt-3">
+    No proposals found.
+  </div>
+</div>
