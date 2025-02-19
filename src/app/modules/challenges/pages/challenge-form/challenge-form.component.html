@@ -16,7 +16,7 @@
           Title is required
         </div>
       </div>
-  
+
       <!-- Proposal description -->
       <div class="mb-3">
         <label for="description" class="form-label">Proposal description</label>
@@ -25,20 +25,20 @@
           Description is required
         </div>
       </div>
-  
+
       <!-- Upload document -->
       <!-- <div class="mb-3">
         <label for="proposalFile" class="form-label">Upload Document</label>
         <input type="file" id="proposalFile" class="form-control" (change)="onFileSelect($event)" />
       </div> -->
-  
+
       <!-- Enlace al Producto -->
       <div class="mb-3">
         <label for="productLink" class="form-label">Link to the product(optional)</label>
         <input type="text" id="productLink" class="form-control" [(ngModel)]="proposal.link" name="link" placeholder="https://...">
 
       </div>
-  
+
       <!-- Buttons -->
       <div>
         <button type="submit" class="btn btn-success" [disabled]="proposalForm.invalid">Send Proposal</button>
@@ -48,7 +48,7 @@
       <div *ngIf="successMessage" class="alert alert-success text-center">
         {{ successMessage }}
       </div>
-  
+
       <!-- Error mesaje -->
       <div *ngIf="errorMessage" class="alert alert-danger text-center">
         {{ errorMessage }}

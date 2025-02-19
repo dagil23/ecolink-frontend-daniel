@@ -7,8 +7,6 @@ import { ProductListComponent } from './pages/startup-products/components/produc
 import { ProductFormComponent } from './pages/startup-products/components/product-form/product-form.component';
 import {ProductSalesComponent} from './pages/startup-products/components/product-sales/product-sales.component';
 import {StartupProposalsComponent} from './pages/startup-proposals/startup-proposals.component';
-import {ProposalListComponent} from './pages/startup-proposals/proposal-list/proposal-list.component';
-import {ProposalFormComponent} from './pages/startup-proposals/proposal-form/proposal-form.component';
 
 const routes: Routes = [
   {
@@ -25,11 +23,6 @@ const routes: Routes = [
   {
     path: 'proposals',
     component: StartupProposalsComponent,
-    children: [
-      { path: '', component: ProposalListComponent },
-      { path: 'new', component: ProposalFormComponent },
-      { path: 'edit/:id', component: ProposalFormComponent }
-    ]
   },
   {
     path: 'add-post',

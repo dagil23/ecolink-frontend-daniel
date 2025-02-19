@@ -1,25 +1,40 @@
-import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ProposalService} from '../../services/StartupProposals.service';
+import { Proposal} from '../../models/Proposal';
 
 @Component({
   selector: 'app-startup-proposals',
   templateUrl: './startup-proposals.component.html',
-  styleUrls: ['./startup-proposals.component.scss']
+  styleUrls: ['./startup-proposals.component.scss'],
 })
-export class StartupProposalsComponent {
-  editMode = false;
-  proposalId: string | null = null;
+export class StartupProposalsComponent implements OnInit {
+  proposals: Proposal[] = [];
 
-  constructor(public router: Router, private route: ActivatedRoute) {
-    this.router.events.subscribe(() => {
-      const url = this.router.url;
-      const match = url.match(/\/startup-dashboard\/proposals\/edit\/(\d+)/);
-      this.editMode = !!match;
-      this.proposalId = match ? match[1] : null;
+  constructor(
+    private proposalService: ProposalService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadProposals();
+  }
+
+  loadProposals(): void {
+    this.proposalService.getStartupProposals().subscribe((data) => {
+      this.proposals = data;
     });
   }
 
-  isAddOrEditActive(): boolean {
-    return this.router.isActive('/startup-dashboard/proposals/new', false) || this.editMode;
+  editProposal(proposalId: number): void {
+    this.router.navigate([`/challenges/form`, proposalId]);
+  }
+
+  deleteProposal(proposalId: number): void {
+    if (confirm('Are you sure you want to delete this proposal?')) {
+      this.proposalService.deleteProposal(proposalId).subscribe(() => {
+        this.loadProposals();
+      });
+    }
   }
 }

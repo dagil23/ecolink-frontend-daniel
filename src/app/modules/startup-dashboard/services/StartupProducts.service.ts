@@ -9,6 +9,7 @@ import { Category } from '../../cart/models/Category';
   providedIn: 'root'
 })
 export class StartupProductsService {
+  private baseUrl = environment.apiUrl;
   private productUrl = `${environment.apiUrl}/product`;
   private categoryUrl = `${environment.apiUrl}/category`;
 
@@ -18,7 +19,7 @@ export class StartupProductsService {
     return this.http.get<Category[]>(this.categoryUrl, { withCredentials: true });
   }
   getStartupProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.apiUrl}/startup/product`, { withCredentials: true });
+    return this.http.get<Product[]>(`${this.baseUrl}/startup/product`, { withCredentials: true });
   }
 
   addProduct(formData: FormData): Observable<Product> {

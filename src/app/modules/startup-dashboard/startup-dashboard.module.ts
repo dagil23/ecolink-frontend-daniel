@@ -14,8 +14,6 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import { ProductListComponent } from './pages/startup-products/components/product-list/product-list.component';
 import { ProductFormComponent } from './pages/startup-products/components/product-form/product-form.component';
 import {ProductSalesComponent} from './pages/startup-products/components/product-sales/product-sales.component';
-import { ProposalListComponent } from './pages/startup-proposals/proposal-list/proposal-list.component';
-import {ProposalFormComponent} from './pages/startup-proposals/proposal-form/proposal-form.component';
 
 
 @NgModule({
@@ -29,8 +27,6 @@ import {ProposalFormComponent} from './pages/startup-proposals/proposal-form/pro
     ProductListComponent,
     ProductFormComponent,
     ProductSalesComponent,
-    ProposalListComponent,
-    ProposalFormComponent,
   ],
   imports: [
     CommonModule,

@@ -1,18 +1,37 @@
 <shared-header></shared-header>
+
 <div class="container my-5">
-  <h1>Proposals Management</h1>
-  <div class="d-flex bg-secondary-subtle p-1 rounded mb-3">
-    <a routerLink="/startup-dashboard/proposals" class="btn flex-grow-1"
-       [ngClass]="{'btn-success': router.isActive('/startup-dashboard/proposals', true)}">
-      Proposals
-    </a>
-    <a [routerLink]="editMode ? '/startup-dashboard/proposals/edit/' + proposalId : '/startup-dashboard/proposals/new'"
-       class="btn flex-grow-1"
-       [ngClass]="{'btn-success': isAddOrEditActive()}">
-      {{ editMode ? 'Edit Proposal' : 'Add Proposal' }}
-    </a>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Proposals Management</h1>
+    <a routerLink="/challenges" class="btn btn-primary">Browse Challenges</a>
   </div>
 
-  <router-outlet></router-outlet>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Company</th>
+      <th>Challenge</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let proposal of proposals">
+      <td>{{ proposal.challenge?.companyName || 'No company' }}</td>
+      <td>{{ proposal.challenge?.title || 'No title' }}</td>
+      <td>{{ proposal.description || 'No description' }}</td>
+      <td>
+        <button class="btn btn-warning me-2" (click)="editProposal(proposal.id)">
+          Edit
+        </button>
+        <button class="btn btn-danger" (click)="deleteProposal(proposal.id)">
+          Delete
+        </button>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
 </div>
+
 <shared-footer></shared-footer>
