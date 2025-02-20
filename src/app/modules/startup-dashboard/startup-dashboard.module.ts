@@ -14,6 +14,7 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import { ProductListComponent } from './pages/startup-products/components/product-list/product-list.component';
 import { ProductFormComponent } from './pages/startup-products/components/product-form/product-form.component';
 import {ProductSalesComponent} from './pages/startup-products/components/product-sales/product-sales.component';
+import { NgxEditorModule } from 'ngx-editor';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {ProductSalesComponent} from './pages/startup-products/components/product
     SharedModule,
     FormsModule,
     NgMultiSelectDropDownModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxEditorModule
   ]
 })
 export class StartupDashboardModule { }

@@ -9,4 +9,5 @@ export interface Post {
   shortDescription: string;
   startupName: string;
   title: string;
+  imageUrl: string;
 }

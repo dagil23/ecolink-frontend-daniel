@@ -15,20 +15,22 @@
   </div>
   <h1>{{post?.title}}</h1>
   <div class="d-flex flex-wrap gap-2">
-    <img [src]="ods.image" [alt]="ods.name" width="50" height="50" class="rounded" *ngFor="let ods of post?.odsList"/>
+    <img [src]="ods.image" [alt]="ods.name" width="50" height="50" class="rounded" *ngFor="let ods of post?.odsList" />
   </div>
   <hr>
   <div class="row mt-5">
     <div class="col-12 col-lg-8 mb-5 mb-lg-0">
       <div class="text-center">
-        <img [src]="post.imageUrl" [alt]="post.title" class="img-fluid rounded-3 shadow-lg mb-4 w-100">
+        <img [src]="post.imageUrl" [alt]="post.title" class="img-fluid rounded-3 shadow-lg mb-4 w-50 object-fit-cover ">
       </div>
 
       <p class="text-muted fs-5">{{post.shortDescription}}</p>
-      <p class="text-muted">{{post.description}}</p>
+      <div [innerHTML]="post.description"></div>
+
 
       <div class="d-flex justify-content-between align-items-center">
-        <button (click)="userLike ? removeLike(post.id) : addLike(post.id)" class="btn px-4 py-2" [ngClass]="userLike ? 'btn-success' : 'btn-outline-success'">
+        <button (click)="userLike ? removeLike(post.id) : addLike(post.id)" class="btn px-4 py-2"
+          [ngClass]="userLike ? 'btn-success' : 'btn-outline-success'">
           <i class="bi bi-hand-thumbs-up me-1" *ngIf="!userLike"></i>
           <i class="bi bi-hand-thumbs-up-fill me-1" *ngIf="userLike"></i>
           <span class="fw-bold">{{post.likesCount}} Likes</span>
@@ -75,7 +77,8 @@
       </div>
       <h3 class="text-success mt-5">Comments ({{comments.length}})</h3>
       <hr>
-      <blog-comment *ngFor="let comment of comments" [comment]="comment" (deleteComment)="deleteComment($event)" (editComment)="editComment($event)"></blog-comment>
+      <blog-comment *ngFor="let comment of comments" [comment]="comment" (deleteComment)="deleteComment($event)"
+        (editComment)="editComment($event)"></blog-comment>
     </div>
   </div>
 </div>

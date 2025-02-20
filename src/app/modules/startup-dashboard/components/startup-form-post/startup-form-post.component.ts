@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Ods } from '../../../../core/models/Ods';
+import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Ods } from '../../../startup-dashboard/models/Ods';
 import { OdsService } from '../../../startups/services/ods.service';
 import { StartupPostsService } from '../../services/startup-posts.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Editor, Toolbar } from 'ngx-editor';
+import { AuthService } from '../../../../auth/services/AuthService.service';
 
 @Component({
   selector: 'app-startup-form-post',
@@ -15,11 +17,31 @@ export class StartupFormPostComponent implements OnInit {
   odsList: Ods[] = [];
   selectedFile?: File;
   isEditing: boolean = false;
+  selectedOds: Ods[] = [];
   postId: string | null = null;
+  imageUrl: string | null = null;
+  htmlContent: string = '';
+  editor!: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
-  constructor(private fb: FormBuilder, private odsService: OdsService, private startupPosts: StartupPostsService, private router: Router, private route: ActivatedRoute) { }
+  form = new FormGroup({
+    editorContent: new FormControl('', Validators.required),
+  });
+
+  constructor(private fb: FormBuilder, private odsService: OdsService, private startupPosts: StartupPostsService, private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.editor = new Editor();
+
     this.postForm = this.fb.group({
       title: ['', Validators.required],
       shortDescription: ['', Validators.required],
@@ -30,17 +52,28 @@ export class StartupFormPostComponent implements OnInit {
 
     this.odsService.getOds().subscribe((ods: Ods[]) => {
       this.odsList = ods;
+      if (this.isEditing) {
+        this.loadPostData();
+      }
     });
 
     this.postId = this.route.snapshot.paramMap.get('id');
-    if(this.postId) {
+    if (this.postId) {
       this.isEditing = true;
-      this.loadPostData();
     }
   }
 
   loadPostData() {
     this.startupPosts.getPostById(this.postId!).subscribe(post => {
+      console.log(post)
+      if (post.imageUrl) {
+        this.authService.getImage('post', post.imageUrl).subscribe({
+          next: (imageUrl: string) => {
+            this.imageUrl = imageUrl;
+          },
+        });
+      }
+      this.selectedOds = post.odsList;
       this.postForm.patchValue(post);
     });
   }
@@ -63,14 +96,12 @@ export class StartupFormPostComponent implements OnInit {
     formData.append('post', JSON.stringify(postData));
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
-      console.log("Image:", this.selectedFile);
     } else {
       console.error('No file selected');
     }
 
-    if(this.isEditing) {
+    if (this.isEditing) {
       this.startupPosts.updatePost(this.postId!, formData).subscribe(() => {
-        console.log('Post updated successfully');
         window.location.href = '/startup-dashboard/posts';
       });
     } else {
@@ -106,5 +137,9 @@ export class StartupFormPostComponent implements OnInit {
     }
     preferenceControl?.markAsTouched();
     preferenceControl?.updateValueAndValidity();
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 }
