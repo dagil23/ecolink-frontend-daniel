@@ -10,6 +10,7 @@ import { Proposal} from '../../models/Proposal';
 })
 export class StartupProposalsComponent implements OnInit {
   proposals: Proposal[] = [];
+  noProposalsMessage = 'No proposals available';
 
   constructor(
     private proposalService: ProposalService,
