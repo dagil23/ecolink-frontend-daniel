@@ -27,7 +27,8 @@ export class ChallengeDetailComponent {
     this.challengeService
       .getChallengeById(this.challengeId)
       .subscribe((challenge: Challenge) => {
-        console.log(challenge);
+        console.log(challenge.company?.imageUrl)
+
         challenge.endDate = new Date(challenge.endDate); // Convertir string a Date
     challenge.endDate.setHours(0, 0, 0, 0);
         this.challenge = challenge;
