@@ -42,7 +42,16 @@ export class BlogDetailComponent implements OnInit {
 
     this.blogService.getPostById(this.postId).subscribe((post: PostDetails) => {
       this.post = post;
-      console.log(post)
+
+      this.authService.getImage('user', post.imageStartup).subscribe((imageUrl: string) => {
+        this.post.imageStartup = imageUrl;
+      }
+      );
+
+      this.authService.getImage('post', post.imageUrl).subscribe((imageUrl: string) => {
+        this.post.imageUrl = imageUrl;
+      }
+      );
       this.userLikedPost();
       this.comments = post.comments || [];
       // Obtenemos la imagen de perfil de cada usuario que ha comentado
@@ -61,6 +70,12 @@ export class BlogDetailComponent implements OnInit {
 
     this.blogService.getRelevantPosts(this.postId).subscribe((posts: RelevantPost[]) => {
       this.relatedArticles = posts;
+      posts.forEach(postRelevant => {
+        this.authService.getImage('post', postRelevant.imageUrl).subscribe((imageUrl: string) => {
+          postRelevant.imageUrl = imageUrl;
+        }
+        );
+      });
     });
   }
 

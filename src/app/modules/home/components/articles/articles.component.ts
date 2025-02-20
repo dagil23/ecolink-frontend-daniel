@@ -17,6 +17,12 @@ export class ArticlesComponent implements OnInit {
 
       this.articleService.getRecentArticles().subscribe(articles => {
         this.articles = articles;
+        articles.forEach(articles => {
+          this.authService.getImage('post', articles.imageUrl).subscribe((imageUrl: string) => {
+            articles.imageUrl = imageUrl;
+          }
+          );
+        });
       });
     }
 }
