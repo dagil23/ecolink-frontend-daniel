@@ -1,24 +1,28 @@
 <div class="container my-5">
-  <h2 class="text-center fw-bold text-greendark mb-3">Green Startups</h2>
-  <div class="row row-cols-auto gap-4 d-flex justify-content-center">
-    <div class="card p-3" *ngFor="let startup of startups">
-      <div class="d-flex align-items-center">
-        <img
-          [src]="startup.imageUrl || 'assets/images/startup.webp'"
-          width="60"
-          height="60"
-          [alt]="startup.name"
-          class="me-2 rounded-circle"
-        />
-        <h3>{{ startup.name }}</h3>
+  <h2 class="text-center fw-bold text-greendark">Green Startups</h2>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let startup of startups">
+        <div class="card p-3" >
+          <div class="d-flex align-items-center">
+            <img
+              [src]="startup.imageUrl || 'assets/images/startup.webp'"
+              width="60"
+              height="60"
+              [alt]="startup.name"
+              class="me-2 rounded-circle"
+            />
+            <h3>{{ startup.name }}</h3>
+          </div>
+          <p class="text-grey mb-0">{{ startup.odsList[0].name }}</p>
+          <p>{{ startup.description }}</p>
+          <a
+            [routerLink]="'/startups/' + startup.id"
+            class="d-flex text-greendark text-decoration-none text-light fw-bold"
+            >Learn more</a
+          >
+        </div>
       </div>
-      <p class="text-grey mb-0">{{ startup.odsList[0].name }}</p>
-      <p>{{ startup.description }}</p>
-      <a
-        [routerLink]="'/startups/' + startup.id"
-        class="d-flex text-greendark text-decoration-none text-light fw-bold"
-        >Learn more</a
-      >
     </div>
   </div>
 </div>
