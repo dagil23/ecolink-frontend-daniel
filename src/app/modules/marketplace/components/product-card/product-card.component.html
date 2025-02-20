@@ -1,3 +1,11 @@
+<div *ngIf="showPopup" class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1050;">
+  <div class="toast show bg-greenbackground text-greendark py-3 px-4" role="alert">
+    <div class="toast-body d-flex align-items-center fs-4 fw-bold">
+    Product added to cart successfully!
+    </div>
+  </div>
+</div>
+
 <div class="card shadow-big-default text-center">
   <a [routerLink]="['/products', product.id]" class="text-decoration-none text-reset">
     <img [src]="product.imageUrl" [alt]="product.name">

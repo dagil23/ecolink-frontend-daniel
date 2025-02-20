@@ -7,6 +7,7 @@ import { Product } from '../../models/Product';
   styleUrl: './product-card.component.scss'
 })
 export class ProductCardComponent {
+  showPopup = false;
   @Input() product!: Product;
   @Output() addProductEvent = new EventEmitter<number>();
 
@@ -14,5 +15,9 @@ export class ProductCardComponent {
 
   addProduct(): void {
     this.addProductEvent.emit(this.product.id);
+    this.showPopup = true;
+        setTimeout(() => {
+          this.showPopup = false;
+        }, 2000);
   }
 }
