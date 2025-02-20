@@ -1,12 +1,14 @@
-<div class="mt-5 py-5">
+<div class="container my-5">
   <h2 class="text-center fw-bold text-greendark mb-3">Green Startups</h2>
-  <div class="row row-cols-auto gap-4 d-flex justify-content-center">
-    <div class="card" *ngFor="let startup of startups">
-      <div class="card-body">
-        <img [src]="startup.imageUrl" [alt]="startup.name" class="card-img-top rounded-circle" width="50px" height="50px"/>
-        <h5 class="card-title text-greendark">{{ startup.name }}</h5>
-        <p class="card-text">{{ startup.description }}</p>
-        <a [routerLink]="'/startups/' + startup.id" class="d-flex text-greendark text-decoration-none text-light fw-bold">Learn more</a>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let startup of startups">
+      <div class="card">
+        <div class="card-body">
+          <img [src]="startup.imageUrl" [alt]="startup.name" class="card-img-top rounded-circle" width="50px" height="50px"/>
+          <h5 class="card-title text-greendark">{{ startup.name }}</h5>
+          <p class="card-text">{{ startup.description }}</p>
+          <a [routerLink]="'/startups/' + startup.id" class="d-flex text-greendark text-decoration-none text-light fw-bold">Learn more</a>
+        </div>
       </div>
     </div>
   </div>
