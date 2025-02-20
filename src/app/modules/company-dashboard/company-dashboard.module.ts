@@ -7,12 +7,14 @@ import { CompanyChallengeFormComponent } from './pages/company-challenge-form/co
 import { CompanyChallengeFiltersComponent } from './components/company-challenge-filters/company-challenge-filters.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { CompanyProposalsComponent } from './pages/company-proposals/company-proposals.component';
 
 @NgModule({
   declarations: [
     CompanyChallengesComponent,
     CompanyChallengeFormComponent,
-    CompanyChallengeFiltersComponent
+    CompanyChallengeFiltersComponent,
+    CompanyProposalsComponent
   ],
   imports: [
     CommonModule,

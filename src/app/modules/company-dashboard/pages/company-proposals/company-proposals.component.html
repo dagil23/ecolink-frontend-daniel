@@ -1,0 +1,33 @@
+<div class="d-flex flex-column min-vh-100">
+    <shared-header></shared-header>
+  
+    <div class="container flex-grow-1 mt-4">
+      <h2 class="text-center mb-4">📌 Proposals</h2>
+      <div *ngIf="proposal.length > 0; else noProposals" class="row">
+        <div *ngFor="let proposal of proposal" class="col-md-6 col-lg-4 mb-4">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <h5 class="card-title text-primary">{{ proposal.startup.name }}</h5>
+              <p class="card-text"><strong>📃 Description:</strong> {{ proposal.description }}</p>
+              <p class="card-text"><strong>📅 Date:</strong> {{ proposal.date }}</p>
+              <p class="card-text">
+                <strong>📌 Estate:</strong> 
+                <span class="badge" [ngClass]="{'bg-success': proposal.status === 'ACCEPTED', 'bg-danger': proposal.status === 'REJECTED', 'bg-warning': proposal.status === 'PENDING'}">
+                  {{ proposal.status }}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noProposals>
+      <div class="alert alert-info text-center mt-4">
+        <p class="mb-0">⚠️ There is no proposals in this challenge, comeback later</p>
+      </div>
+    </ng-template>
+  
+    <shared-footer class="bg-light text-center py-3 mt-auto"></shared-footer>
+  </div>
+  

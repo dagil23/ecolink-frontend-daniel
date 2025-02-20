@@ -32,9 +32,15 @@
         >
           Edit
         </a>
-        <button (click)="deleteChallenge(challenge.id)" class="btn btn-danger ms-4">
+        <button (click)="deleteChallenge(challenge.id)" class="btn btn-danger ms-4 me-4">
           Delete
         </button>
+        <a
+          [routerLink]="['/company-dashboard/challenges/proposal', challenge.id]"
+          class="btn btn-warning"
+        >
+          See Proposals
+        </a>
       </div>
     </div>
   </div>

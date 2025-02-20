@@ -27,6 +27,10 @@ export class CompanyChallengeService {
     return this.http.get<ChallengeCompany>(`${this.baseUrl}/${id}`);
   }
 
+  getCompanyProposal(id: string): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}/proposal/challenge/${id}`,{ withCredentials: true });
+  }
+
   createChallenge(challenge: any): Observable<ChallengeCompany> {
     console.log(challenge);
     return this.http.post<ChallengeCompany>(this.baseUrl, challenge, { withCredentials: true });

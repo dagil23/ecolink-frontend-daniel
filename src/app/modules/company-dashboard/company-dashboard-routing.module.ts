@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyChallengesComponent } from './pages/company-challenges/company-challenges.component';
 import { CompanyChallengeFormComponent } from './pages/company-challenge-form/company-challenge-form.component';
+import { CompanyProposalsComponent } from './pages/company-proposals/company-proposals.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'challenges/edit/:id',
     component: CompanyChallengeFormComponent,
+  },
+  {
+    path: 'challenges/proposal/:id',
+    component: CompanyProposalsComponent,
   },
   {
     path: '**',
