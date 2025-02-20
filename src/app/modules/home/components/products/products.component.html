@@ -1,6 +1,6 @@
 <h2 class="text-center fw-bold text-greendark mb-3">Organic Products</h2>
 <div class="row row-cols-auto gap-4 d-flex justify-content-center">
-  <div class="card shadow-big-default" *ngFor="let product of products" style="width: 18rem;">
+  <div class="card shadow-big-default" *ngFor="let product of products">
     <img [src]="product.image" [alt]="product.name" class="card-img-top">
     <div class="card-body text-center">
       <h5 class="card-title">{{ product.name }}</h5>
