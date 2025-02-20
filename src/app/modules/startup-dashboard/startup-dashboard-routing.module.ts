@@ -5,8 +5,9 @@ import { StartupPostsComponent } from './components/startup-posts/startup-posts.
 import { StartupFormPostComponent } from './components/startup-form-post/startup-form-post.component';
 import { ProductListComponent } from './pages/startup-products/components/product-list/product-list.component';
 import { ProductFormComponent } from './pages/startup-products/components/product-form/product-form.component';
-import {ProductSalesComponent} from './pages/startup-products/components/product-sales/product-sales.component';
-import {StartupProposalsComponent} from './pages/startup-proposals/startup-proposals.component';
+import { ProductSalesComponent } from './pages/startup-products/components/product-sales/product-sales.component';
+import { StartupProposalsComponent } from './pages/startup-proposals/startup-proposals.component';
+import { StartupGuard } from '../../core/guards/startup.guard';
 
 const routes: Routes = [
   {
@@ -23,18 +24,22 @@ const routes: Routes = [
   {
     path: 'proposals',
     component: StartupProposalsComponent,
+    canActivate: [StartupGuard]
   },
   {
     path: 'add-post',
-    component: StartupFormPostComponent
+    component: StartupFormPostComponent,
+    canActivate: [StartupGuard]
   },
   {
     path: 'posts',
-    component: StartupPostsComponent
+    component: StartupPostsComponent,
+    canActivate: [StartupGuard]
   },
   {
     path: 'edit-post/:id',
-    component: StartupFormPostComponent
+    component: StartupFormPostComponent,
+    canActivate: [StartupGuard]
   },
   {
     path: '**',

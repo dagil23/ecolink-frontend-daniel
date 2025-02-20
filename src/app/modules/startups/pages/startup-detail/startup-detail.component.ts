@@ -32,6 +32,13 @@ export class StartupDetailComponent implements OnInit {
           this.startup.odsList[i].image = imageUrl;
         });
       }
+
+      for (let i = 0; i < this.startup.products.length; i++) {
+        this.authService.getImage('product', this.startup.products[i].imageUrl).subscribe((imageUrl: string) => {
+          this.startup.products[i].imageUrl = imageUrl;
+        });
+      }
+      
     }, error => {
       console.error(error);
     });

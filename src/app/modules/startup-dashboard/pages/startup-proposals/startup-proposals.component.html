@@ -7,8 +7,13 @@
     <a routerLink="/challenges" class="btn btn-primary">Browse Challenges</a>
   </div>
 
+  <!-- Mostrar mensaje si no hay propuestas -->
+  <div *ngIf="proposals.length === 0" class="alert alert-warning mt-3 text-center">
+    {{ noProposalsMessage }}
+  </div>
+
   <!-- Para pantallas grandes, se muestra la tabla -->
-  <div class="d-none d-md-block">
+  <div *ngIf="proposals.length > 0" class="d-none d-md-block">
     <table class="table table-striped">
       <thead>
       <tr>
@@ -44,7 +49,7 @@
   </div>
 
   <!-- Para pantallas pequeñas, mostramos cada propuesta como una tarjeta -->
-  <div class="row d-block d-md-none">
+  <div *ngIf="proposals.length > 0" class="row d-block d-md-none">
     <div *ngFor="let proposal of proposals" class="col-12 mb-3">
       <div class="card">
         <div class="card-body">
