@@ -4,11 +4,11 @@
     <div class="col-md-6">
       <div class="card shadow-sm border-light mt-3 mb-3">
         <div class="card-body">
-          <h2 class="text-center mb-4">User Registration</h2>
+          <h2 class="text-center mb-2" style="color: #2c3e50;">User Registration</h2>
 
           <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="eco-registration-form">
             <!-- Username -->
-            <div class="form-group">
+            <div class="form-group mb-3">
               <label for="name">Username</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-person"></i></span>
@@ -23,7 +23,7 @@
             </div>
 
             <!-- Email -->
-            <div class="form-group">
+            <div class="form-group mb-3">
               <label for="email">Email</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
@@ -38,7 +38,7 @@
             </div>
 
             <!-- Password -->
-            <div class="form-group">
+            <div class="form-group mb-3">
               <label for="password">Password</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
@@ -69,7 +69,7 @@
 
 
             <!-- Confirm Password -->
-            <div class="form-group">
+            <div class="form-group mb-3">
               <label for="confirmPassword">Confirm Password</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
@@ -90,7 +90,7 @@
 
 
             <!-- User Type -->
-            <div class="form-group">
+            <div class="form-group mb-3">
               <label for="userType">User Type</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
@@ -105,7 +105,7 @@
             </div>
 
             <!-- Description (solo para company o startup) -->
-            <div *ngIf="registrationForm.get('userType')?.value === 'company' || registrationForm.get('userType')?.value === 'startup'" class="form-group">
+            <div *ngIf="registrationForm.get('userType')?.value === 'company' || registrationForm.get('userType')?.value === 'startup'" class="form-group mb-3">
               <label for="description">Description</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-pencil"></i></span>
@@ -118,7 +118,7 @@
             </div>
 
             <!-- Preferences (solo para client o startup) -->
-            <div *ngIf="registrationForm.get('userType')?.value === 'client' || registrationForm.get('userType')?.value === 'startup'" class="form-group">
+            <div *ngIf="registrationForm.get('userType')?.value === 'client' || registrationForm.get('userType')?.value === 'startup'" class="form-group mb-3">
               <label>Preferences</label>
               <ng-multiselect-dropdown
                 [placeholder]="'Select Preferences'"
@@ -133,8 +133,6 @@
                 Select at least 1 preference.
               </div>
             </div>
-
-
 
             <!-- Profile Image -->
             <div class="mb-3">
