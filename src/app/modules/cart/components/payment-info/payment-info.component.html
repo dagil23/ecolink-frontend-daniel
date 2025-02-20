@@ -7,7 +7,7 @@
         <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
           <div class="mb-3">
             <label for="cardNumber" class="form-label">Card Number</label>
-            <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber" placeholder="1234 5678 9012 3456">
+            <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber" placeholder="1234 5678 9012 3456...">
             <div class="text-danger" *ngIf="paymentForm.controls['cardNumber'].invalid && paymentForm.controls['cardNumber'].touched">
               Invalid card number
             </div>
@@ -15,7 +15,7 @@
 
           <div class="mb-3">
             <label for="cardHolder" class="form-label">Cardholder Name</label>
-            <input type="text" class="form-control" id="cardHolder" formControlName="cardHolder" placeholder="John Doe">
+            <input type="text" class="form-control" id="cardHolder" formControlName="cardHolder" placeholder="Full Name...">
             <div class="text-danger" *ngIf="paymentForm.controls['cardHolder'].invalid && paymentForm.controls['cardHolder'].touched">
               Name is required
             </div>
@@ -24,14 +24,14 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="cardExpiration" class="form-label">Expiration Date</label>
-              <input type="text" class="form-control" id="cardExpiration" formControlName="cardExpiration" placeholder="MM/YY">
+              <input type="text" class="form-control" id="cardExpiration" formControlName="cardExpiration" placeholder="MM/YY..." (input)="onExpirationInput($event)">
               <div class="text-danger" *ngIf="paymentForm.controls['cardExpiration'].invalid && paymentForm.controls['cardExpiration'].touched">
                 Invalid expiration date
               </div>
             </div>
             <div class="col-md-6 mb-3">
               <label for="cardCVC" class="form-label">CVC</label>
-              <input type="text" class="form-control" id="cardCVC" formControlName="cardCVC" placeholder="123">
+              <input type="text" class="form-control" id="cardCVC" formControlName="cardCVC" placeholder="000...">
               <div class="text-danger" *ngIf="paymentForm.controls['cardCVC'].invalid && paymentForm.controls['cardCVC'].touched">
                 Invalid CVC
               </div>
@@ -39,7 +39,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col-md-12 mb-3">
               <label for="cardType" class="form-label">Card Type</label>
               <select class="form-select" id="cardType" formControlName="cardType">
                 <option value="">Select</option>
@@ -51,22 +51,22 @@
                 Select a card type
               </div>
             </div>
-            <div class="col-md-6 mb-3">
+            <!-- <div class="col-md-6 mb-3">
               <label for="cardCountry" class="form-label">Country</label>
               <input type="text" class="form-control" id="cardCountry" formControlName="cardCountry" placeholder="USA">
               <div class="text-danger" *ngIf="paymentForm.controls['cardCountry'].invalid && paymentForm.controls['cardCountry'].touched">
                 Country is required
               </div>
-            </div>
+            </div> -->
           </div>
 
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="cardZipCode" class="form-label">ZIP Code</label>
             <input type="text" class="form-control" id="cardZipCode" formControlName="cardZipCode" placeholder="10001">
             <div class="text-danger" *ngIf="paymentForm.controls['cardZipCode'].invalid && paymentForm.controls['cardZipCode'].touched">
               ZIP Code is required
             </div>
-          </div>
+          </div> -->
 
           <!-- Botón de pago con tarjeta -->
           <button type="submit" class="btn btn-success w-100" [disabled]="isLoading">

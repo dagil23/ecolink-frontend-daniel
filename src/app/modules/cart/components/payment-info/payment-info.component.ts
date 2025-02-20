@@ -21,8 +21,8 @@ export class PaymentInfoComponent {
       cardExpiration: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]],
       cardCVC: ['', [Validators.required, Validators.pattern(/^\d{3,4}$/)]],
       cardType: ['', Validators.required],
-      cardCountry: ['', Validators.required],
-      cardZipCode: ['', Validators.required]
+      // cardCountry: ['', Validators.required],
+      // cardZipCode: ['', Validators.required]
     });
   }
 
@@ -40,8 +40,8 @@ export class PaymentInfoComponent {
       cardExpiration: this.paymentForm.get('cardExpiration')?.value || '',
       cardCVC: this.paymentForm.get('cardCVC')?.value || '',
       cardType: this.paymentForm.get('cardType')?.value || '',
-      cardCountry: this.paymentForm.get('cardCountry')?.value || '',
-      cardZipCode: this.paymentForm.get('cardZipCode')?.value || ''
+      // cardCountry: this.paymentForm.get('cardCountry')?.value || '',
+      // cardZipCode: this.paymentForm.get('cardZipCode')?.value || ''
     };
 
     this.cartService.payWithCard(body).subscribe((data) => {
@@ -67,5 +67,13 @@ export class PaymentInfoComponent {
     this.cartService.cancelOrder().subscribe(() => {
       this.route.navigate(['/']);
     });
+  }
+  onExpirationInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/\D/g, '');
+    if (value.length > 2) {
+      value = value.slice(0, 2) + '/' + value.slice(2, 4);
+    }
+    input.value = value;
   }
 }

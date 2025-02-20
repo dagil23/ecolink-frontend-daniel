@@ -11,39 +11,21 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="firstName" class="form-label">First Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="firstName"
-                formControlName="firstName"
-                placeholder="John"
-              />
-              <div
-                class="text-danger"
-                *ngIf="
+              <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Name..." />
+              <div class="text-danger" *ngIf="
                   checkoutForm.get('firstName')?.invalid &&
                   checkoutForm.get('firstName')?.touched
-                "
-              >
+                ">
                 First Name is required
               </div>
             </div>
             <div class="col-md-6 mb-3">
               <label for="lastName" class="form-label">Last Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="lastName"
-                formControlName="lastName"
-                placeholder="Doe"
-              />
-              <div
-                class="text-danger"
-                *ngIf="
+              <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Last name..." />
+              <div class="text-danger" *ngIf="
                   checkoutForm.get('lastName')?.invalid &&
                   checkoutForm.get('lastName')?.touched
-                "
-              >
+                ">
                 Last Name is required
               </div>
             </div>
@@ -51,40 +33,24 @@
 
           <div class="mb-3">
             <label for="shippingPhone" class="form-label">Phone Number</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="shippingPhone"
-              formControlName="shippingPhone"
-              placeholder="+1 123 456 789"
-            />
-            <div
-              class="text-danger"
-              *ngIf="
+            <input type="tel" class="form-control" id="shippingPhone" formControlName="shippingPhone"
+              placeholder="+34 000 000 000" />
+            <div class="text-danger" *ngIf="
                 checkoutForm.get('shippingPhone')?.invalid &&
                 checkoutForm.get('shippingPhone')?.touched
-              "
-            >
+              ">
               Phone Number is required
             </div>
           </div>
 
           <div class="mb-3">
             <label for="shippingAddress" class="form-label">Address</label>
-            <input
-              type="text"
-              class="form-control"
-              id="shippingAddress"
-              formControlName="shippingAddress"
-              placeholder="123 Main Street"
-            />
-            <div
-              class="text-danger"
-              *ngIf="
+            <input type="text" class="form-control" id="shippingAddress" formControlName="shippingAddress"
+              placeholder="Street..." />
+            <div class="text-danger" *ngIf="
                 checkoutForm.get('shippingAddress')?.invalid &&
                 checkoutForm.get('shippingAddress')?.touched
-              "
-            >
+              ">
               Address is required
             </div>
           </div>
@@ -92,62 +58,39 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="shippingCity" class="form-label">City</label>
-              <input
-                type="text"
-                class="form-control"
-                id="shippingCity"
-                formControlName="shippingCity"
-                placeholder="New York"
-              />
-              <div
-                class="text-danger"
-                *ngIf="
+              <input type="text" class="form-control" id="shippingCity" formControlName="shippingCity"
+                placeholder="City..." />
+              <div class="text-danger" *ngIf="
                   checkoutForm.get('shippingCity')?.invalid &&
                   checkoutForm.get('shippingCity')?.touched
-                "
-              >
+                ">
                 City is required
               </div>
             </div>
             <div class="col-md-3 mb-3">
               <label for="shippingZipCode" class="form-label">Zip Code</label>
-              <input
-                type="text"
-                class="form-control"
-                id="shippingZipCode"
-                formControlName="shippingZipCode"
-                placeholder="10001"
-              />
-              <div
-                class="text-danger"
-                *ngIf="
+              <input type="text" class="form-control" id="shippingZipCode" formControlName="shippingZipCode"
+                placeholder="03009..." />
+              <div class="text-danger" *ngIf="
                   checkoutForm.get('shippingZipCode')?.invalid &&
                   checkoutForm.get('shippingZipCode')?.touched
-                "
-              >
+                ">
                 Zip Code is required
               </div>
             </div>
             <div class="col-md-3 mb-3">
               <label for="shippingCountry" class="form-label">Country</label>
-              <select
-                class="form-select"
-                id="shippingCountry"
-                formControlName="shippingCountry"
-              >
+              <select class="form-select" id="shippingCountry" formControlName="shippingCountry">
                 <option value="">Select</option>
                 <option>USA</option>
                 <option>Canada</option>
                 <option>UK</option>
                 <option>Spain</option>
               </select>
-              <div
-                class="text-danger"
-                *ngIf="
+              <div class="text-danger" *ngIf="
                   checkoutForm.get('shippingCountry')?.invalid &&
                   checkoutForm.get('shippingCountry')?.touched
-                "
-              >
+                ">
                 Country is required
               </div>
             </div>
@@ -157,9 +100,9 @@
             Proceed to Payment
           </button>
         </form>
-          <div *ngIf="message" class="alert alert-success mt-3 text-center" role="alert">
-            {{message}}
-          </div>
+        <div *ngIf="message" class="alert alert-success mt-3 text-center" role="alert">
+          {{message}}
+        </div>
       </div>
     </div>
 
