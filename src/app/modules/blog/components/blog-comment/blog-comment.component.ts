@@ -12,6 +12,7 @@ export class BlogCommentComponent implements OnInit {
   isAdmin: boolean = false;
   editingCommentId: number | null = null;
   editedComment: string = '';
+  message: string = '';
 
   @Input() comment!: Comment;
   @Output() deleteComment = new EventEmitter<number>();
@@ -36,7 +37,14 @@ export class BlogCommentComponent implements OnInit {
   }
 
   saveEditedComment() {
-    if (this.editedComment.trim() === '') return;
+    if (this.editedComment.trim() === '') {
+      this.message = 'Comment cannot be empty';
+
+      setTimeout(() => {
+        this.message = '';
+      }, 3000);
+      return ;
+    };
 
     this.editComment.emit({ id: this.comment.id, text: this.editedComment });
     this.editingCommentId = null;
