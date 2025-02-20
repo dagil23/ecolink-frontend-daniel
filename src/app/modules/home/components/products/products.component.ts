@@ -18,9 +18,9 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.productService.getRelevantProducts().subscribe((products: Product[]) => {
       products.forEach((product: Product) => {
-        if (product?.image) {
-          this.authService.getImage('product', product.image).subscribe((imageUrl: string) => {
-            product.image = imageUrl;
+        if (product?.imageUrl) {
+          this.authService.getImage('product', product.imageUrl).subscribe((imageUrl: string) => {
+            product.imageUrl = imageUrl;
           });
         }
       });
