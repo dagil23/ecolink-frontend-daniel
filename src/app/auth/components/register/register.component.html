@@ -96,7 +96,7 @@
                 <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                 <select id="userType" formControlName="userType" class="form-control">
                   <option value="">Select user type</option>
-                  <option *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
+                  <option *ngFor="let type of userTypes" [value]="type" class="text-capitalize">{{ type }}</option>
                 </select>
               </div>
               <div *ngIf="registrationForm.get('userType')?.invalid && (registrationForm.get('userType')?.dirty || registrationForm.get('userType')?.touched)" class="error-message">
