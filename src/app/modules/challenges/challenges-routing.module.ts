@@ -14,6 +14,10 @@ const routes: Routes = [
     component: ChallengeDetailComponent
   },
   {
+    path: ':challengeId/proposals/new',
+    component: ChallengeFormComponent
+  },
+  {
     path: 'form/:id',
     component: ChallengeFormComponent
   },

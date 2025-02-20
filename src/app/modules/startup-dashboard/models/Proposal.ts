@@ -1,5 +1,6 @@
 export interface Proposal {
   id: number;
+  title: string;
   challenge: {
     id: number;
     companyName: string;

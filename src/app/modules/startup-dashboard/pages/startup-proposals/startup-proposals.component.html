@@ -12,6 +12,7 @@
       <th>Company</th>
       <th>Challenge</th>
       <th>Description</th>
+      <th>Status</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -20,8 +21,12 @@
       <td>{{ proposal.challenge?.companyName || 'No company' }}</td>
       <td>{{ proposal.challenge?.title || 'No title' }}</td>
       <td>{{ proposal.description || 'No description' }}</td>
+      <td>{{ proposal.status || 'No status' }}</td>
       <td>
-        <button class="btn btn-warning me-2" (click)="editProposal(proposal.id)">
+        <button
+          *ngIf="proposal.status === 'PENDING'"
+          class="btn btn-warning me-2"
+          (click)="editProposal(proposal.id)">
           Edit
         </button>
         <button class="btn btn-danger" (click)="deleteProposal(proposal.id)">
@@ -29,7 +34,6 @@
         </button>
       </td>
     </tr>
-
     </tbody>
   </table>
 </div>

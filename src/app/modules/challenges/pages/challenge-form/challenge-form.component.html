@@ -1,58 +1,80 @@
 <shared-header></shared-header>
 <div class="container mt-5">
-    <div class="d-flex align-items-center justify-content-center">
-        <i class="bi bi-tree text-primary fs-1"></i>
-        <h1 class="text-greendark">Eco-Challenge</h1>
-    </div>
-    <h4 class="text-center">Upload your proposal and connect with the company</h4>
-    <form class="mb-3" (ngSubmit)="onSubmit()" #proposalForm="ngForm">
-
-
-      <!-- Proposal Title -->
-      <div class="mb-3">
-        <label for="title" class="form-label">Proposal Title</label>
-        <input type="text" id="title" class="form-control" required [(ngModel)]="proposal.title" name="title" #title="ngModel" placeholder="Sistema de reciclaje inteligente">
-        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger">
-          Title is required
-        </div>
-      </div>
-
-      <!-- Proposal description -->
-      <div class="mb-3">
-        <label for="description" class="form-label">Proposal description</label>
-        <textarea id="description" class="form-control" rows="5" required [(ngModel)]="proposal.description" name="description" #description="ngModel"></textarea>
-        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
-          Description is required
-        </div>
-      </div>
-
-      <!-- Upload document -->
-      <!-- <div class="mb-3">
-        <label for="proposalFile" class="form-label">Upload Document</label>
-        <input type="file" id="proposalFile" class="form-control" (change)="onFileSelect($event)" />
-      </div> -->
-
-      <!-- Enlace al Producto -->
-      <div class="mb-3">
-        <label for="productLink" class="form-label">Link to the product(optional)</label>
-        <input type="text" id="productLink" class="form-control" [(ngModel)]="proposal.link" name="link" placeholder="https://...">
-
-      </div>
-
-      <!-- Buttons -->
-      <div>
-        <button type="submit" class="btn btn-success" [disabled]="proposalForm.invalid">Send Proposal</button>
-      </div>
-
-      <!-- Succesfull mesaje -->
-      <div *ngIf="successMessage" class="alert alert-success text-center">
-        {{ successMessage }}
-      </div>
-
-      <!-- Error mesaje -->
-      <div *ngIf="errorMessage" class="alert alert-danger text-center">
-        {{ errorMessage }}
-      </div>
-    </form>
+  <div class="d-flex align-items-center justify-content-center">
+    <i class="bi bi-tree text-primary fs-1"></i>
+    <h1 class="text-greendark">
+      {{ isEditMode ? 'Edit Proposal' : 'Eco-Challenge' }}
+    </h1>
   </div>
-  <shared-footer></shared-footer>
+  <h4 class="text-center">
+    {{ isEditMode ? 'Update your proposal' : 'Upload your proposal and connect with the company' }}
+  </h4>
+
+  <form (ngSubmit)="onSubmit()" #proposalForm="ngForm">
+    <!-- Proposal Title -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Proposal Title</label>
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        required
+        [(ngModel)]="proposal.title"
+        name="title"
+        #title="ngModel"
+        placeholder="Sistema de reciclaje inteligente"
+      />
+      <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger">
+        Title is required
+      </div>
+    </div>
+
+    <!-- Proposal Description -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Proposal Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        rows="5"
+        required
+        [(ngModel)]="proposal.description"
+        name="description"
+        #description="ngModel"
+      ></textarea>
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+        Description is required
+      </div>
+    </div>
+
+    <!-- Product Link -->
+    <div class="mb-3">
+      <label for="productLink" class="form-label">Link to the product (optional)</label>
+      <input
+        type="text"
+        id="productLink"
+        class="form-control"
+        [(ngModel)]="proposal.link"
+        name="link"
+        placeholder="https://..."
+      />
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+      <button type="submit" class="btn btn-success" [disabled]="proposalForm.invalid">
+        {{ isEditMode ? 'Update Proposal' : 'Send Proposal' }}
+      </button>
+    </div>
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+      {{ successMessage }}
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-danger text-center mt-3">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>
+<shared-footer></shared-footer>

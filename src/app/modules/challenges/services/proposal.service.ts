@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { Proposal} from '../../startup-dashboard/models/Proposal';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProposalService {
-private baseUrl: string = environment.apiUrl + '/proposal/challenge';
-  constructor(private http: HttpClient) { }
+  private baseUrl = `${environment.apiUrl}/proposal`;
 
-  submitProposal(proposal: any) {
-    const payload = {
-      title: proposal.title,
-      description: proposal.description,
-      link: proposal.link
-  };
-    return this.http.post(`${this.baseUrl}/${proposal.challenge}`, payload,{ withCredentials: true });
+  constructor(private http: HttpClient) {}
+
+  getProposalById(id: number): Observable<Proposal> {
+    return this.http.get<Proposal>(`${this.baseUrl}/${id}`, { withCredentials: true });
   }
+
+  addProposal(challengeId: number, proposal: any): Observable<Proposal> {
+    return this.http.post<Proposal>(`${this.baseUrl}/challenge/${challengeId}`, proposal, { withCredentials: true });
+  }
+
+  updateProposal(id: number, proposal: any): Observable<Proposal> {
+    return this.http.put<Proposal>(`${this.baseUrl}/${id}`, proposal, { withCredentials: true });
+  }
+
 }

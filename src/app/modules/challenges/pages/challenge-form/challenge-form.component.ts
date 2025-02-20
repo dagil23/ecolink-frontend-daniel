@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Proposal } from '../../../../core/models/Proposal';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProposalService } from '../../services/proposal.service';
-import { ActivatedRoute } from '@angular/router';
+import { Proposal } from '../../../../core/models/Proposal';
 
 @Component({
   selector: 'app-challenge-form',
@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./challenge-form.component.scss'],
 })
 export class ChallengeFormComponent implements OnInit {
+  isEditMode = false;
+  proposalId?: number;
   proposal: Proposal = {
     challenge: '',
     title: '',
@@ -22,40 +24,80 @@ export class ChallengeFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private proposalService: ProposalService
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      this.proposal.challenge = id || '';
+      const challengeId = params.get('challengeId');
+      const proposalId = params.get('id');
+
+      if (proposalId) {
+        this.isEditMode = true;
+        this.proposalId = +proposalId;
+        this.loadProposal(this.proposalId);
+      } else if (challengeId) {
+        this.proposal.challenge = challengeId;
+      }
     });
   }
-    // onFileSelect(event: any) {
-  //   const file = event.target.files[0];
-  //   console.log('Selected file:', file);
-  // }
 
-  onSubmit() {
-    console.log('Proposal submitted:', this.proposal);
-    this.proposalService.submitProposal(this.proposal).subscribe({
-      next: (data) => {
-        console.log('Response:', data);
-        this.successMessage = 'Proposal submitted successfully!';
-        this.errorMessage = '';
-        setTimeout(() => {
-          this.successMessage = '';
-          window.location.href = '/challenges';
-        }, 3000);
+  loadProposal(id: number): void {
+    this.proposalService.getProposalById(id).subscribe({
+      next: (proposal) => {
+        this.proposal = {
+          challenge: proposal.challenge.id.toString(),
+          title: proposal.title,
+          description: proposal.description,
+          link: proposal.link,
+        };
       },
-      error: (error) => {
-        console.error('Error:', error);
-        if (error.status === 400) {
-          this.errorMessage = error.error.message;
-        } else {
-          this.errorMessage = 'You alredy submitted a proposal for this challenge';
-        }
+      error: (err) => {
+        console.error('Error loading proposal:', err);
+        this.errorMessage = 'Failed to load proposal data.';
       },
     });
+  }
+
+  private createProposal(): void {
+    this.proposalService
+      .addProposal(+this.proposal.challenge, this.proposal)
+      .subscribe({
+        next: () => this.handleSuccess('Proposal created successfully!'),
+        error: (err) => this.handleError(err),
+      });
+  }
+
+  private updateProposal(): void {
+    if (!this.proposalId) return;
+
+    this.proposalService
+      .updateProposal(this.proposalId, this.proposal)
+      .subscribe({
+        next: () => this.handleSuccess('Proposal updated successfully!'),
+        error: (err) => this.handleError(err),
+      });
+  }
+
+  private handleSuccess(message: string): void {
+    this.successMessage = message;
+    setTimeout(() => {
+      this.successMessage = '';
+      window.location.href = '/challenges';
+    }, 3000);
+  }
+
+  private handleError(error: any): void {
+    this.errorMessage =
+      error.error?.message || 'An error occurred. Please try again.';
+  }
+
+  onSubmit(): void {
+    if (this.isEditMode && this.proposalId) {
+      this.updateProposal();
+    } else {
+      this.createProposal();
+    }
   }
 }
