@@ -1,40 +1,16 @@
 <shared-header></shared-header>
-<div class="container my-5">
+<div class="container my-5 ">
   <h1 class="mb-4">Business Challenges</h1>
   <div class="row row-cols-auto gap-4 d-flex justify-content-center">
-    <!-- Elimina la card externa y deja solo el contenido -->
-    <div *ngFor="let challenge of challenges; trackBy: trackByChallenge">
-      <!-- Componente Challenge -->
-      <challenge-card [challenge]="challenge"></challenge-card>
-
-      <div *ngIf="challenge?.id && startupsByChallenge?.[challenge.id]?.length" class="mt-3">
-        <h5>Startups con propuestas:</h5>
-        <ul>
-          <li *ngFor="let startup of startupsByChallenge[challenge.id]">
-            {{ startup }}
-          </li>
-        </ul>
-      </div>
-      <div *ngIf="challenge?.id && startupsByChallenge?.[challenge.id]?.length === 0" class="text-muted mt-3">
-        No hay startups con propuestas.
-      </div>
-
-      <!-- Botón "See Details" dentro de la misma tarjeta -->
-      <button class="btn btn-primary mt-3">See Details</button>
-    </div>
+    <challenge-card *ngFor="let challenge of challenges" [challenge]="challenge"></challenge-card>
   </div>
-
   <nav class="mt-4">
     <ul class="pagination">
-      <li class="page-item" [class.disabled]="currentPage === 0">
-        <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
-      </li>
+      <li class="page-item" [class.disabled]="currentPage === 0"><a class="page-link" (click)="changePage(currentPage - 1)">Previous</a></li>
       <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i === currentPage">
-        <a class="page-link" (click)="changePage(i)">{{ i + 1 }}</a>
+        <a class="page-link" (click)="changePage(i)">{{i + 1}}</a>
       </li>
-      <li class="page-item" [class.disabled]="currentPage + 1 === totalPages">
-        <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
-      </li>
+      <li class="page-item" [class.disabled]="currentPage + 1 === totalPages"><a class="page-link" (click)="changePage(currentPage + 1)">Next</a></li>
     </ul>
   </nav>
 </div>
