@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Ods } from '../../../../core/models/Ods';
 import { OdsService } from '../../../startups/services/ods.service';
 import { StartupPostsService } from '../../services/startup-posts.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Editor, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-startup-form-post',
@@ -16,10 +17,28 @@ export class StartupFormPostComponent implements OnInit {
   selectedFile?: File;
   isEditing: boolean = false;
   postId: string | null = null;
+  htmlContent: string = '';
+  editor!: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+
+  form = new FormGroup({
+    editorContent: new FormControl('', Validators.required),
+  });
 
   constructor(private fb: FormBuilder, private odsService: OdsService, private startupPosts: StartupPostsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.editor = new Editor();
+    
     this.postForm = this.fb.group({
       title: ['', Validators.required],
       shortDescription: ['', Validators.required],
@@ -33,7 +52,7 @@ export class StartupFormPostComponent implements OnInit {
     });
 
     this.postId = this.route.snapshot.paramMap.get('id');
-    if(this.postId) {
+    if (this.postId) {
       this.isEditing = true;
       this.loadPostData();
     }
@@ -59,7 +78,7 @@ export class StartupFormPostComponent implements OnInit {
       description: this.postForm.get('description')?.value,
       odsList: [...this.postForm.get('ods')?.value.map((ods: any) => ods.id)]
     };
-
+    
     formData.append('post', JSON.stringify(postData));
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
@@ -68,7 +87,7 @@ export class StartupFormPostComponent implements OnInit {
       console.error('No file selected');
     }
 
-    if(this.isEditing) {
+    if (this.isEditing) {
       this.startupPosts.updatePost(this.postId!, formData).subscribe(() => {
         console.log('Post updated successfully');
         window.location.href = '/startup-dashboard/posts';
@@ -106,5 +125,9 @@ export class StartupFormPostComponent implements OnInit {
     }
     preferenceControl?.markAsTouched();
     preferenceControl?.updateValueAndValidity();
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 }

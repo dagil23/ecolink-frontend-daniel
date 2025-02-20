@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {SharedModule} from './shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { AboutUsModule } from './about-us/about-us.module';
 import { HomeModule } from './modules/home/home.module';
-import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { FormsModule } from '@angular/forms';
+import { NgxEditorModule, schema } from 'ngx-editor';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,10 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
     HomeModule,
     SharedModule,
     AboutUsModule,
-    NgMultiSelectDropDownModule
-],
+    NgMultiSelectDropDownModule,
+    FormsModule,
+    NgxEditorModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

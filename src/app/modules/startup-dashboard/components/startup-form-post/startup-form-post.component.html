@@ -1,35 +1,53 @@
 <shared-header></shared-header>
-<div class="container my-5 p-4" style="max-width: 800px; background: #f8f9fa; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+<div class="container my-5 p-4"
+  style="max-width: 800px; background: #f8f9fa; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
   <h2 class="mb-4 text-center text-primary">{{ isEditing ? 'Edit Post' : 'Add New Post' }}</h2>
+  <form [formGroup]="form">
+    <div class="NgxEditor__Wrapper">
+
+    </div>
+  </form>
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
     <div class="row g-3">
       <div class="col-md-6">
         <label for="title" class="form-label fw-bold">Title</label>
-        <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter title" [class.is-invalid]="postForm.controls['title'].invalid && postForm.controls['title'].touched">
+        <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter title"
+          [class.is-invalid]="postForm.controls['title'].invalid && postForm.controls['title'].touched">
         <div class="invalid-feedback">Title is required.</div>
       </div>
       <div class="col-md-6">
         <label for="shortDescription" class="form-label fw-bold">Short Description</label>
-        <input type="text" class="form-control" id="shortDescription" formControlName="shortDescription" placeholder="Enter a short description" [class.is-invalid]="postForm.controls['shortDescription'].invalid && postForm.controls['shortDescription'].touched">
+        <input type="text" class="form-control" id="shortDescription" formControlName="shortDescription"
+          placeholder="Enter a short description"
+          [class.is-invalid]="postForm.controls['shortDescription'].invalid && postForm.controls['shortDescription'].touched">
         <div class="invalid-feedback">Short description is required.</div>
       </div>
       <div class="col-md-6">
         <label for="imageUrl" class="form-label fw-bold">Image Upload</label>
-        <input type="file" class="form-control" id="imageUrl" (change)="onFileSelected($event)" formControlName="imageUrl" accept="image/*">
+        <input type="file" class="form-control" id="imageUrl" (change)="onFileSelected($event)"
+          formControlName="imageUrl" accept="image/*">
       </div>
       <div class="col-md-6">
         <label class="form-label fw-bold">Ods</label>
-        <ng-multiselect-dropdown [placeholder]="'Select Ods'" [data]="odsList" [settings]="dropdownSettings" formControlName="ods" (onDropDownClose)="validateOdsList()"></ng-multiselect-dropdown>
-        <div *ngIf="postForm.get('ods')?.invalid && (postForm.get('ods')?.dirty || postForm.get('ods')?.touched)" class="text-danger">Select at least 1 preference.</div>
+        <ng-multiselect-dropdown [placeholder]="'Select Ods'" [data]="odsList" [settings]="dropdownSettings"
+          formControlName="ods" (onDropDownClose)="validateOdsList()"></ng-multiselect-dropdown>
+        <div *ngIf="postForm.get('ods')?.invalid && (postForm.get('ods')?.dirty || postForm.get('ods')?.touched)"
+          class="text-danger">Select at least 1 preference.</div>
       </div>
     </div>
     <div class="mt-3">
       <label for="description" class="form-label fw-bold">Full Description</label>
-      <textarea class="form-control" id="description" formControlName="description" rows="4" placeholder="Enter full description" [class.is-invalid]="postForm.controls['description'].invalid && postForm.controls['description'].touched"></textarea>
-      <div class="invalid-feedback">Full description is required.</div>
+      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+      </ngx-editor-menu>
+      <ngx-editor [editor]="editor" formControlName="description">
+      </ngx-editor>
+      <div *ngIf="postForm.controls['description'].invalid && postForm.controls['description'].touched" class="invalid-feedback d-block">
+        Full description is required.
+      </div>
     </div>
     <div class="text-center mt-4">
-      <button type="submit" class="btn btn-success px-4 py-2" style="border-radius: 5px; font-weight: bold;">{{ isEditing ? 'Update Post' : 'Add Post' }}</button>
+      <button type="submit" class="btn btn-success px-4 py-2" style="border-radius: 5px; font-weight: bold;">{{
+        isEditing ? 'Update Post' : 'Add Post' }}</button>
     </div>
   </form>
 </div>
