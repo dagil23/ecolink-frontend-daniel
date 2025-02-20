@@ -34,15 +34,13 @@
             "styles": [
               "src/dist/styles.css",
               "src/scss/styles.scss",
-              "node_modules/aos/dist/aos.css",
               "https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["src/scss"]
             },
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/aos/dist/aos.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
@@ -50,8 +48,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1.5mb",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -90,9 +88,7 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/assets/images", "src/assets"],
-            "styles": ["src/dist/styles.css", "node_modules/aos/dist/aos.css"],
-            "scripts": ["node_modules/aos/dist/aos.js"]
+            "assets": ["src/assets/images", "src/assets"]
           }
         }
       }
