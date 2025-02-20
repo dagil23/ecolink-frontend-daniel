@@ -1,4 +1,5 @@
-<shared-header></shared-header>
+<div class="d-flex flex-column min-vh-100">
+  <shared-header></shared-header>
 
 <div *ngIf="errorMessage" class="alert alert-danger">
   {{ errorMessage }}
@@ -8,4 +9,5 @@
 <client-profile *ngIf="userType === 'client'"></client-profile>
 <startup-profile *ngIf="userType === 'startup'"></startup-profile>
 
-<shared-footer></shared-footer>
+<shared-footer class="bg-light text-center mt-auto"></shared-footer>
+</div>

@@ -1,4 +1,5 @@
-<shared-header></shared-header>
+<div class="d-flex flex-column min-vh-100">
+  <shared-header></shared-header>
 <div
   class="container my-5 p-4"
   style="
@@ -58,13 +59,7 @@
           formControlName="imageUrl"
           accept="image/*"
         />
-        <div *ngIf="imageUrl" class="d-flex justify-content-center mt-3">
-          <img
-            [src]="imageUrl"
-            alt="Vista previa"
-            style="max-width: 150x; max-height: 150px"
-          />
-        </div>
+
       </div>
       <div class="col-md-6">
         <label class="form-label fw-bold">Ods</label>
@@ -121,4 +116,5 @@
     </div>
   </form>
 </div>
-<shared-footer></shared-footer>
+<shared-footer class="bg-light text-center mt-auto"></shared-footer>
+</div>
