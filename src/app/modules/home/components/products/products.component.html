@@ -1,8 +1,17 @@
+<!-- Popup flotante con Bootstrap -->
+<div *ngIf="showPopup" class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1050;">
+  <div class="toast show bg-greenbackground text-greendark py-3 px-4" role="alert">
+    <div class="toast-body d-flex align-items-center fs-4 fw-bold">
+    Product added to cart successfully!
+    </div>
+  </div>
+</div>
+
 <h2 class="text-center fw-bold text-greendark mb-3">Organic Products</h2>
 <div class="container">
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col" *ngFor="let product of products">
-      <div class="card shadow-big-default">
+      <div class="card">
         <img [src]="product.imageUrl" [alt]="product.name" class="card-img-top">
         <div class="card-body text-center">
           <h5 class="card-title">{{ product.name }}</h5>

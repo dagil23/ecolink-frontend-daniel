@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
+  showPopup = false;
   constructor(private productService: ProductService, private orderService: OrderService, private cartCountService: CartCountService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -31,6 +32,10 @@ export class ProductsComponent implements OnInit {
   addToCart(productId: number) {
     this.authService.getCurrentUser().subscribe(() => {
       {
+        this.showPopup = true;
+        setTimeout(() => {
+          this.showPopup = false;
+        }, 2000);
       }
     }, () => {
       this.router.navigate(['/auth/login']);
