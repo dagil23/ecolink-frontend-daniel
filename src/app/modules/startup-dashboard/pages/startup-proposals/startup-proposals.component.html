@@ -6,37 +6,69 @@
     <a routerLink="/challenges" class="btn btn-primary">Browse Challenges</a>
   </div>
 
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Company</th>
-      <th>Challenge</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let proposal of proposals">
-      <td>{{ proposal.challenge?.companyName || 'No company' }}</td>
-      <td>{{ proposal.challenge?.title || 'No title' }}</td>
-      <td>{{ proposal.title || 'No description' }}</td>
-      <td>{{ proposal.status || 'No status' }}</td>
-      <td>
-        <button
-          *ngIf="proposal.status === 'PENDING'"
-          class="btn btn-warning me-2"
-          (click)="editProposal(proposal.id)">
-          Edit
-        </button>
-        <button class="btn btn-danger" (click)="deleteProposal(proposal.id)">
-          Delete
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <!-- Para pantallas grandes, se muestra la tabla -->
+  <div class="d-none d-md-block">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Company</th>
+        <th>Challenge</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let proposal of proposals">
+        <td>{{ proposal.challenge?.companyName || 'No company' }}</td>
+        <td>{{ proposal.challenge?.title || 'No title' }}</td>
+        <td>{{ proposal.title || 'No description' }}</td>
+        <td>{{ proposal.description || 'No description' }}</td>
+        <td>{{ proposal.status || 'No status' }}</td>
+        <td>
+          <button
+            *ngIf="proposal.status === 'PENDING'"
+            class="btn btn-warning me-2"
+            (click)="editProposal(proposal.id)">
+            Edit
+          </button>
+          <button class="btn btn-danger" (click)="deleteProposal(proposal.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Para pantallas pequeñas, mostramos cada propuesta como una tarjeta -->
+  <div class="row d-block d-md-none">
+    <div *ngFor="let proposal of proposals" class="col-12 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ proposal.challenge?.title || 'No title' }}</h5>
+          <p><strong>Company:</strong> {{ proposal.challenge?.companyName || 'No company' }}</p>
+          <p><strong>Title:</strong> {{ proposal.title || 'No description' }}</p>
+          <p><strong>Description:</strong> {{ proposal.description || 'No description' }}</p>
+          <p><strong>Status:</strong> {{ proposal.status || 'No status' }}</p>
+
+          <!-- Botones alineados a la derecha al final de la tarjeta -->
+          <div class="d-flex justify-content-end">
+            <button
+              *ngIf="proposal.status === 'PENDING'"
+              class="btn btn-warning me-2"
+              (click)="editProposal(proposal.id)">
+              Edit
+            </button>
+            <button class="btn btn-danger" (click)="deleteProposal(proposal.id)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <shared-footer></shared-footer>
