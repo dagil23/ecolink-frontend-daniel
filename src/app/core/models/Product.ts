@@ -4,6 +4,6 @@ export interface Product {
   description: string;
   price: number;
   creationDate: Date;
-  image: string | null;
+  imageUrl: string | null;
   startupName: string;
 }

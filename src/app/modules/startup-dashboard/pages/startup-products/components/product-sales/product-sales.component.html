@@ -4,7 +4,24 @@
 
   <!-- Contenido de la vista de ventas -->
   <div class="mt-3">
-    <p>This is where you can manage your sales data.</p>
-    <!-- Aquí puedes agregar tablas, gráficos, filtros, etc. -->
+    <table class="table table-striped" *ngIf="sales && sales.length > 0; else noSales">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Quantity Sold</th>
+          <th>Total Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sale of sales">
+          <td>{{ sale.name }}</td>
+          <td>{{ sale.amount }}</td>
+          <td>{{ sale.total | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noSales>
+      <p class="fw-bold">No sales have taken place yet.</p>
+    </ng-template>
   </div>
 </div>

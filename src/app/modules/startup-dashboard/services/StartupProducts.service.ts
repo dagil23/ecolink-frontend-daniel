@@ -21,6 +21,9 @@ export class StartupProductsService {
   getStartupProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}/startup/product`, { withCredentials: true });
   }
+  getSales(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/startup/sales`, { withCredentials: true });
+  }
 
   addProduct(formData: FormData): Observable<Product> {
     return this.http.post<Product>(`${this.productUrl}/new`, formData, { withCredentials: true });
