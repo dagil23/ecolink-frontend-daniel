@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Pagination } from '../../../core/models/Pagination';
 import { Challenge } from '../../../core/models/Challenges';
+import {Proposal} from '../../startup-dashboard/models/Proposal';
 
 @Injectable({
   providedIn: 'root'
@@ -23,4 +24,15 @@ private baseUrl: string = environment.apiUrl + '/challenge';
   getCurrentUser(): Observable<any> {
     return this.http.get(environment.apiUrl + '/auth/user/me', { withCredentials: true });
   }
+
+  getProposalsForChallengeId(challengeId: number): Observable<Proposal[]> {
+    return this.http.get<Proposal[]>(`${environment.apiUrl}/proposal/challenge/${challengeId}`, { withCredentials: true });
+  }
+
+
+  getStartupById(startupId: number): Observable<{ name: string }> {
+    return this.http.get<{ name: string }>(`${environment.apiUrl}/startup/${startupId}`);
+  }
+
+
 }
