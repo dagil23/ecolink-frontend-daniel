@@ -25,10 +25,9 @@ private baseUrl: string = environment.apiUrl + '/challenge';
     return this.http.get(environment.apiUrl + '/auth/user/me', { withCredentials: true });
   }
 
-  getProposalsForChallengeId(challengeId: number): Observable<Proposal[]> {
-    return this.http.get<Proposal[]>(`${environment.apiUrl}/proposal/challenge/${challengeId}`, { withCredentials: true });
+  getProposalsForChallenges(): Observable<Proposal[]> {
+    return this.http.get<Proposal[]>(`${environment.apiUrl}/proposal`, { withCredentials: true });
   }
-
 
   getStartupById(startupId: number): Observable<{ name: string }> {
     return this.http.get<{ name: string }>(`${environment.apiUrl}/startup/${startupId}`);
