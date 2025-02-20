@@ -23,8 +23,15 @@ export class StartupProposalsComponent implements OnInit {
   loadProposals(): void {
     this.proposalService.getStartupProposals().subscribe((data) => {
       this.proposals = data;
+
+      this.proposals.forEach((proposal, index) => {
+        this.proposalService.getProposalById(proposal.id).subscribe((fullProposal) => {
+          this.proposals[index].title = fullProposal.title;
+        });
+      });
     });
   }
+
 
   editProposal(proposalId: number): void {
     this.router.navigate([`/challenges/form`, proposalId]);
