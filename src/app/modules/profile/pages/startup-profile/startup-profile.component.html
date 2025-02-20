@@ -60,11 +60,6 @@
             </div>
             <hr>
             <div class="row">
-              <div class="col-sm-3"><p class="mb-0">Status</p></div>
-              <div class="col-sm-9"><p class="text-muted mb-0">{{ startupProfile.status }}</p></div>
-            </div>
-            <hr>
-            <div class="row">
               <div class="col-sm-3"><p class="mb-0">ODS List</p></div>
               <div class="col-sm-9">
                 <ul>
@@ -84,6 +79,7 @@
             <ul>
               <li *ngFor="let proposal of startupProfile.proposals">
                 <p class="mb-1"><strong>Challenge Title:</strong> {{ proposal.challengeTitle }}</p>
+                <p class="mb-1"><strong>Proposal Title:</strong> {{ proposal.title }}</p>
                 <p class="mb-1"><strong>Description:</strong> {{ proposal.description }}</p>
                 <p class="mb-1"><strong>Status:</strong> {{ proposal.status }}</p>
               </li>
