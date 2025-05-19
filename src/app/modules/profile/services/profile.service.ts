@@ -9,6 +9,7 @@ import { Ods } from '../../../core/models/Ods';
 })
 export class ProfileService {
   private profileUrl = `${environment.apiUrl}/profile`;
+  private odsUrl = `${environment.apiUrl}/deepseek/ods`
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +25,7 @@ export class ProfileService {
     return this.http.get<Ods[]>(environment.apiUrl + '/ods', { withCredentials: true });
   }
 
-  updateProfile(data: { odsIdList: number[]; description: string }, image?: File) {
+  updateProfile(data: { description: string }, image?: File) {
     const formData = new FormData();
     formData.append('data', JSON.stringify(data));
     console.log('Data adjuntada:', formData.get('data'));
@@ -37,4 +38,14 @@ export class ProfileService {
     return this.http.put(this.profileUrl + '/update', formData, { withCredentials: true });
   }
 
+  updateOds(data: { odsIdList: number[] }, userType: string) {
+    const odsList = data.odsIdList.join(',');
+    const url = `${environment.apiUrl}/${userType}/ods/update?odsList=${odsList}`;
+    return this.http.put(url, {}, { withCredentials: true });
+  }
+
+  getOdsByDescription(descrption: string):Observable<any>{
+
+    return this.http.post(this.odsUrl, descrption);
+  }
 }

@@ -1,19 +1,45 @@
-<button (click)="toggleEditForm()" class="btn btn-success">Edit Profile</button>
+<!-- Button to open modal -->
+<button (click)="toggleEditForm()" class="btn btn-outline-primary btn-sm rounded-pill">
+  <i class="bi bi-pencil-square me-1"></i>
+  <span>Edit Profile</span>
+</button>
 
-<form *ngIf="showEditForm " [formGroup]="editForm" (ngSubmit)="onSubmit()">
-  <div class="mb-3" *ngIf="!isClient">
-    <label for="description" class="form-label">Description</label>
-    <textarea id="description" formControlName="description" class="form-control"></textarea>
+<!-- Bootstrap Modal -->
+<div class="modal fade" [ngClass]="{'show': showEditForm}" [style.display]="showEditForm ? 'block' : 'none'" tabindex="-1" role="dialog" aria-labelledby="profileEditModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="profileEditModal">Edit Profile Information</h5>
+        <button type="button" class="btn-close" (click)="toggleEditForm()" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="description" class="form-label" value="hola">Description</label>
+            <textarea id="description" formControlName="description" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="imageUrl" class="form-label">Profile Image</label>
+            <div class="input-group">
+              <input type="file" id="imageUrl" class="form-control" (change)="onFileChange($event)">
+              <button class="btn btn-outline-secondary" type="button" *ngIf="selectedFile" (click)="clearFile()">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+            <small *ngIf="selectedFile" class="text-muted d-block mt-1">
+              <i class="bi bi-file-earmark me-1"></i>{{ selectedFile.name }}
+            </small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="toggleEditForm()">Cancel</button>
+          <button type="" class="btn btn-success"> Save </button>
+        </div>
+      </form>
+    </div>
   </div>
-  <div class="mb-3" *ngIf="isStartup">
-    <label for="ods" class="form-label">ODS</label>
-    <select id="ods" formControlName="ods" class="form-control" multiple>
-      <option *ngFor="let ods of odsList" [value]="ods.id">{{ ods.name }}</option>
-    </select>
-  </div>
-  <div class="mb-3">
-    <label for="imageUrl" class="form-label">Profile Image</label>
-    <input type="file" id="imageUrl" (change)="onFileChange($event)" class="form-control">
-  </div>
-  <button type="submit" class="btn btn-success">Save</button>
-</form>
+</div>
+
+<!-- Modal backdrop -->
+<div class="modal-backdrop fade" [ngClass]="{'show': showEditForm}" *ngIf="showEditForm"></div>

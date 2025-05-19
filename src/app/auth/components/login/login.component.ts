@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
       error => {
         this.isSubmitting = false;
 
-        this.message = 'Incorrect username or password';
+        this.message = this.message = error.error.message;
         this.hasError = true;
 
         setTimeout(() => {

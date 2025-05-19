@@ -9,10 +9,10 @@ import { HomeModule } from './modules/home/home.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { FormsModule } from '@angular/forms';
 import { NgxEditorModule, schema } from 'ngx-editor';
-
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,72 @@
+@import '../../../../../scss/variables';
+
+// Obtener los colores del mapa de variables
+$primary: map-get($colors, primary);
+$greenhover: map-get($colors, greenhover);
+$greendark: map-get($colors, greendark);
+
+.matching-class {
+  border: 2px solid $primary;
+  border-radius: 50%; // Asegura que la imagen sea perfectamente redonda
+  box-shadow: 0 0 8px rgba($primary, 0.5);
+  transform: scale(1.08);
+  transition: all 0.3s ease;
+  position: relative;
+  
+  // Efecto de pulso sutil para llamar la atención
+  animation: pulse-matching 2s infinite;
+  
+  &:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba($primary, 0.7);
+  }
+}
+
+// Animación de pulso para las ODS coincidentes
+@keyframes pulse-matching {
+  0% {
+    box-shadow: 0 0 0 0 rgba($primary, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba($primary, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($primary, 0);
+  }
+}
+
+.card {
+  transition: all 0.3s ease;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  
+  &:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+  }
+}
+
+// Estilos para la coincidencia de ubicación
+.same-location-badge {
+  background-color: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+// Estilo para ubicaciones coincidentes
+.location-matching {
+  border: 1px solid rgba(40, 167, 69, 0.5);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: rgba(40, 167, 69, 0.8);
+    box-shadow: 0 0 0 1px rgba(40, 167, 69, 0.2);
+  }
+}
+
+// Estilo para la etiqueta de ubicación
+.rounded-pill {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  white-space: nowrap;
+}

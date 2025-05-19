@@ -1,0 +1,40 @@
+<!-- Botón para abrir el modal usando solo clases de Bootstrap -->
+<button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#odsModal">
+  <i class="bi bi-pencil-square me-2"></i>Change SDGs
+</button>
+
+<!-- Modal simplificado y más pequeño con 2 columnas -->
+<div class="modal fade" id="odsModal" tabindex="-1" aria-labelledby="odsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="odsModalLabel">
+          <i class="bi bi-globe me-2"></i>Select SDGs
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-light p-3">
+        <form [formGroup]="odsForm" (ngSubmit)="onSubmit()">
+          <div formArrayName="ods" class="row row-cols-2 g-2">
+            <!-- Dos columnas con clases de Bootstrap -->
+            <div class="col" *ngFor="let ods of getOdsFormArray().controls; let i = index" [formGroupName]="i">
+              <div class="form-check">
+                <input type="checkbox" formControlName="selected" class="form-check-input" id="ods-{{i}}">
+                <label class="form-check-label small" for="ods-{{i}}">{{ ods.value.name }}</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer border-0 pt-3">
+            <button type="button" class="btn btn-outline-secondary btn-md" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-success btn-md" data-bs-dismiss="modal" [disabled]="!hasAnyOdsSelected()">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

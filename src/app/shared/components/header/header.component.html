@@ -77,6 +77,13 @@
             </a>
           </li>
 
+          <!-- Seccion para ver los matches solo para startups o company -->
+          <li class="nav-item mx-1" *ngIf="isCompany || isStartup">
+            <a class="nav-link fs-5 text-light" href="/match">
+              <i class="bi bi-briefcase me-2 d-lg-none"></i> Matches
+            </a>
+          </li>
+
           <!-- Separador -->
           <hr class="text-light my-3">
 

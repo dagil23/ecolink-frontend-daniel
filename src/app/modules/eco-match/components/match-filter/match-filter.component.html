@@ -1,0 +1,24 @@
+<div class="p-4">
+    <h2>Filters</h2>
+    <div class="row">
+      <div class="col-12 col-md-6 mb-3">
+        <label for="country" class="fw-semibold">Country</label>
+        <select id="country" class="form-select" [(ngModel)]="filters.country" (ngModelChange)="applyFilters()">
+          <option [value]="''" disabled>All countries</option>
+          <option *ngFor="let country of Array.from(listCountries)" [value]="country.name">
+            {{country.name}}
+          </option>
+        </select>
+      </div>
+      <div class="col-12 col-md-6 mb-3">
+        <label for="sortBy" class="fw-semibold">Sort by compatibility</label>
+        <select id="sortBy" class="form-select" [(ngModel)]="filters.order" (ngModelChange)="applyFilters()">
+          <option [value]="''"  disabled>Select sort option</option>
+          <option value="DESC">Highest compatibility first</option>
+          <option value="ASC">Lowest compatibility first</option>
+        </select>
+      </div>
+      <div class="col-lg-10"></div>
+      <button class="col-12 col-lg-2 btn btn-light border-grey" (click)="clearFilters()">Clear filters</button>
+    </div>
+  </div>

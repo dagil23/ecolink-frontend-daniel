@@ -1,0 +1,94 @@
+<!-- Initial suggestion prompt with improved design -->
+<div *ngIf="profile.userOdsList.length === 0" class="suggestion-prompt p-4 bg-light rounded-4 shadow-sm mb-4">
+  <div class="row align-items-center">
+    <div class="col-md-8">
+      <h5 class="mb-2 text-primary fw-bold">
+        <i class="bi bi-lightbulb-fill me-2 text-warning"></i>SDG Suggestion
+      </h5>
+      <p class="mb-0 fw-semibold">Would you like us to identify the Sustainable Development Goals that best align with your profile description?</p>
+    </div>
+    <div class="col-md-4 text-end mt-3 mt-md-0">
+      <button class="btn btn-primary  text-white px-4 py-2 rounded-pill shadow-sm" 
+              (click)="onClick()" 
+              data-bs-toggle="modal"
+              data-bs-target="#odsSuggestModal">
+        <i class="bi bi-magic me-2"></i>Generate
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Enhanced Modal with improved UX -->
+<div class="modal fade" id="odsSuggestModal" tabindex="-1" aria-labelledby="odsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+      <!-- Animated Header with Gradient Background -->
+      <div class="modal-header border-bottom-0 bg-gradient-primary text-white py-4">
+        <h5 class="modal-title fs-4 fw-bold" id="odsModalLabel">
+          <i class="bi bi-globe2 me-2"></i>Select Sustainable Development Goals
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Loading Animation from Login Component -->
+      <div *ngIf="isLoading" class="modal-body p-0">
+        <div class="loading-container">
+          <!-- Loader animation from login component -->
+          <div class="loader">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+          </div>
+          
+          <!-- Text explaining the process - keeping existing text -->
+          <h5 class="mb-2">Analyzing your profile with AI</h5>
+          <p class="text-muted">We're identifying the SDGs that align with your company's mission</p>
+          
+          <!-- Progress bar -->
+          <div class="progress loading-progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                 role="progressbar" 
+                 style="width: 100%; background-color: #61a82f;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ODS Selection Content -->
+      <div *ngIf="!isLoading" class="modal-body p-4">
+        <p class="text-muted mb-4">We've analyzed your profile and identified the following Sustainable Development Goals that align with your company's mission. Select the ones you'd like to add to your profile:</p>
+        
+        <div class="row g-3">
+          <div class="col-md-6" *ngFor="let ods of suggestsOds">
+            <div class="ods-card p-3 rounded-3 border" 
+                 [class.selected]="selectOdsId.has(ods.id)"
+                 (click)="toggleOds(ods.id)"
+                 style="cursor: pointer;">
+              <div class="form-check d-flex align-items-center gap-3">
+                <input type="checkbox" class="form-check-input mt-0" 
+                       [checked]="selectOdsId.has(ods.id)"
+                       (click)="$event.stopPropagation()"
+                       (change)="onChangeInput($event)" 
+                       [value]="ods.id"
+                       id="ods-{{ods.id}}">
+                <div class="d-flex align-items-center">
+                  <label class="form-check-label fw-medium mb-0" for="ods-{{ods.id}}">{{ods.name}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div *ngIf="!isLoading" class="modal-footer bg-light">
+        <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" (click)="clearSuggetedOds()">
+          <i class="bi bi-x-circle me-2"></i>Cancel
+        </button>
+        <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" (click)="onChangeAcceptButton()">
+          <i class="bi bi-check-circle me-2"></i>Add to Profile
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

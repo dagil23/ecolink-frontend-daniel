@@ -9,6 +9,8 @@ import { CompanyProfileComponent } from './pages/company-profile/company-profile
 import { StartupProfileComponent } from './pages/startup-profile/startup-profile.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileEditOdsComponent } from './components/profile-edit-ods/profile-edit-ods.component';
+import { SuggestOdsComponent } from './components/suggest-ods/suggest-ods.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProfileEditFormComponent,
     ClientProfileComponent,
     CompanyProfileComponent,
-    StartupProfileComponent
+    StartupProfileComponent,
+    ProfileEditOdsComponent,
+    SuggestOdsComponent
   ],
   imports: [
     CommonModule,

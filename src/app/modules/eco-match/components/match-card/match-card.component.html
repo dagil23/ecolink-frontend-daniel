@@ -1,0 +1,83 @@
+<div class="card h-100 shadow-sm">
+    <!-- Cabecera -->
+    <div class="card-header py-2 bg-white position-relative">
+        <div class="row align-items-center">
+            <!-- Avatar -->
+            <div class="col-auto">
+                <img *ngIf="match.imageUrl" [src]="match.imageUrl" alt="{{ match.name }}" 
+                     class="rounded-circle" style="width: 60px; height: 60px;" loading="lazy">
+            </div>
+
+            <!-- Nombre + ubicación -->
+            <div class="col">
+                <!-- Título con tooltip para ver el nombre completo -->
+                <h5 class="mb-0 text-truncate" 
+                    [title]="match.name">
+                    {{ match.name }}
+                </h5>
+                <small class="d-inline-flex align-items-center bg-light rounded-pill px-2 py-1 mt-1" 
+                       [ngClass]="{'location-matching': isMatchingCountry(match.location)}">
+                    <i class="bi bi-geo-alt-fill me-1" [ngClass]="{'text-primary': isMatchingCountry(match.location)}"></i>
+                    <span>{{ match.location }}</span>
+                </small>
+            </div>
+        </div>
+
+        <!-- Tipo (badge flotante) -->
+        <!-- <span class="badge bg-info position-absolute top-0 end-0 m-2">
+            {{ match.type }}
+        </span> -->
+    </div>
+
+    <!-- Cuerpo -->
+    <div class="card-body">
+        <!-- Compatibilidad -->
+        <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <span>Compatibility</span>
+                <span class="badge" [ngClass]="compatibilityColor(match.compability)">
+                    {{ match.compability | number:'1.0-0'}}%
+                </span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" 
+                     [ngClass]="compatibilityColor(match.compability)"
+                     [style.width.%]="match.compability" 
+                     role="progressbar" 
+                     [attr.aria-valuenow]="match.compability"
+                     aria-valuemin="0" 
+                     aria-valuemax="100">
+                </div>
+            </div>
+        </div>
+
+        <!-- ODS / iconos -->
+        <div class="row g-2 mb-4">
+            <div class="col-auto rounded-4" *ngFor="let ods of match.odsList">
+                <img *ngIf="ods.image" 
+                     [src]="ods.image" 
+                     [alt]="ods.name" 
+                     width="40" 
+                     height="40" 
+                     class="rounded-5"
+                     loading="lazy"
+                     [ngClass]="{'matching-class': isMatchingOds(ods.id)}">
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="row g-2">
+            <div class="col-12">
+                <a class="btn btn-primary text-white w-100" [routerLink]="['/startups', match.id]">
+                    <i class="bi bi-person-circle me-1"></i>Profile
+                </a>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-outline-primary  w-100" [href]="'mailto:' + match.name">
+                    <i class="bi bi-envelope me-1"></i>Contact
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

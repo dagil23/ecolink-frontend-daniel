@@ -1,3 +1,4 @@
+import { Ods } from "./Ods";
 
 
 export interface ProfileCompany {
@@ -6,6 +7,7 @@ export interface ProfileCompany {
     email: string;
     status: string;
     description: string;
+    odsList: Ods[];
     listChallengesCompany: Challenge[];
     listLikePost: Post[];
     orders: Order[];

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Ods } from '../../../../core/models/Ods';
-import { StartupService } from '../../services/startup.service';
 import { OdsService } from '../../services/ods.service';
 
 @Component({

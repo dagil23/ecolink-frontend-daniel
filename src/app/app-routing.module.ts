@@ -52,6 +52,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
   },
   {
+    path: 'match',
+    loadChildren: () => import('./modules/eco-match/eco-match.module').then(m => m.EcoMatchModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

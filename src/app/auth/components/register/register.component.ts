@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Preference } from '../../models/Preference';
-import { RegistrationService } from '../../services/RegisterService.service';
+import { Country, RegistrationService } from '../../services/RegisterService.service';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -22,6 +24,9 @@ export class RegisterComponent implements OnInit {
   emailExistsError: boolean = false;
   nameExistsError: boolean = false;
   isLoading: boolean = false;
+  countries: Country [] = [];
+  filteredCountries: Country [] = [];
+
 
   passwordCriteria = {
     capitalLetter: false,
@@ -33,16 +38,20 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private registrationService: RegistrationService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient 
   ) {}
 
   ngOnInit(): void {
+    
+    this.loadCountries();
     this.registrationForm = this.fb.group({
       userType: ['', Validators.required],
       name: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
+      location: ['', [Validators.required]],
       preference: [[], Validators.required],
       imageUrl: [null, Validators.required],
       description: ['']
@@ -87,6 +96,21 @@ export class RegisterComponent implements OnInit {
       }
       this.registrationForm.get('preference')?.updateValueAndValidity();
     });
+
+    this.registrationForm.get('location')?.valueChanges
+    .pipe(
+      map(value => value?.toLowerCase() || ''),
+      map(text =>
+        this.countries
+          .filter(c => c.name.toLowerCase().includes(text))
+          .slice(0, 10) // Mostrar solo los primeros 10
+      )
+    )
+    .subscribe(filtered => {
+      this.filteredCountries = filtered;
+    });
+
+
   }
 
   dropdownSettings = {
@@ -155,7 +179,17 @@ export class RegisterComponent implements OnInit {
         break;
     }
   }
+  // Load the country list
+  loadCountries(): void {
 
+    this.registrationService.getContries().subscribe(data =>{
+      this.countries = data;
+      console.log("Estos son los paises que me llegan", data)
+    })
+    console.log("Paises cargados", this.countries)
+   
+  }
+  
   validatePreferences(): void {
     const preferenceControl = this.registrationForm.get('preference');
 
@@ -189,36 +223,38 @@ export class RegisterComponent implements OnInit {
       });
       return;
     }
-
+    
     this.isLoading = true;
-
+    
     const userType: string = this.registrationForm.get('userType')?.value;
     let user: any = {
       type: userType,
       name: this.registrationForm.get('name')?.value,
       email: this.registrationForm.get('email')?.value,
       password: this.registrationForm.get('password')?.value,
+      location: this.registrationForm.get('location')?.value,
       imageUrl: ''
     };
-
+    
     if (userType === 'company' || userType === 'startup') {
       user.description = this.registrationForm.get('description')?.value;
+     
     }
-
+    
     const selectedPreferences = this.registrationForm.get('preference')?.value;
-
+    
     if (userType === 'client') {
       user.preferences = selectedPreferences.map((pref: Preference) => ({ id: pref.id }));
     } else if (userType === 'startup') {
       user.odsList = selectedPreferences.map((pref: Preference) => ({ id: pref.id }));
     }
-
+    
     const formData = new FormData();
     formData.append('user', JSON.stringify(user));
     if (this.registrationForm.get('imageUrl')?.value) {
       formData.append('image', this.registrationForm.get('imageUrl')?.value);
     }
-
+    
     this.registrationService.addUser(formData).subscribe({
       next: (response) => {
         const email = this.registrationForm.get('email')?.value;
@@ -231,17 +267,17 @@ export class RegisterComponent implements OnInit {
       error: (error) => {
         console.error('Registration error:', error);
         this.isLoading = false;
-
+        
         // Manejar errores manualmente
         if (error.status === 403 && error.error?.message) {
           const errorMessage = error.error.message;
-
+          
           if (errorMessage.includes("Email already exists")) {
             this.emailExistsError = true;
           } else {
             this.emailExistsError = false;
           }
-
+          
           if (errorMessage.includes("Name already exists")) {
             this.nameExistsError = true;
           } else {
@@ -252,5 +288,6 @@ export class RegisterComponent implements OnInit {
         }
       }
     });
+    
   }
 }

@@ -1,166 +1,231 @@
 <div class="d-flex flex-column min-vh-100">
   <shared-header></shared-header>
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow-sm border-light mt-3 mb-3">
-        <div class="card-body">
-          <h2 class="text-center mb-2" style="color: #2c3e50;">User Registration</h2>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-sm border-light mt-3 mb-3">
+          <div class="card-body">
+            <h2 class="text-center mb-2" style="color: #2c3e50;">User Registration</h2>
 
-          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="eco-registration-form">
-            <!-- Username -->
-            <div class="form-group mb-3">
-              <label for="name">Username</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-person"></i></span>
-                <input id="name" type="text" formControlName="name" class="form-control" placeholder="Your name or company/startup name">
-              </div>
-              <div *ngIf="registrationForm.get('name')?.invalid && (registrationForm.get('name')?.dirty || registrationForm.get('name')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('name')?.errors?.['required']" class="text-danger">Name is required.</div>
-                <div *ngIf="registrationForm.get('name')?.errors?.['minlength']" class="text-danger">Name must be at least 4 characters long.</div>
-              </div>
-              <!-- Show error -->
-              <div *ngIf="nameExistsError" class="text-danger">Name already in use.</div>
-            </div>
-
-            <!-- Email -->
-            <div class="form-group mb-3">
-              <label for="email">Email</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                <input id="email" type="email" formControlName="email" class="form-control" placeholder="example@email.com">
-              </div>
-              <div *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('email')?.errors?.['required']" class="text-danger">Email is required.</div>
-                <div *ngIf="registrationForm.get('email')?.errors?.['email']" class="text-danger">Please enter a valid email.</div>
-              </div>
-              <!-- Show error -->
-              <div *ngIf="emailExistsError" class="text-danger">Email already in use.</div>
-            </div>
-
-            <!-- Password -->
-            <div class="form-group mb-3">
-              <label for="password">Password</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter your password" (input)="onPasswordChange()">
+            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="eco-registration-form">
+              <!-- Username -->
+              <div class="form-group mb-3">
+                <label for="name">Username</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-person"></i></span>
+                  <input id="name" type="text" formControlName="name" class="form-control"
+                    placeholder="Your name or company/startup name">
+                </div>
+                <div
+                  *ngIf="registrationForm.get('name')?.invalid && (registrationForm.get('name')?.dirty || registrationForm.get('name')?.touched)"
+                  class="error-message">
+                  <div *ngIf="registrationForm.get('name')?.errors?.['required']" class="text-danger">Name is required.
+                  </div>
+                  <div *ngIf="registrationForm.get('name')?.errors?.['minlength']" class="text-danger">Name must be at
+                    least 4 characters long.</div>
+                </div>
+                <!-- Show error -->
+                <div *ngIf="nameExistsError" class="text-danger">Name already in use.</div>
               </div>
 
-              <!-- General error messages -->
-              <div *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('password')?.errors?.['required']" class="text-danger">Password is required.</div>
+              <!-- Email -->
+              <div class="form-group mb-3">
+                <label for="email">Email</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                  <input id="email" type="email" formControlName="email" class="form-control"
+                    placeholder="example@email.com">
+                </div>
+                <div
+                  *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)"
+                  class="error-message">
+                  <div *ngIf="registrationForm.get('email')?.errors?.['required']" class="text-danger">Email is
+                    required.</div>
+                  <div *ngIf="registrationForm.get('email')?.errors?.['email']" class="text-danger">Please enter a valid
+                    email.</div>
+                </div>
+                <!-- Show error -->
+                <div *ngIf="emailExistsError" class="text-danger">Email already in use.</div>
               </div>
 
-              <!-- Password Requirements (siempre visibles cuando hay interacción) -->
-              <div *ngIf="registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched">
-                <ul class="password-requirements mt-2">
-                  <li [class.text-success]="passwordCriteria.capitalLetter" [class.text-danger]="!passwordCriteria.capitalLetter" class="d-inline me-3">Capital letter</li>
-                  <li [class.text-success]="passwordCriteria.number" [class.text-danger]="!passwordCriteria.number" class="d-inline me-3">Number</li>
-                  <li [class.text-success]="passwordCriteria.specialChar" [class.text-danger]="!passwordCriteria.specialChar" class="d-inline me-3">Symbol(#&#64;$)</li>
-                  <li [class.text-success]="passwordCriteria.minLength" [class.text-danger]="!passwordCriteria.minLength" class="d-inline">8 characters</li>
-                </ul>
+              <!-- Password -->
+              <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                  <input id="password" type="password" formControlName="password" class="form-control"
+                    placeholder="Enter your password" (input)="onPasswordChange()">
+                </div>
+
+                <!-- General error messages -->
+                <div
+                  *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)"
+                  class="error-message">
+                  <div *ngIf="registrationForm.get('password')?.errors?.['required']" class="text-danger">Password is
+                    required.</div>
+                </div>
+
+                <!-- Password Requirements (siempre visibles cuando hay interacción) -->
+                <div *ngIf="registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched">
+                  <ul class="password-requirements mt-2">
+                    <li [class.text-success]="passwordCriteria.capitalLetter"
+                      [class.text-danger]="!passwordCriteria.capitalLetter" class="d-inline me-3">Capital letter</li>
+                    <li [class.text-success]="passwordCriteria.number" [class.text-danger]="!passwordCriteria.number"
+                      class="d-inline me-3">Number</li>
+                    <li [class.text-success]="passwordCriteria.specialChar"
+                      [class.text-danger]="!passwordCriteria.specialChar" class="d-inline me-3">Symbol(#&#64;$)</li>
+                    <li [class.text-success]="passwordCriteria.minLength"
+                      [class.text-danger]="!passwordCriteria.minLength" class="d-inline">8 characters</li>
+                  </ul>
+                </div>
+
+                <!-- Password Strength -->
+                <div *ngIf="password.length > 0" class="progress mt-2">
+                  <div class="progress-bar" [ngClass]="passwordStrengthClass" [style.width.%]="passwordStrengthPercent">
+                  </div>
+                </div>
+                <small *ngIf="password.length > 0" class="form-text text-muted">Password Strength: {{
+                  passwordStrengthText }}</small>
               </div>
 
-              <!-- Password Strength -->
-              <div *ngIf="password.length > 0" class="progress mt-2">
-                <div class="progress-bar" [ngClass]="passwordStrengthClass" [style.width.%]="passwordStrengthPercent"></div>
+
+              <!-- Confirm Password -->
+              <div class="form-group mb-3">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                  <input id="confirmPassword" type="password" formControlName="confirmPassword" class="form-control"
+                    placeholder="Confirm your password">
+                </div>
+
+                <!--Show error message if don't match -->
+                <div
+                  *ngIf="registrationForm.get('confirmPassword')?.errors?.['passwordMismatch'] && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)"
+                  class="text-danger">
+                  Passwords do not match.
+                </div>
+
+                <!-- Show success message if match -->
+                <div
+                  *ngIf="!registrationForm.get('confirmPassword')?.errors && registrationForm.get('confirmPassword')?.value"
+                  class="text-success">
+                  Passwords match.
+                </div>
               </div>
-              <small *ngIf="password.length > 0" class="form-text text-muted">Password Strength: {{ passwordStrengthText }}</small>
-            </div>
 
 
-            <!-- Confirm Password -->
-            <div class="form-group mb-3">
-              <label for="confirmPassword">Confirm Password</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                <input id="confirmPassword" type="password" formControlName="confirmPassword" class="form-control" placeholder="Confirm your password">
+
+              <!-- User Type -->
+              <div class="form-group mb-3">
+                <label for="userType">User Type</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                  <select id="userType" formControlName="userType" class="form-control">
+                    <option value="">Select user type</option>
+                    <option *ngFor="let type of userTypes" [value]="type" class="text-capitalize">{{ type }}</option>
+                  </select>
+                </div>
+                <div
+                  *ngIf="registrationForm.get('userType')?.invalid && (registrationForm.get('userType')?.dirty || registrationForm.get('userType')?.touched)"
+                  class="error-message">
+                  <div *ngIf="registrationForm.get('userType')?.errors?.['required']" class="text-danger">Please select
+                    a user type.</div>
+                </div>
+              </div>
+              <!-- Location -->
+              <div class="form-group mb-3">
+                <label for="location">Location</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                  <input id="location" type="text" formControlName="location" class="form-control"
+                    placeholder="Write your location" list="countryList" autocomplete="on">
+                </div>
+                <!-- Mensajes de error para location -->
+                <div
+                  *ngIf="registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)"
+                  class="error-message">
+                  <div *ngIf="registrationForm.get('location')?.errors?.['required']" class="text-danger">
+                    Location is required.
+                  </div>
+                </div>
+
+                <!-- El datalist debe estar cerca del input relacionado -->
+                <datalist id="countryList">
+                  <option *ngFor="let c of filteredCountries" [value]="c.name">
+                    {{ c.name }} ({{ c.code }})
+                  </option>
+                </datalist>
               </div>
 
-              <!--Show error message if don't match -->
-              <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['passwordMismatch'] && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)" class="text-danger">
-                Passwords do not match.
-              </div>
-
-              <!-- Show success message if match -->
-              <div *ngIf="!registrationForm.get('confirmPassword')?.errors && registrationForm.get('confirmPassword')?.value" class="text-success">
-                Passwords match.
-              </div>
-            </div>
 
 
+              <!-- Description (solo para company o startup) -->
+              <div
+                *ngIf="registrationForm.get('userType')?.value === 'company' || registrationForm.get('userType')?.value === 'startup'"
+                class="form-group mb-3">
+                <label for="description">Description</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-pencil"></i></span>
+                  <textarea id="description" formControlName="description" class="form-control"
+                    placeholder="Briefly describe your company or project..." rows="4"></textarea>
+                </div>
+                <div
+                  *ngIf="registrationForm.get('description')?.invalid && (registrationForm.get('description')?.dirty || registrationForm.get('description')?.touched)"
+                  class="error-message">
+                  <div *ngIf="registrationForm.get('description')?.errors?.['required']" class="text-danger">Description
+                    is required for companies and startups.</div>
+                  <div *ngIf="registrationForm.get('description')?.errors?.['minlength']" class="text-danger">
+                    Description must be at least 10 characters long.</div>
+                </div>
+              </div>
 
-            <!-- User Type -->
-            <div class="form-group mb-3">
-              <label for="userType">User Type</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                <select id="userType" formControlName="userType" class="form-control">
-                  <option value="">Select user type</option>
-                  <option *ngFor="let type of userTypes" [value]="type" class="text-capitalize">{{ type }}</option>
-                </select>
-              </div>
-              <div *ngIf="registrationForm.get('userType')?.invalid && (registrationForm.get('userType')?.dirty || registrationForm.get('userType')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('userType')?.errors?.['required']" class="text-danger">Please select a user type.</div>
-              </div>
-            </div>
+              <!-- Preferences (solo para client o startup) -->
+              <div
+                *ngIf="registrationForm.get('userType')?.value === 'client' || registrationForm.get('userType')?.value === 'startup'"
+                class="form-group mb-3">
+                <label>Preferences</label>
+                <ng-multiselect-dropdown [placeholder]="'Select Preferences'" [data]="preferences"
+                  [settings]="dropdownSettings" formControlName="preference" (onDropDownClose)="validatePreferences()">
+                </ng-multiselect-dropdown>
 
-            <!-- Description (solo para company o startup) -->
-            <div *ngIf="registrationForm.get('userType')?.value === 'company' || registrationForm.get('userType')?.value === 'startup'" class="form-group mb-3">
-              <label for="description">Description</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-pencil"></i></span>
-                <textarea id="description" formControlName="description" class="form-control" placeholder="Briefly describe your company or project..." rows="4"></textarea>
+                <!-- Error Message -->
+                <div
+                  *ngIf="registrationForm.get('preference')?.invalid && (registrationForm.get('preference')?.dirty || registrationForm.get('preference')?.touched)"
+                  class="text-danger">
+                  Select at least 1 preference.
+                </div>
               </div>
-              <div *ngIf="registrationForm.get('description')?.invalid && (registrationForm.get('description')?.dirty || registrationForm.get('description')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('description')?.errors?.['required']" class="text-danger">Description is required for companies and startups.</div>
-                <div *ngIf="registrationForm.get('description')?.errors?.['minlength']" class="text-danger">Description must be at least 10 characters long.</div>
-              </div>
-            </div>
 
-            <!-- Preferences (solo para client o startup) -->
-            <div *ngIf="registrationForm.get('userType')?.value === 'client' || registrationForm.get('userType')?.value === 'startup'" class="form-group mb-3">
-              <label>Preferences</label>
-              <ng-multiselect-dropdown
-                [placeholder]="'Select Preferences'"
-                [data]="preferences"
-                [settings]="dropdownSettings"
-                formControlName="preference"
-                (onDropDownClose)="validatePreferences()">
-              </ng-multiselect-dropdown>
-
-              <!-- Error Message -->
-              <div *ngIf="registrationForm.get('preference')?.invalid && (registrationForm.get('preference')?.dirty || registrationForm.get('preference')?.touched)" class="text-danger">
-                Select at least 1 preference.
+              <!-- Profile Image -->
+              <div class="mb-3">
+                <label for="imageUrl" class="form-label">Profile Image</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-image"></i></span>
+                  <input type="file" class="form-control" name="imageUrl" id="imageUrl" #fileImage
+                    (change)="changeImage(fileImage)">
+                </div>
+                <div
+                  *ngIf="registrationForm.get('imageUrl')?.invalid && (registrationForm.get('imageUrl')?.dirty || registrationForm.get('imageUrl')?.touched)"
+                  class="error-message">
+                  <div *ngIf="registrationForm.get('imageUrl')?.errors?.['required']" class="text-danger">Profile image
+                    is required.</div>
+                </div>
               </div>
-            </div>
 
-            <!-- Profile Image -->
-            <div class="mb-3">
-              <label for="imageUrl" class="form-label">Profile Image</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-image"></i></span>
-                <input type="file" class="form-control" name="imageUrl" id="imageUrl" #fileImage (change)="changeImage(fileImage)">
-              </div>
-              <div *ngIf="registrationForm.get('imageUrl')?.invalid && (registrationForm.get('imageUrl')?.dirty || registrationForm.get('imageUrl')?.touched)" class="error-message">
-                <div *ngIf="registrationForm.get('imageUrl')?.errors?.['required']" class="text-danger">Profile image is required.</div>
-              </div>
-            </div>
-
-            <!-- Preview de imagen -->
-            <img *ngIf="imageUrl" [src]="imageUrl" alt="Profile Image" class="img-thumbnail mb-3">
-            <button type="submit" [disabled]="isSubmitting" class="btn btn-success w-100" [disabled]="isLoading">
-              <span *ngIf="!isLoading">Register</span>
-              <span *ngIf="isLoading">
-                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                Registering...
-              </span>
-            </button>
-          </form>
+              <!-- Preview de imagen -->
+              <img *ngIf="imageUrl" [src]="imageUrl" alt="Profile Image" class="img-thumbnail mb-3">
+              <button type="submit" [disabled]="isSubmitting" class="btn btn-success w-100" [disabled]="isLoading">
+                <span *ngIf="!isLoading">Register</span>
+                <span *ngIf="isLoading">
+                  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Registering...
+                </span>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<shared-footer class="bg-light text-center mt-auto"></shared-footer>
+  <shared-footer class="bg-light text-center mt-auto"></shared-footer>
 </div>
