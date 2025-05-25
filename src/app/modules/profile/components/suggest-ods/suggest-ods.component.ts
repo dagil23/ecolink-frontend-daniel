@@ -9,11 +9,13 @@ import { Ods } from '../../../../core/models/Ods';
 })
 export class SuggestOdsComponent implements OnInit {
 
+
   isLoading: boolean = false;
   selectOdsId = new Set<number>();
   @Output() odsSuggested = new EventEmitter<number[]>();
   @Input() suggestsOds: Ods[] = [];
   @Input() profile: any;
+  hadSelectedAOds: boolean = false;
 
   constructor(private profileService: ProfileService) { }
 
@@ -29,6 +31,7 @@ export class SuggestOdsComponent implements OnInit {
       this.profileService.getOdsByDescription(desc).subscribe({
         next: (data) => {
           if (data.body) {
+            this.suggestsOds = [];
             console.log("Esto es lo que me llega desde el back", data)
             console.log("Esto es lo que le envio al metodo", data.body)
             this.parseBodyRequestToOds(data.body)
@@ -65,6 +68,7 @@ export class SuggestOdsComponent implements OnInit {
 
   onChangeInput(event: Event) {
     const checkBox = event.target as HTMLInputElement;
+    this.hasAnyOdsSelected(checkBox.checked)
     const id = parseInt(checkBox.value);
     this.toggleOds(id);
     console.log(typeof id, ":tipo de dato")
@@ -91,8 +95,12 @@ export class SuggestOdsComponent implements OnInit {
     this.getOdsForCompany()
   }
 
-  clearSuggetedOds(){
+  clearSuggetedOds() {
     this.suggestsOds = [];
+  }
+
+  hasAnyOdsSelected(checkInputValue: boolean): boolean {
+    return this.hadSelectedAOds = checkInputValue;
   }
 }
 

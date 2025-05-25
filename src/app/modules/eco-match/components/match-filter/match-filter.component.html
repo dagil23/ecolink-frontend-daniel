@@ -4,7 +4,7 @@
       <div class="col-12 col-md-6 mb-3">
         <label for="country" class="fw-semibold">Country</label>
         <select id="country" class="form-select" [(ngModel)]="filters.country" (ngModelChange)="applyFilters()">
-          <option [value]="''" disabled>All countries</option>
+          <option  [value]="''">All countries</option>
           <option *ngFor="let country of Array.from(listCountries)" [value]="country.name">
             {{country.name}}
           </option>
@@ -13,7 +13,7 @@
       <div class="col-12 col-md-6 mb-3">
         <label for="sortBy" class="fw-semibold">Sort by compatibility</label>
         <select id="sortBy" class="form-select" [(ngModel)]="filters.order" (ngModelChange)="applyFilters()">
-          <option [value]="''"  disabled>Select sort option</option>
+          <option [value]="''">Select sort option</option>
           <option value="DESC">Highest compatibility first</option>
           <option value="ASC">Lowest compatibility first</option>
         </select>

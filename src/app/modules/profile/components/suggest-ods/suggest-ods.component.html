@@ -72,7 +72,7 @@
                        [value]="ods.id"
                        id="ods-{{ods.id}}">
                 <div class="d-flex align-items-center">
-                  <label class="form-check-label fw-medium mb-0" for="ods-{{ods.id}}">{{ods.name}}</label>
+                  <label class="form-check-label fw-medium mb-0 text-nowrap" for="ods-{{ods.id}}">{{ods.name}}</label>
                 </div>
               </div>
             </div>
@@ -85,7 +85,7 @@
         <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" (click)="clearSuggetedOds()">
           <i class="bi bi-x-circle me-2"></i>Cancel
         </button>
-        <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" (click)="onChangeAcceptButton()">
+        <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" [disabled]="!hadSelectedAOds" (click)="onChangeAcceptButton() ">
           <i class="bi bi-check-circle me-2"></i>Add to Profile
         </button>
       </div>
